@@ -20,6 +20,7 @@ import uned.pfg.bean.Distribuidor;
 import uned.pfg.bean.Pedido;
 import uned.pfg.dao.DistribuidorDAO;
 import uned.pfg.dao.PedidoDAO;
+import uned.pfg.ws.WS_Pedido;
 
 /**
  * Servlet implementation class ControllerLogin
@@ -60,12 +61,18 @@ public class ControllerLogin extends HttpServlet {
 		
 		Distribuidor dist = distribuidorDAO.buscarUsuario(usuario, contra);
 		
-		String hola = PedidoDAO.diHola();
+		/*String hola = PedidoDAO.diHola();
 		List<Pedido> list = pedidoDAO.obtenPedidos();
 		
 		String xml = pedidoDAO.crearXML(list);
 		System.out.println(hola);
-		System.out.println(xml);
+		System.out.println(xml);*/
+		
+		WS_Pedido ped = new WS_Pedido();
+		
+		String x = ped.envioPedido();
+		
+		System.out.println(x);
 		if( dist != null) {
 			
 			
