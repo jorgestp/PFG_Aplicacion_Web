@@ -417,6 +417,8 @@ public class PedidoDAO {
                   
               } 
               
+              System.out.println(ar.getAbsolutePath());
+              
           }catch( IOException | ParserConfigurationException | TransformerException | DOMException e){
               
               e.printStackTrace();
