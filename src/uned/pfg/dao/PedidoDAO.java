@@ -1,5 +1,9 @@
 package uned.pfg.dao;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,14 +14,28 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.sql.DataSource;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import uned.pfg.bean.Articulo;
 import uned.pfg.bean.ArticuloPedido;
 import uned.pfg.bean.Pedido;
 
+
 public class PedidoDAO {
 
 	private DataSource origendatos;
+	 private final String FILENAME = "XML.xml";
 	
 	public PedidoDAO(DataSource origendatos) {
 		
@@ -304,5 +322,108 @@ public class PedidoDAO {
 		
 		return listaArt;
 	}
+	
+	
+	
+    public String crearXML (List<Pedido> lista){
+        
+        String s = "";
+        String line;
+          
+      try{
+           
+              DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+              DocumentBuilder builder = factory.newDocumentBuilder();
+              Document document = builder.newDocument();
+              
+              Element root = document.createElement("pedidos");
+              document.appendChild(root);
+              
+              Iterator<Pedido> it = lista.iterator();
+              
+              while(it.hasNext()){
+                  
+            	  Pedido p = it.next();
+                  
+                  Element pedido = document.createElement("pedido");
+                  root.appendChild(pedido);
+                 
+                  Element idpedido = document. createElement("id_pedido");
+                  pedido.appendChild(idpedido);
+                  idpedido.appendChild(document.createTextNode(String.valueOf(p.getId_pedido())));
+                  
+                  
+                  Element id_distribuidor = document.createElement("id_distribuidor");
+                  pedido.appendChild(id_distribuidor);
+                  id_distribuidor.appendChild(document.createTextNode(String.valueOf(p.getId_distribuidor())));
+   
+                  Element fecha_pedido = document.createElement("fecha_pedido");
+                  pedido.appendChild(fecha_pedido);
+                  fecha_pedido.appendChild(document.createTextNode(String.valueOf(p.getFecha_entrada())));
+                  
+                  Element fecha_envio = document.createElement("fecha_envio");
+                  pedido.appendChild(fecha_envio);
+                  fecha_envio.appendChild(document.createTextNode(String.valueOf(p.getFecha_envio())));
+                  
+                  Element estado = document.createElement("estado");
+                  pedido.appendChild(estado);
+                  estado.appendChild(document.createTextNode(p.getEstado()));
+                  
+                  Element articulos = document.createElement("articulos");
+                  pedido.appendChild(articulos);
+                  
+                  Iterator<ArticuloPedido> it2 = p.getArticulos().iterator();
+                  
+                  	while(it2.hasNext()) {
+                  		
+                  		ArticuloPedido artP = it2.next();
+                  		
+                        Element articulo = document.createElement("articulo");
+                        articulos.appendChild(articulo);
+                        
+                        Element id_articulo = document. createElement("id_articulo");
+                        articulo.appendChild(id_articulo);
+                        id_articulo.appendChild(document.createTextNode(String.valueOf(artP.getArticulo().getId_articulo())));
+                        
+                        Element cantidad = document. createElement("cantidad");
+                        articulo.appendChild(cantidad);
+                        cantidad.appendChild(document.createTextNode(String.valueOf(artP.getCant())));
+                        
+                        Element realizado = document. createElement("realizado");
+                        articulo.appendChild(realizado);
+                        realizado.appendChild(document.createTextNode(String.valueOf(artP.isRealizado())));
+                        
+                        Element embalado = document. createElement("embalado");
+                        articulo.appendChild(embalado);
+                        embalado.appendChild(document.createTextNode(String.valueOf(artP.isEmbalado())));
+                  	}
+
+                
+              }
+              
+              
+              TransformerFactory tFactory = TransformerFactory.newInstance();
+              Transformer transformer = tFactory.newTransformer();
+              DOMSource source = new DOMSource(document);
+              StreamResult result = new StreamResult(new File(FILENAME));
+
+              transformer.transform(source, result);
+              
+              File ar = new File(FILENAME);
+              FileReader f = new FileReader(ar);
+              BufferedReader b = new BufferedReader(f); 
+              while((line = b.readLine())!=null) {
+                  s= s + line +"\n";
+                  
+              } 
+              
+          }catch( IOException | ParserConfigurationException | TransformerException | DOMException e){
+              
+              e.printStackTrace();
+          }
+     
+          
+          return s;
+      }
 	
 }

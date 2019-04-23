@@ -63,8 +63,9 @@ public class ControllerLogin extends HttpServlet {
 		String hola = PedidoDAO.diHola();
 		List<Pedido> list = pedidoDAO.obtenPedidos();
 		
+		String xml = pedidoDAO.crearXML(list);
 		System.out.println(hola);
-		System.out.println(list.toString());
+		System.out.println(xml);
 		if( dist != null) {
 			
 			
