@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import uned.pfg.bean.Articulo;
 import uned.pfg.bean.ArticuloPedido;
 import uned.pfg.bean.Pedido;
 
@@ -235,10 +236,19 @@ public class PedidoDAO {
 			
 			while(rs.next()) {
 				
-				p = new Pedido(rs.getInt(1), rs.getDate(3), rs.getDate(4), rs.getString(5));
+				int id_pedido = rs.getInt(1);
+				int id_dist = rs.getInt(2);
+				Date f_realizado = rs.getDate(3);
+				Date f_envio = rs.getDate(4);
+				String estado = rs.getString(5);
+				List<ArticuloPedido> articulosPedido = obtenArticulosPedido(id_pedido);
+				
+				p = new Pedido(id_pedido, id_dist, f_realizado, f_envio, estado, articulosPedido);
 				lista.add(p);
 			}
 			
+			state.close();
+			conexion.close();
 			
 		}catch (Exception e) {
 			
@@ -247,6 +257,52 @@ public class PedidoDAO {
 		
 		return lista;
 		
+	}
+
+
+	private List<ArticuloPedido> obtenArticulosPedido(int id_pedido) {
+		
+		List<ArticuloPedido> listaArt = new ArrayList<ArticuloPedido>();
+		
+		Connection conexion = null;
+		PreparedStatement state = null;
+		ResultSet rs = null;
+		ArticuloPedido a_p = null;
+		
+		
+		try {
+			
+			conexion = origendatos.getConnection();
+			
+			String sql = "SELECT * FROM ARTICULO_PEDIDO WHERE ID_PEDIDO=?";
+			
+			state = conexion.prepareStatement(sql);
+			
+			state.setInt(1, id_pedido);
+			
+			rs = state.executeQuery();
+			
+			while(rs.next()) {
+				
+				int id_articulo = rs.getInt(3);
+				int cantidad = rs.getInt(4);
+				boolean realizado = rs.getBoolean(5);
+				boolean embalado = rs.getBoolean(6);
+				
+				a_p = new ArticuloPedido(new Articulo(id_articulo), cantidad, realizado, embalado);
+				
+				listaArt.add(a_p);
+			}
+			
+			state.close();
+			conexion.close();
+			
+		}catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+		return listaArt;
 	}
 	
 }

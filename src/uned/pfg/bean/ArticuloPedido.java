@@ -18,6 +18,17 @@ public class ArticuloPedido {
 	}
 
 
+	
+
+	public ArticuloPedido(Articulo articulo, int cant, boolean realizado, boolean embalado) {
+		this.articulo = articulo;
+		this.cant = cant;
+		this.realizado = realizado;
+		this.embalado = embalado;
+	}
+
+
+
 
 	public Pedido getPedido() {
 		return pedido;

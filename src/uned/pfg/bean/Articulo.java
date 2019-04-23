@@ -11,6 +11,11 @@ public class Articulo {
 	
 	
 	
+	
+	public Articulo(int id_articulo) {
+		this.id_articulo = id_articulo;
+	}
+
 	public Articulo(int id_articulo, String nombre, Date fecha_entrada, double precio) {
 		this.id_articulo = id_articulo;
 		this.nombre = nombre;

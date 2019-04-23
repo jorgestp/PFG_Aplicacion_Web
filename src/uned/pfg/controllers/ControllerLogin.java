@@ -64,7 +64,7 @@ public class ControllerLogin extends HttpServlet {
 		List<Pedido> list = pedidoDAO.obtenPedidos();
 		
 		System.out.println(hola);
-		System.out.println(list.size());
+		System.out.println(list.toString());
 		if( dist != null) {
 			
 			
