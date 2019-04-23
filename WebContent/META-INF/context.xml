@@ -1,0 +1,10 @@
+<Context>
+	<Resource name="jdbc/prueba" auth="Container"
+		type="javax.sql.DataSource" maxActive="15" maxIdle="3" maxWait="5000"
+		username="root" password=""
+		driverClassName="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/prueba_pfg">
+	</Resource>
+
+
+</Context>

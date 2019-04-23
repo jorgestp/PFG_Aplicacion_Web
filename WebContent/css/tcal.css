@@ -1,0 +1,311 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* PARA QUITAR LOS ESTILOS POR DEFECTO */
+html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable, form, fieldset, blockquote  {
+	padding: 0;
+	margin: 0;
+	font-size: 100%;
+	font-weight: normal;
+	text-align: center;
+}
+table {
+	margin:0 auto;
+	text-align: center;
+	margin-top:25px;
+	width:90%;
+	border:0;
+	border-right:#666 2px solid;
+	border-left:#666 2px solid;
+	
+}
+td, th, caption {
+	font-weight: normal;
+	text-align: center;
+}
+
+img, fieldset { border: 0; }
+ol { padding-left: 1.4em; list-style: decimal; }
+ul { padding-left: 1.4em; list-style:square; }
+q:before, q:after { content:''; }
+
+
+body{
+	
+		background-image:url(imagenes/marca_agua_uned.png);
+	/*Hace que la imagen no se repita en el contenedor*/
+	background-repeat:no-repeat;
+	/*Se pociciona en el centro del contenedor*/
+	background-position:center;
+	
+}
+
+.contenedorTitulo{
+	/*Se ajusta el contenedor al 100% del ancho de la pagina*/
+	width:100%;
+	/*Margen desde el nevagedor al contenedor de 20 px por arriba*/
+	margin-top:20px;
+	
+	
+}
+
+.imagenSuperior{
+	/*Margen automatico para que centre la imagen */
+	margin:auto;
+	/*La imagen ocupe todo el ancho de la pagina*/
+	display:block;
+	/* Redondeo de los bordes de 30 px*/
+	border-radius:30px;
+	/*Sombreado de color 333, con 10px de sombreado horzontal, 5 vertical y 5 de difuminado*/
+	box-shadow:#333 10px 10px 5px;
+}
+
+.imagenConsejo{
+	margin:auto;
+	display:block;
+	padding-top:40px;
+}
+
+.cabecera{
+	
+	/*background-color:#FFC;*/
+	width:75%;
+	margin:0 auto;
+	margin-top:1%;
+	/* Hace que el contendor que tiene este selector no tenga en cuenta
+	el desbordamiento del contenedor*/
+	overflow:hidden
+}
+
+
+#separacionIqz{
+	border-radius:30px;
+	float:left;	
+}
+
+#separacionIqz img{
+	border-radius:30px;
+}
+#separacionDer{
+	border-radius:30px;
+	float:right;	
+}
+
+#separacionDer img{
+	border-radius:30px;
+}
+
+.cabecera h1{
+
+	font-size:1.4em;
+	text-align:center;
+	padding-top:30 px;
+}
+
+.cabecera h2{
+	margin-top:45px;
+	text-align:center;
+	
+}
+
+section{
+
+	background-image:url("../imagenes/marca_agua_uned.png");
+	/*Hace que la imagen no se repita en el contenedor*/
+	background-repeat:no-repeat;
+	/*Se pociciona en el centro del contenedor*/
+	background-position:center;
+	/*ANchura del contenedor*/
+	width:75%;
+	/*altura del contenedor y en px ya que en % no salia*/
+	height:500px;
+	margin:0 auto;
+	margin-top:5px;
+	
+	
+}
+
+section p{
+	
+	margin-top:50px;
+	font-size: 40px;
+	font-family: Verdana, Geneva, sans-serif;
+	text-align:center;
+	border-top:#666 2px solid;
+	border-bottom:#666 2px solid;
+	font-style: italic;;
+	text-shadow: 2px 2px 1px #000000;
+	
+	
+}
+.registro{
+		font-size:24px;
+        font-family:Verdana,Helvetica;
+        font-weight:bold;
+        color:#FFF;
+        background: -webkit-linear-gradient(top, #666, #999);
+        border:0px;
+        width:250px;
+        height:50px;
+		text-shadow:#CCC 1px 1px 1px;
+		border-radius:10px;
+		box-shadow:#000 2px 2px 2px;
+}
+
+.formulario{
+
+	margin-top:75px;	
+}
+
+.texto{
+	font: Verdana, Geneva, sans-serif;
+	font-size: 24px;
+	font-style: italic;
+	color: #333;
+}
+
+footer{
+	/*width:75%;
+	margin:0 auto;
+	background:#039;
+	 
+  	position: fixed;
+  	bottom: 0;
+  
+  	height: 20px;
+  	color: white;
+	text-align:center;*/
+	
+	background-color:#039;	
+	width:100%;
+	height:20px;
+	bottom:0;
+	position:fixed;
+	text-align:center;
+	color: white;
+}
+
+form label{
+	font-size:18px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-style:italic;
+}
+
+form label.error{
+
+font-size:0.8em;
+color:#F00;
+font-style:italic;
+font-weight:bold;
+display:block;	
+}
+
+form input.error{
+
+background-color:#F33;
+border:dashed;
+border:#F33	
+}
+
+
+
+/*
+	Stylesheet for Tigra Calendar v5.0
+	Product is Public Domain (Free for any kind of applicaiton, customization and derivative works are allowed) 
+	URL: http://www.softcomplex.com/products/tigra_calendar/
+
+	- all image paths are relative to path of stylesheet
+	- the styles below can be moved into the document or in existing stylesheet
+
+*/
+
+/* input box in default state */ 
+.tcalInput {
+	background: url("../imagenes/cal.gif") 100% 50% no-repeat;
+	padding-right: 20px;
+	cursor: pointer;
+}
+
+/* additional properties for input boxe in activated state, above still applies unless in conflict */
+.tcalActive {
+	background-image: url("../imagenes/no_cal.gif");
+}
+/* container of calendar's pop-up */
+#tcal {
+	position: absolute;
+	visibility: hidden;
+	z-index: 100;
+	width: 170px;
+	background-color: white;
+	margin-top: 2px;
+	padding: 0 2px 2px 2px;
+	border: 1px solid silver;
+
+	-moz-box-shadow: 3px 3px 4px silver;
+	-webkit-box-shadow: 3px 3px 4px silver;
+	box-shadow: 3px 3px 4px silver;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='silver')";
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='silver');
+}
+
+/* table containing navigation and current month */
+#tcalControls {
+	border-collapse: collapse;
+	border: 0;
+	width: 100%;
+}
+#tcalControls td {
+	border-collapse: collapse;
+	border: 0;
+	padding: 0;
+	width: 16px;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	cursor: pointer;
+}
+#tcalControls th {
+	border-collapse: collapse;
+	border: 0;
+	padding: 0;
+	line-height: 25px;
+	font-size: 10px;
+	text-align: center;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-weight: bold;
+	white-space: nowrap;
+}
+#tcalPrevYear { background-image: url("../imagenes/prev_year.gif"); }
+#tcalPrevMonth { background-image: url("../imagenes/prev_mon.gif"); }
+#tcalNextMonth { background-image: url("../imagenes/next_mon.gif"); }
+#tcalNextYear { background-image: url("../imagenes/next_year.gif"); }
+
+/* table containing week days header and calendar grid */
+#tcalGrid {
+	border-collapse: collapse;
+	border: 1px solid silver;
+	width: 100%;
+}
+#tcalGrid th {
+	border: 1px solid silver;
+	border-collapse: collapse;
+	padding: 3px 0;
+	text-align: center;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 10px;
+	background-color: gray;
+	color: white;
+}
+#tcalGrid td {
+	border: 0;
+	border-collapse: collapse;
+	padding: 2px 0;
+	text-align: center;
+	font-family: Tahoma, Geneva, sans-serif;
+	width: 14%;
+	font-size: 11px;
+	cursor: pointer;
+}		
+#tcalGrid td.tcalOtherMonth { color: silver; }
+#tcalGrid td.tcalWeekend { background-color: #ACD6F5; }
+#tcalGrid td.tcalToday { border: 1px solid red; }
+#tcalGrid td.tcalSelected { background-color: #FFB3BE; }		

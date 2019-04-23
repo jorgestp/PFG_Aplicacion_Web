@@ -1,0 +1,363 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* PARA QUITAR LOS ESTILOS POR DEFECTO */
+html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable, form, fieldset, blockquote  {
+ padding: 0;
+ margin: 0;
+ font-size: 100%;
+ font-weight: normal;
+}
+table { border-collapse: collapse; border-spacing: 0; }
+td, th, caption {
+	font-weight: normal;
+	text-align: center;
+}
+img, fieldset { border: 0; }
+ol { padding-left: 1.4em; list-style: decimal; }
+ul { padding-left: 1.4em; list-style:square; }
+q:before, q:after { content:''; }
+
+
+
+.contenedorTitulo{
+	/*Se ajusta el contenedor al 100% del ancho de la pagina*/
+	width:100%;
+	/*Margen desde el nevagedor al contenedor de 20 px por arriba*/
+	margin-top:20px;
+	
+	
+}
+
+.imagenSuperior{
+	/*Margen automatico para que centre la imagen */
+	margin:auto;
+	/*La imagen ocupe todo el ancho de la pagina*/
+	display:block;
+	/* Redondeo de los bordes de 30 px*/
+	border-radius:30px;
+	/*Sombreado de color 333, con 10px de sombreado horzontal, 5 vertical y 5 de difuminado*/
+	box-shadow:#333 10px 10px 5px;
+}
+
+.imagenConsejo{
+	margin:auto;
+	display:block;
+	padding-top:40px;
+}
+
+.cabecera{
+	
+	/*background-color:#FFC;*/
+	width:75%;
+	margin:0 auto;
+	margin-top:1%;
+	/* Hace que el contendor que tiene este selector no tenga en cuenta
+	el desbordamiento del contenedor*/
+	overflow:hidden
+}
+
+
+#separacionIqz{
+	border-radius:30px;
+	float:left;	
+}
+
+#separacionIqz img{
+	border-radius:30px;
+}
+#separacionDer{
+	border-radius:30px;
+	float:right;	
+}
+
+#separacionDer img{
+	border-radius:30px;
+}
+
+.cabecera h1{
+
+	font-size:1.4em;
+	text-align:center;
+	padding-top:30 px;
+}
+
+.cabecera h2{
+	margin-top:45px;
+	text-align:center;
+	
+}
+
+section{
+	background-image:url("../imagenes/marca_agua_uned.png");
+	/*Hace que la imagen no se repita en el contenedor*/
+	background-repeat:no-repeat;
+	/*Se pociciona en el centro del contenedor*/
+	background-position:center;
+	/*ANchura del contenedor*/
+	width:75%;
+	/*altura del contenedor y en px ya que en % no salia*/
+	height:500px;
+	margin:0 auto;
+	margin-top:5px;
+	
+	
+}
+
+.registro{
+
+}
+
+.zoom{	
+		font-size:16px;
+        font-family:Verdana,Helvetica;
+        font-weight:bold;
+        color:#FFF;
+        background: -webkit-linear-gradient(top, #03C, #0CC);
+        border:0px;
+        width:250px;
+        height:25px;
+		transition: transform .2s;
+		text-shadow:#CCC 0.5px 0.5px 0.5px;
+		border-radius:2px;
+		box-shadow:#000 2px 2px 2px;
+		
+			
+}
+
+.zoom:hover{
+	
+	/*
+	Seleccionamos el navegador chorme con webkit, y le decios que trasforme
+	con el selector transform y lo escale 1.2 veces el tamaño original.
+	
+	De esta forma, al pasar el raton por encima, estamos dandole un tamaño
+	mayor a la imagen
+	*/
+	transform: scale(1.5);
+	
+	
+}
+
+
+.nombre{
+	
+		font-size:16px;
+        font-family:Verdana,Helvetica;
+        font-weight:bold;
+        color:#000;
+        border:0px;
+        width:250px;
+        height:25px;	
+		text-shadow:#CCC 0.5px 0.5px 0.5px;
+			
+}
+
+footer{
+	width:75%;
+	margin:0 auto;
+	background:#039;
+	text-align:center;
+	
+}
+
+#tabla{
+
+	margin-top:25px;
+	border-collapse:separate;	
+	border-spacing:2;
+}
+
+#estado{
+	
+	margin:0 auto;
+	
+	
+}
+
+#scroll{
+	overflow:scroll;
+	width:90%;
+	height:250px;
+	margin:0 auto;
+	margin-top:150px;
+}
+
+#tituloTabla{
+	width:90%;
+	margin:0 auto;
+	margin-top:100px;
+}
+
+#datospersonales{
+	
+	width:75%;
+	margin:0 auto;
+	margin-top: 40px;
+	
+	
+}
+
+.fila{
+
+height:40px;
+text-align:center;
+font-size:22px;
+font-style:italic;	
+	
+}
+
+#nombre, #domicilio, #pais, #email, #confEmail, #telefono, #cp, #pss, #confpss{
+
+height:30px;
+text-align:center;
+color:#FFF;
+background-color:#06C;
+border:0;
+border-radius:4px;
+	
+}
+
+#enviar{
+	
+	width:100px;
+	height:35px;
+	text-shadow:#CCC 0.5px 0.5px 0.5px;
+	background: -webkit-linear-gradient(top, #09F, #0FF);
+	color:#000;
+	font-size:16px;
+    font-family:Verdana,Helvetica;
+   	font-weight:bold;
+	border:0;
+	border-radius:5px;
+}
+
+#datospersonales label.error{
+
+font-size:0.6em;
+color:#F00;
+font-style:italic;
+font-weight:bold;
+display:block;	
+}
+
+#datospersonales input.error{
+
+border:dashed;
+border-color:#F00;	
+}
+
+#titulo{
+
+margin:0 auto;
+text-align:center;
+font-size:36px;
+font-weight:bold;
+width:75%;
+margin-top:10px;
+font-style:italic;
+color:#009;
+border-top:double;
+border-bottom-style:double;
+	
+}
+
+a:active, a:hover, a:link, a:visited {
+	
+	text-decoration: none;
+		font-size:16px;
+        font-family:Verdana,Helvetica;
+        font-weight:bold;
+        color:#FFF;
+}
+
+#exito{
+	width:50%;
+	margin:0 auto;
+	text-align:center;
+	background-color:#0C3;
+	height:30px;
+	margin-top:10px;
+	box-shadow:#060 2px 2px 2px;
+	padding-top:5px;
+	font-size:20px;
+	font-weight:bold;
+	color:#030;
+	font-style:italic
+}
+
+#error{
+	width:50%;
+	margin:0 auto;
+	text-align:center;
+	background-color:#C00;
+	height:30px;
+	margin-top:10px;
+	box-shadow:#060 2px 2px 2px;
+	padding-top:5px;
+	font-size:20px;
+	font-weight:bold;
+	color:#000;
+	font-style:italic
+}
+
+input::-webkit-input-placeholder {
+  color: #FFF;
+}
+input:-moz-placeholder {
+  color: #FFF; 
+}
+input:-ms-input-placeholder { 
+  color: #FFF;
+}
+#del{
+	
+	color: red;
+	text-decoration: none;
+	
+}
+#fomalizar{
+	
+	color: green;
+	text-decoration: none;
+	font-size: 24;
+}
+
+#pedido{
+	
+	
+	width:75%;
+	margin:0 auto;
+	margin-top:50px;
+	font-size:36px;
+	font-weight:bold;
+	background: -webkit-linear-gradient(top, #0CF ,#000066);
+	color:#FFF;
+	text-shadow:#CCC 0.5px 0.5px 0.5px;
+	border-radius:15px;
+
+}
+#check{
+	
+	margin-top:50px;
+	
+}
+
+#muestraPedido{
+	
+	height:300px; 
+	overflow:auto;
+	width:750px;
+}
+
+#titulotabla{
+	
+	
+	color:white;
+	font-size:16px;
+	font-weight:bold;
+	font-style:italic;
+	background-color:#030;
+	height:3.0em;
+	
+}
