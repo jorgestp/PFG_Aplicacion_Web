@@ -259,9 +259,9 @@ public class PedidoDAO {
 				Date f_realizado = rs.getDate(3);
 				Date f_envio = rs.getDate(4);
 				String estado = rs.getString(5);
-				List<ArticuloPedido> articulosPedido = obtenArticulosPedido(id_pedido);
+				//List<ArticuloPedido> articulosPedido = obtenArticulosPedido(id_pedido);
 				
-				p = new Pedido(id_pedido, id_dist, f_realizado, f_envio, estado, articulosPedido);
+				p = new Pedido(id_pedido, id_dist, f_realizado, f_envio, estado);
 				lista.add(p);
 			}
 			
@@ -369,7 +369,7 @@ public class PedidoDAO {
                   pedido.appendChild(estado);
                   estado.appendChild(document.createTextNode(p.getEstado()));
                   
-                  Element articulos = document.createElement("articulos");
+                  /*Element articulos = document.createElement("articulos");
                   pedido.appendChild(articulos);
                   
                   Iterator<ArticuloPedido> it2 = p.getArticulos().iterator();
@@ -396,7 +396,7 @@ public class PedidoDAO {
                         Element embalado = document. createElement("embalado");
                         articulo.appendChild(embalado);
                         embalado.appendChild(document.createTextNode(String.valueOf(artP.isEmbalado())));
-                  	}
+                  	}*/
 
                 
               }

@@ -45,6 +45,20 @@ public class Pedido {
 
 
 
+
+
+
+
+	public Pedido(int id_pedido, int id_distribuidor, Date fecha_entrada, Date fecha_envio, String estado) {
+		this.id_pedido = id_pedido;
+		this.id_distribuidor = id_distribuidor;
+		this.fecha_entrada = fecha_entrada;
+		this.fecha_envio = fecha_envio;
+		this.estado = estado;
+	}
+
+
+
 	public int getId_pedido() {
 		return id_pedido;
 	}
