@@ -1,18 +1,17 @@
 package uned.pfg.ws;
 
-
 import org.apache.commons.dbcp.BasicDataSource;
 
 import uned.pfg.dao.PedidoDAO;
 
-public class WS_Pedido {
+public class WS_ArticulosPedido {
 
 	private PedidoDAO pedidoDAO;
 	
 
 	BasicDataSource basicDataSource;
 	
-	public WS_Pedido() {
+	public WS_ArticulosPedido() {
 		
 
 		
@@ -23,14 +22,12 @@ public class WS_Pedido {
 		
 	}
 	
-	public String envioPedido() {
+	
+	public String envioArticulos(String id_pedido) {
 		
-		String a = pedidoDAO.crearXML(pedidoDAO.obtenPedidos());
-		return a;
+		String respuesta = pedidoDAO.crearXML_Articulos(pedidoDAO.obtenArticulosPedido(Integer.parseInt(id_pedido)));
+		
+		return respuesta;
 	}
-	
-
-	
-	
 	
 }

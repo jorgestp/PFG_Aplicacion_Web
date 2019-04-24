@@ -36,6 +36,7 @@ public class PedidoDAO {
 
 	private DataSource origendatos;
 	 private final String FILENAME = "XML.xml";
+	 private final String FILENAME_ARTICULO = "XML_ART.xml";
 	
 	public PedidoDAO(DataSource origendatos) {
 		
@@ -278,7 +279,7 @@ public class PedidoDAO {
 	}
 
 
-	private List<ArticuloPedido> obtenArticulosPedido(int id_pedido) {
+	public List<ArticuloPedido> obtenArticulosPedido(int id_pedido) {
 		
 		List<ArticuloPedido> listaArt = new ArrayList<ArticuloPedido>();
 		
@@ -307,7 +308,7 @@ public class PedidoDAO {
 				boolean realizado = rs.getBoolean(5);
 				boolean embalado = rs.getBoolean(6);
 				
-				a_p = new ArticuloPedido(new Articulo(id_articulo), cantidad, realizado, embalado);
+				a_p = new ArticuloPedido(obtenArticulo(id_articulo), cantidad, realizado, embalado);
 				
 				listaArt.add(a_p);
 			}
@@ -321,6 +322,46 @@ public class PedidoDAO {
 		}
 		
 		return listaArt;
+	}
+	
+	private Articulo obtenArticulo (int id_articulo) {
+		
+		
+		Articulo art = null;
+		Connection conexion = null;
+		PreparedStatement state =null;
+		ResultSet rs =null;
+		
+		
+		try {
+			
+			conexion = origendatos.getConnection();
+			
+			String sql = "SELECT * FROM ARTICULO WHERE ID_ARTICULO = ?";
+			
+			state = conexion.prepareStatement(sql);
+			state.setInt(1, id_articulo);
+			
+			rs = state.executeQuery();
+			
+			while(rs.next()) {
+			String nombre = rs.getString(2);
+			Date entrada  =rs.getDate(3);
+			Double precio  = rs.getDouble(4);
+
+				art = new Articulo(id_articulo, nombre, entrada, precio);
+			}
+			
+			state.close();
+			conexion.close();
+			
+		}catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+		return art;
+		
 	}
 	
 	
@@ -427,5 +468,91 @@ public class PedidoDAO {
           
           return s;
       }
+
+
+	public String crearXML_Articulos(List<ArticuloPedido> listaArticulos) {
+		
+		
+		 String s = "";
+	        String line;
+	          
+	      try{
+	           
+	              DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	              DocumentBuilder builder = factory.newDocumentBuilder();
+	              Document document = builder.newDocument();
+	              
+	              Element root = document.createElement("articulos");
+	              document.appendChild(root);
+	              
+	              Iterator<ArticuloPedido> it = listaArticulos.iterator();
+	              
+	              while(it.hasNext()){
+	                  
+	            	  ArticuloPedido p = it.next();
+	                  
+	                  Element art = document.createElement("articulo");
+	                  root.appendChild(art);
+	                 
+	                  Element id_articulo = document. createElement("id_articulo");
+	                  art.appendChild(id_articulo);
+	                  id_articulo.appendChild(document.createTextNode(String.valueOf(p.getArticulo().getId_articulo())));
+	                  
+	                  
+	                  Element nombre = document.createElement("nombre");
+	                  art.appendChild(nombre);
+	                  nombre.appendChild(document.createTextNode(String.valueOf(p.getArticulo().getNombre())));
+	   
+	                  Element fecha_entrada = document.createElement("fecha_entrada");
+	                  art.appendChild(fecha_entrada);
+	                  fecha_entrada.appendChild(document.createTextNode(String.valueOf(p.getArticulo().getFecha_entrada())));
+	                  
+	                  Element precio = document.createElement("precio");
+	                  art.appendChild(precio);
+	                  precio.appendChild(document.createTextNode(String.valueOf(p.getArticulo().getPrecio())));
+	                  
+	                  Element cantidad = document.createElement("cantidad");
+	                  art.appendChild(cantidad);
+	                  cantidad.appendChild(document.createTextNode(String.valueOf(p.getCant())));
+	                  
+	                  Element realizado = document.createElement("realizado");
+	                  art.appendChild(realizado);
+	                  realizado.appendChild(document.createTextNode(String.valueOf(p.isRealizado())));
+	                  
+	                  Element embalado = document.createElement("embalado");
+	                  art.appendChild(embalado);
+	                  embalado.appendChild(document.createTextNode(String.valueOf(p.isEmbalado())));
+             
+	              }
+	              
+	              
+	              TransformerFactory tFactory = TransformerFactory.newInstance();
+	              Transformer transformer = tFactory.newTransformer();
+	              DOMSource source = new DOMSource(document);
+	              StreamResult result = new StreamResult(new File(FILENAME_ARTICULO));
+
+	              transformer.transform(source, result);
+	              
+	              File ar = new File(FILENAME_ARTICULO);
+	              FileReader f = new FileReader(ar);
+	              BufferedReader b = new BufferedReader(f); 
+	              while((line = b.readLine())!=null) {
+	                  s= s + line +"\n";
+	                  
+	              } 
+	              
+	              System.out.println(ar.getAbsolutePath());
+	              
+	          }catch( IOException | ParserConfigurationException | TransformerException | DOMException e){
+	              
+	              e.printStackTrace();
+	          }
+	     
+	          
+	          return s;
+	}
+    
+    
+    
 	
 }
