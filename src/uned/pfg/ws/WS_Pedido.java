@@ -10,7 +10,7 @@ public class WS_Pedido {
 	private PedidoDAO pedidoDAO;
 	
 
-	BasicDataSource basicDataSource;
+	private BasicDataSource basicDataSource;
 	
 	public WS_Pedido() {
 		

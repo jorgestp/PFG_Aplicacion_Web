@@ -1,19 +1,38 @@
 package uned.pfg.dao;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import javax.sql.DataSource;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import uned.pfg.bean.Articulo;
+import uned.pfg.bean.ArticuloPedido;
 
 public class ArticuloDAO {
 
 	
 	private DataSource origendatos;
+	private final String FILENAME_ARTICULOS = "XML_articulos.xml";
 	
 	public ArticuloDAO(DataSource origendatos) {
 		
@@ -48,9 +67,10 @@ public class ArticuloDAO {
 				
 				int id_articulo = rs.getInt(1);
 				String nombre = rs.getString(2);
+				Date fecha = rs.getDate(3);
 				double precio = rs.getDouble(4);
 
-				articulos.add(new Articulo(id_articulo, nombre, null, precio));
+				articulos.add(new Articulo(id_articulo, nombre, fecha, precio));
 			}
 			
 			state.close();
@@ -66,4 +86,76 @@ public class ArticuloDAO {
 		
 		
 	}
+	
+	public String crearXML_Articulos(List<Articulo> listaArticulos) {
+		
+		
+		 String s = "";
+	        String line;
+	          
+	      try{
+	           
+	              DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	              DocumentBuilder builder = factory.newDocumentBuilder();
+	              Document document = builder.newDocument();
+	              
+	              Element root = document.createElement("articulos");
+	              document.appendChild(root);
+	              
+	              Iterator<Articulo> it = listaArticulos.iterator();
+	              
+	              while(it.hasNext()){
+	                  
+	            	  Articulo p = it.next();
+	                  
+	                  Element art = document.createElement("articulo");
+	                  root.appendChild(art);
+	                 
+	                  Element id_articulo = document. createElement("id_articulo");
+	                  art.appendChild(id_articulo);
+	                  id_articulo.appendChild(document.createTextNode(String.valueOf(p.getId_articulo())));
+	                  
+	                  
+	                  Element nombre = document.createElement("nombre");
+	                  art.appendChild(nombre);
+	                  nombre.appendChild(document.createTextNode(String.valueOf(p.getNombre())));
+	   
+	                  Element fecha_entrada = document.createElement("fecha_entrada");
+	                  art.appendChild(fecha_entrada);
+	                  fecha_entrada.appendChild(document.createTextNode(String.valueOf(p.getFecha_entrada())));
+	                  
+	                  Element precio = document.createElement("precio");
+	                  art.appendChild(precio);
+	                  precio.appendChild(document.createTextNode(String.valueOf(p.getPrecio())));
+	                  
+            
+	              }
+	              
+	              
+	              TransformerFactory tFactory = TransformerFactory.newInstance();
+	              Transformer transformer = tFactory.newTransformer();
+	              DOMSource source = new DOMSource(document);
+	              StreamResult result = new StreamResult(new File(FILENAME_ARTICULOS));
+
+	              transformer.transform(source, result);
+	              
+	              File ar = new File(FILENAME_ARTICULOS);
+	              FileReader f = new FileReader(ar);
+	              BufferedReader b = new BufferedReader(f); 
+	              while((line = b.readLine())!=null) {
+	                  s= s + line +"\n";
+	                  
+	              } 
+	              
+	              System.out.println(ar.getAbsolutePath());
+	              
+	          }catch( IOException | ParserConfigurationException | TransformerException | DOMException e){
+	              
+	              e.printStackTrace();
+	          }
+	     
+	          
+	          return s;
+	}
+   
 }
