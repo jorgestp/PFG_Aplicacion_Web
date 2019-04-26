@@ -69,7 +69,7 @@ public class PedidoDAO {
 			state.setDate(2, fecha_entrada);
 			
 			
-			java.util.Date envio = p.getFecha_entrada();
+			java.util.Date envio = p.getFecha_envio();
 			
 			java.sql.Date fecha_envio  = new java.sql.Date(envio.getTime());
 			
