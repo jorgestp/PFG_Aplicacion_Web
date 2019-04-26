@@ -67,8 +67,22 @@
   <ns1:parameter name="wsdlTargetNamespace" value="http://ws.pfg.uned"/>
   <ns1:parameter name="wsdlServiceElement" value="WS_ArticuloService"/>
  </ns1:service>
+ <ns1:service name="WS_ObtenerPedido" provider="java:RPC" style="wrapped" use="literal">
+  <ns1:operation name="envioPedido" qname="ns4:envioPedido" returnQName="ns4:envioPedidoReturn" returnType="xsd:string" soapAction="" xmlns:ns4="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns4:a" type="xsd:string"/>
+   <ns1:parameter qname="ns4:b" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:parameter name="allowedMethods" value="envioPedido"/>
+  <ns1:parameter name="typeMappingVersion" value="1.2"/>
+  <ns1:parameter name="wsdlPortType" value="WS_ObtenerPedido"/>
+  <ns1:parameter name="className" value="uned.pfg.ws.WS_ObtenerPedido"/>
+  <ns1:parameter name="wsdlServicePort" value="WS_ObtenerPedido"/>
+  <ns1:parameter name="schemaQualified" value="http://ws.pfg.uned"/>
+  <ns1:parameter name="wsdlTargetNamespace" value="http://ws.pfg.uned"/>
+  <ns1:parameter name="wsdlServiceElement" value="WS_ObtenerPedidoService"/>
+ </ns1:service>
  <ns1:service name="WS_Pedido" provider="java:RPC" style="wrapped" use="literal">
-  <ns1:operation name="envioPedido" qname="ns4:envioPedido" returnQName="ns4:envioPedidoReturn" returnType="xsd:string" soapAction="" xmlns:ns4="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="envioPedido" qname="ns5:envioPedido" returnQName="ns5:envioPedidoReturn" returnType="xsd:string" soapAction="" xmlns:ns5="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
   <ns1:parameter name="allowedMethods" value="envioPedido"/>
   <ns1:parameter name="wsdlPortType" value="WS_Pedido"/>
   <ns1:parameter name="typeMappingVersion" value="1.2"/>
