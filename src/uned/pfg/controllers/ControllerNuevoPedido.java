@@ -99,18 +99,26 @@ public class ControllerNuevoPedido extends HttpServlet {
 			Distribuidor dist = (Distribuidor) session.getAttribute("usuario");
 			String lista = request.getParameter("lista");
 			System.out.println(lista);
+			
+			Date act = new Date();
+			
+			
+			
 			String fecha = "2015-01-01";
 			SimpleDateFormat formatofecha = new SimpleDateFormat("yyyy-MM-dd");
+			String f = formatofecha.format(act);
+			Date actual = null;
 			Date d = null;
 			try {
 				d = formatofecha.parse(fecha);
+				actual = formatofecha.parse(f);
 			} catch (ParseException e) {
 				
 				e.printStackTrace();
 			}
 			
 			
-			Pedido p = new Pedido(dist.getId(), d, d, "En Tramite", listaSeleccionados);
+			Pedido p = new Pedido(dist.getId(), d, actual, "En Tramite", listaSeleccionados);
 			
 			
 			p.setId_pedido(pedidoDAO.insertaPedido(p));
