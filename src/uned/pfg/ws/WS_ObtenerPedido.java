@@ -173,9 +173,6 @@ public class WS_ObtenerPedido {
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 				Date date_entrada = formatter.parse(aux[1]);
 				Date date_envio = formatter.parse(aux[2]);
-				System.out.println("ENTRADA => " + aux[1] + " => " + date_entrada.toString());
-				System.out.println("ENVIO => " + aux[2] + " => " + date_envio.toString());
-
 				p = new Pedido(Integer.parseInt(aux[0]), date_entrada, date_envio, aux[3], null);
 				
 
