@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://ws.pfg.uned" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://ws.pfg.uned" xmlns:intf="http://ws.pfg.uned" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://ws.pfg.uned" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="eliminaDistribuidor">
+    <complexType>
+     <sequence>
+      <element name="id_distribuidor" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="eliminaDistribuidorResponse">
+    <complexType>
+     <sequence>
+      <element name="eliminaDistribuidorReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="eliminaDistribuidorResponse">
+
+      <wsdl:part element="impl:eliminaDistribuidorResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="eliminaDistribuidorRequest">
+
+      <wsdl:part element="impl:eliminaDistribuidor" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="WS_EliminarDistribuidor">
+
+      <wsdl:operation name="eliminaDistribuidor">
+
+         <wsdl:input message="impl:eliminaDistribuidorRequest" name="eliminaDistribuidorRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:eliminaDistribuidorResponse" name="eliminaDistribuidorResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="WS_EliminarDistribuidorSoapBinding" type="impl:WS_EliminarDistribuidor">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="eliminaDistribuidor">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="eliminaDistribuidorRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="eliminaDistribuidorResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="WS_EliminarDistribuidorService">
+
+      <wsdl:port binding="impl:WS_EliminarDistribuidorSoapBinding" name="WS_EliminarDistribuidor">
+
+         <wsdlsoap:address location="http://localhost:8080/Aplicacion_Web/services/WS_EliminarDistribuidor"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

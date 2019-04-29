@@ -98,6 +98,43 @@ public class PedidoDAO {
 		return 0;
 	}
 
+	
+	public int tienePedidoDistribuidor(int parseInt) {
+		Connection conexion = null;
+		PreparedStatement state =null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			
+			conexion = origendatos.getConnection();
+			
+			String sql = "SELECT ID_PEDIDO FROM PEDIDO WHERE ID_DISTRIBUIDOR = ? AND ESTADO =?";
+			
+			state = conexion.prepareStatement(sql);
+			
+			
+			state.setInt(1, parseInt);
+			state.setString(2, "En Tramite");
+					
+			rs = state.executeQuery();
+			
+			while(rs.next()) {
+				
+				result++;
+			}
+			
+			state.close();
+			conexion.close();
+		
+		}catch (Exception e) {
+
+				e.printStackTrace();
+		}
+		
+		return result;
+	
+	}
+	
 
 	private int obteneridPedido() {
 		Connection conexion = null;
@@ -551,6 +588,9 @@ public class PedidoDAO {
 	          
 	          return s;
 	}
+
+
+
     
     
     

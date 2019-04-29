@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
@@ -215,6 +216,46 @@ public class DistribuidorDAO {
 	
 	}
 	
+	public Distribuidor obtenDistri(String nombre) {
+		
+		Connection conexion = null;
+		PreparedStatement state = null;
+		Distribuidor d = null;
+		ResultSet rs =null;
+
+		try {
+
+			conexion = origendatos.getConnection();
+			String sql = "SELECT * FROM DISTRIBUIDOR WHERE NOMBRE = ?";
+
+			state = conexion.prepareStatement(sql);
+
+			state.setString(1, nombre);
+
+			rs = state.executeQuery();
+
+			while(rs.next()) {
+				
+				d = new Distribuidor(rs.getInt(1), rs.getString(2));
+			}
+			
+
+			state.close();
+			conexion.close();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		}
+
+		return d;
+		
+	}
+	
+
+
+	
 	public String crearXML_Distribuidores(List<Distribuidor> listaArticulos) {
 		
 		
@@ -276,6 +317,40 @@ public class DistribuidorDAO {
 	          
 	          return s;
 	}
+
+	public void eliminaDistribuidor(int parseInt) throws SQLException {
+
+			Connection conexion = null;
+			PreparedStatement state = null;
+
+			try {
+
+				conexion = origendatos.getConnection();
+				String sql = "DELETE FROM DISTRIBUIDOR WHERE ID_DISTRIBUIDOR=?";
+
+				state = conexion.prepareStatement(sql);
+
+				state.setInt(1, parseInt);
+
+
+				state.execute();
+
+
+
+			} catch (Exception e) {
+
+				e.printStackTrace();
+
+			}finally {
+				
+				state.close();
+				conexion.close();
+			}
+		
+	}
+
+
+
 
 
 }
