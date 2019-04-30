@@ -191,6 +191,7 @@ public class PedidoDAO {
 			
 			ArticuloPedido artPed = it.next();
 			
+			
 			try {
 				
 				conexion = origendatos.getConnection();

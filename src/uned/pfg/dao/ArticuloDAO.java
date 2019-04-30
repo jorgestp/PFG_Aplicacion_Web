@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -85,6 +86,45 @@ public class ArticuloDAO {
 		return articulos;
 		
 		
+	}
+	
+	public boolean introducirArticulo(Articulo a) {
+		
+		
+		Connection conexion = null;
+		PreparedStatement state = null;
+
+		try {
+
+			conexion = origendatos.getConnection();
+
+			String sql = "INSERT INTO ARTICULO (nombre, "
+					+ "fecha_entrada, precio) "
+					+ "VALUES ( ?,?,?)";
+
+			state = conexion.prepareStatement(sql);
+
+			state.setString(1, a.getNombre());
+	
+			java.util.Date f = a.getFecha_entrada();
+
+			java.sql.Date fecha = new java.sql.Date(f.getTime());
+
+			state.setDate(2, fecha);
+			state.setDouble(3, a.getPrecio());
+
+
+			state.execute();
+
+			state.close();
+			conexion.close();
+			return true;
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	public String crearXML_Articulos(List<Articulo> listaArticulos) {
