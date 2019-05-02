@@ -80,10 +80,34 @@
   <ns1:parameter name="wsdlTargetNamespace" value="http://ws.pfg.uned"/>
   <ns1:parameter name="wsdlServiceElement" value="WS_ArticuloService"/>
  </ns1:service>
+ <ns1:service name="WS_ArtSeleccionado" provider="java:RPC" style="wrapped" use="literal">
+  <ns1:operation name="enviarArticuloSeleccionado" qname="ns5:enviarArticuloSeleccionado" returnQName="ns5:enviarArticuloSeleccionadoReturn" returnType="xsd:string" soapAction="" xmlns:ns5="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns5:id" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:parameter name="allowedMethods" value="enviarArticuloSeleccionado"/>
+  <ns1:parameter name="typeMappingVersion" value="1.2"/>
+  <ns1:parameter name="wsdlPortType" value="WS_ArtSeleccionado"/>
+  <ns1:parameter name="className" value="uned.pfg.ws.WS_ArtSeleccionado"/>
+  <ns1:parameter name="wsdlServicePort" value="WS_ArtSeleccionado"/>
+  <ns1:parameter name="schemaQualified" value="http://ws.pfg.uned"/>
+  <ns1:parameter name="wsdlTargetNamespace" value="http://ws.pfg.uned"/>
+  <ns1:parameter name="wsdlServiceElement" value="WS_ArtSeleccionadoService"/>
+ </ns1:service>
+ <ns1:service name="WS_Almacen" provider="java:RPC" style="wrapped" use="literal">
+  <ns1:operation name="enviarAlmacen" qname="ns6:enviarAlmacen" returnQName="ns6:enviarAlmacenReturn" returnType="xsd:string" soapAction="" xmlns:ns6="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:parameter name="allowedMethods" value="enviarAlmacen"/>
+  <ns1:parameter name="wsdlPortType" value="WS_Almacen"/>
+  <ns1:parameter name="typeMappingVersion" value="1.2"/>
+  <ns1:parameter name="schemaQualified" value="http://ws.pfg.uned"/>
+  <ns1:parameter name="wsdlServicePort" value="WS_Almacen"/>
+  <ns1:parameter name="className" value="uned.pfg.ws.WS_Almacen"/>
+  <ns1:parameter name="wsdlTargetNamespace" value="http://ws.pfg.uned"/>
+  <ns1:parameter name="wsdlServiceElement" value="WS_AlmacenService"/>
+ </ns1:service>
  <ns1:service name="WS_ObtenerPedido" provider="java:RPC" style="wrapped" use="literal">
-  <ns1:operation name="envioPedido" qname="ns5:envioPedido" returnQName="ns5:envioPedidoReturn" returnType="xsd:string" soapAction="" xmlns:ns5="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <ns1:parameter qname="ns5:a" type="xsd:string"/>
-   <ns1:parameter qname="ns5:b" type="xsd:string"/>
+  <ns1:operation name="envioPedido" qname="ns7:envioPedido" returnQName="ns7:envioPedidoReturn" returnType="xsd:string" soapAction="" xmlns:ns7="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns7:a" type="xsd:string"/>
+   <ns1:parameter qname="ns7:b" type="xsd:string"/>
   </ns1:operation>
   <ns1:parameter name="allowedMethods" value="envioPedido"/>
   <ns1:parameter name="typeMappingVersion" value="1.2"/>
@@ -95,7 +119,7 @@
   <ns1:parameter name="wsdlServiceElement" value="WS_ObtenerPedidoService"/>
  </ns1:service>
  <ns1:service name="WS_Pedido" provider="java:RPC" style="wrapped" use="literal">
-  <ns1:operation name="envioPedido" qname="ns6:envioPedido" returnQName="ns6:envioPedidoReturn" returnType="xsd:string" soapAction="" xmlns:ns6="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="envioPedido" qname="ns8:envioPedido" returnQName="ns8:envioPedidoReturn" returnType="xsd:string" soapAction="" xmlns:ns8="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
   <ns1:parameter name="allowedMethods" value="envioPedido"/>
   <ns1:parameter name="wsdlPortType" value="WS_Pedido"/>
   <ns1:parameter name="typeMappingVersion" value="1.2"/>
@@ -106,8 +130,8 @@
   <ns1:parameter name="wsdlServiceElement" value="WS_PedidoService"/>
  </ns1:service>
  <ns1:service name="WS_EliminarDistribuidor" provider="java:RPC" style="wrapped" use="literal">
-  <ns1:operation name="eliminaDistribuidor" qname="ns7:eliminaDistribuidor" returnQName="ns7:eliminaDistribuidorReturn" returnType="xsd:string" soapAction="" xmlns:ns7="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <ns1:parameter qname="ns7:id_distribuidor" type="xsd:string"/>
+  <ns1:operation name="eliminaDistribuidor" qname="ns9:eliminaDistribuidor" returnQName="ns9:eliminaDistribuidorReturn" returnType="xsd:string" soapAction="" xmlns:ns9="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns9:id_distribuidor" type="xsd:string"/>
   </ns1:operation>
   <ns1:parameter name="allowedMethods" value="eliminaDistribuidor"/>
   <ns1:parameter name="wsdlPortType" value="WS_EliminarDistribuidor"/>

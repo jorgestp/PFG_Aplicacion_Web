@@ -34,7 +34,7 @@ public class ArticuloDAO {
 	
 	private DataSource origendatos;
 	private final String FILENAME_ARTICULOS = "XML_articulos.xml";
-	
+	private final String FILENAME_ARTICULO_selec = "XML_articulo_selec";
 	public ArticuloDAO(DataSource origendatos) {
 		
 		this.origendatos = origendatos;
@@ -127,6 +127,46 @@ public class ArticuloDAO {
 		}
 	}
 	
+	
+	
+	public Articulo SeleccionarArticulo(int id) {
+		
+		Connection conexion = null;
+		PreparedStatement state = null;
+		ResultSet rs =null;
+		Articulo a = null;
+
+		try {
+
+			conexion = origendatos.getConnection();
+
+			String sql = "SELECT * FROM ARTICULO WHERE ID_ARTICULO=?";
+
+			state = conexion.prepareStatement(sql);
+
+			state.setInt(1, id);
+	
+			rs = state.executeQuery();
+			
+			while(rs.next()) {
+				
+				a = new Articulo(id, rs.getString(2), rs.getDate(3), rs.getDouble(4));
+			}
+
+			state.close();
+			conexion.close();
+			
+			return a;
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			
+		}
+		
+		return a;
+		
+	}
 	public String crearXML_Articulos(List<Articulo> listaArticulos) {
 		
 		
@@ -180,6 +220,72 @@ public class ArticuloDAO {
 	              transformer.transform(source, result);
 	              
 	              File ar = new File(FILENAME_ARTICULOS);
+	              FileReader f = new FileReader(ar);
+	              BufferedReader b = new BufferedReader(f); 
+	              while((line = b.readLine())!=null) {
+	                  s= s + line +"\n";
+	                  
+	              } 
+	              
+	              System.out.println(ar.getAbsolutePath());
+	              
+	          }catch( IOException | ParserConfigurationException | TransformerException | DOMException e){
+	              
+	              e.printStackTrace();
+	          }
+	     
+	          
+	          return s;
+	}
+	
+	public String crearXML_artSelec(Articulo a) {
+		
+		
+		 String s = "";
+	        String line;
+	          
+	      try{
+	           
+	              DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	              DocumentBuilder builder = factory.newDocumentBuilder();
+	              Document document = builder.newDocument();
+	              
+	              Element root = document.createElement("articulo_selec");
+	              document.appendChild(root);
+
+	                  
+	                  Element art = document.createElement("articulo");
+	                  root.appendChild(art);
+	                 
+	                  Element id_articulo = document. createElement("id_articulo");
+	                  art.appendChild(id_articulo);
+	                  id_articulo.appendChild(document.createTextNode(String.valueOf(a.getId_articulo())));
+	                  
+	                  
+	                  Element nombre = document.createElement("nombre");
+	                  art.appendChild(nombre);
+	                  nombre.appendChild(document.createTextNode(String.valueOf(a.getNombre())));
+	   
+	                  Element fecha_entrada = document.createElement("fecha_entrada");
+	                  art.appendChild(fecha_entrada);
+	                  fecha_entrada.appendChild(document.createTextNode(String.valueOf(a.getFecha_entrada())));
+	                  
+	                  Element precio = document.createElement("precio");
+	                  art.appendChild(precio);
+	                  precio.appendChild(document.createTextNode(String.valueOf(a.getPrecio())));
+	                  
+           
+	              
+	              
+	              
+	              TransformerFactory tFactory = TransformerFactory.newInstance();
+	              Transformer transformer = tFactory.newTransformer();
+	              DOMSource source = new DOMSource(document);
+	              StreamResult result = new StreamResult(new File(FILENAME_ARTICULO_selec));
+
+	              transformer.transform(source, result);
+	              
+	              File ar = new File(FILENAME_ARTICULO_selec);
 	              FileReader f = new FileReader(ar);
 	              BufferedReader b = new BufferedReader(f); 
 	              while((line = b.readLine())!=null) {
