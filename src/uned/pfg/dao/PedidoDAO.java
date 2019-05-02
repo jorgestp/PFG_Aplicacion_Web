@@ -27,6 +27,7 @@ import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import uned.pfg.bean.Almacen;
 import uned.pfg.bean.Articulo;
 import uned.pfg.bean.ArticuloPedido;
 import uned.pfg.bean.Pedido;
@@ -34,9 +35,10 @@ import uned.pfg.bean.Pedido;
 
 public class PedidoDAO {
 
-	private DataSource origendatos;
-	 private final String FILENAME = "XML.xml";
-	 private final String FILENAME_ARTICULO = "XML_ART.xml";
+		private DataSource origendatos;
+		private final String FILENAME = "XML.xml";
+		private final String FILENAME_ARTICULO = "XML_ART.xml";
+		private AlmacenDAO almacenDAO;
 	
 	public PedidoDAO(DataSource origendatos) {
 		
@@ -182,15 +184,31 @@ public class PedidoDAO {
 		Connection conexion = null;
 		PreparedStatement state =null;
 		List<ArticuloPedido> listaArticulos = p.getArticulos();
-		
-
+		almacenDAO = new AlmacenDAO(origendatos);
+		boolean realizado = false;
 			
 		Iterator<ArticuloPedido> it = listaArticulos.iterator();
 		
 		while(it.hasNext()) {
 			
 			ArticuloPedido artPed = it.next();
-			
+			/////////////////////////////////////////////////////////////////////////////////////////////////
+			/////////////////////////////////////////////////////////////////////////////////////////////////
+			/////////////////////////////////////////////////////////////////////////////////////////////////
+			/////////////////////////////////////////////////////////////////////////////////////////////////
+			Almacen alm = almacenDAO.comprobarArticuloEnAlmacen(artPed);
+						
+			if(alm.getCantidad_libre()>=artPed.getCant() && alm != null) {
+				
+				realizado = true;
+				
+				
+				almacenDAO.actualizarCantidadLibre(artPed, alm.getCantidad_libre());
+				
+			}
+			/////////////////////////////////////////////////////////////////////////////////////////////////
+			/////////////////////////////////////////////////////////////////////////////////////////////////
+			/////////////////////////////////////////////////////////////////////////////////////////////////
 			
 			try {
 				
@@ -202,7 +220,7 @@ public class PedidoDAO {
 			state.setInt(1, p.getId_pedido());
 			state.setInt(2, artPed.getArticulo().getId_articulo());
 			state.setInt(3, artPed.getCant());
-			state.setBoolean(4, artPed.isRealizado());
+			state.setBoolean(4, realizado);
 			state.setBoolean(5, artPed.isEmbalado());
 			
 			state.execute();
