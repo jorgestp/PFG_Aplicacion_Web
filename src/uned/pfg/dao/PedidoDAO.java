@@ -38,7 +38,9 @@ public class PedidoDAO {
 		private DataSource origendatos;
 		private final String FILENAME = "XML.xml";
 		private final String FILENAME_ARTICULO = "XML_ART.xml";
+		private final String FILENAME_artSinRealizar = "XML_ARTsinRealizar.xml";
 		private AlmacenDAO almacenDAO;
+		private ArticuloDAO articuloDAO;
 	
 	public PedidoDAO(DataSource origendatos) {
 		
@@ -420,6 +422,118 @@ public class PedidoDAO {
 		
 	}
 	
+	
+	public List<ArticuloPedido> articulosSinRealizar(){
+		
+		List<ArticuloPedido> lista = new ArrayList<ArticuloPedido>();
+		
+		Connection conexion = null;
+		
+		
+		articuloDAO = new ArticuloDAO(origendatos);
+		almacenDAO = new AlmacenDAO(origendatos);
+		try {
+			
+			conexion = origendatos.getConnection();
+			
+		       String sql = "SELECT ID_ARTICULO, SUM(CANTIDAD) FROM ARTICULO_PEDIDO WHERE REALIZADO = 0 "
+		               + "GROUP BY ID_ARTICULO";
+		        Statement  state = conexion.createStatement();
+		             
+		        ResultSet rs = state.executeQuery(sql);
+		             
+
+		        while(rs.next()){
+
+					Articulo articulo = articuloDAO.SeleccionarArticulo(rs.getInt(1));
+					int cantidad = rs.getInt(2);
+					System.out.println(articulo.toString() + "  " + cantidad);
+					ArticuloPedido artPed = new ArticuloPedido(articulo, cantidad);					
+					if(almacenDAO.estaEnAlmacen(articulo)) {
+						
+						Almacen almacen = almacenDAO.comprobarArticuloEnAlmacen(artPed);
+						artPed.setCant(artPed.getCant()-almacen.getCantidad_libre());
+		
+					}
+					
+					lista.add(artPed);
+
+		        }
+			
+			
+			state.close();
+			conexion.close();
+			
+		}catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+		return lista;
+		
+		
+	}
+	
+    public String crearXML_ArticulosSinRealizar (List<ArticuloPedido> lista){
+        
+        String s = "";
+        String line;
+          
+      try{
+           
+              DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+              DocumentBuilder builder = factory.newDocumentBuilder();
+              Document document = builder.newDocument();
+              
+              Element root = document.createElement("articulosSinRealizar");
+              document.appendChild(root);
+              
+              Iterator<ArticuloPedido> it = lista.iterator();
+              
+              while(it.hasNext()){
+                  
+            	  ArticuloPedido p = it.next();
+                  
+                  Element pedido = document.createElement("articulo");
+                  root.appendChild(pedido);
+                 
+                  Element id_articulo = document. createElement("id_articulo");
+                  pedido.appendChild(id_articulo);
+                  id_articulo.appendChild(document.createTextNode(String.valueOf(p.getArticulo().getId_articulo())));
+                  
+                  
+                  Element cantidad = document.createElement("cantidad");
+                  pedido.appendChild(cantidad);
+                  cantidad.appendChild(document.createTextNode(String.valueOf(p.getCant())));
+
+              }
+              
+              
+              TransformerFactory tFactory = TransformerFactory.newInstance();
+              Transformer transformer = tFactory.newTransformer();
+              DOMSource source = new DOMSource(document);
+              StreamResult result = new StreamResult(new File(FILENAME_artSinRealizar));
+
+              transformer.transform(source, result);
+              
+              File ar = new File(FILENAME_artSinRealizar);
+              FileReader f = new FileReader(ar);
+              BufferedReader b = new BufferedReader(f); 
+              while((line = b.readLine())!=null) {
+                  s= s + line +"\n";
+                  
+              } 
+              
+              System.out.println(ar.getAbsolutePath());
+              
+          }catch( IOException | ParserConfigurationException | TransformerException | DOMException e){
+              
+              e.printStackTrace();
+          }
+     
+          
+          return s;
+      }
 	
 	
     public String crearXML (List<Pedido> lista){

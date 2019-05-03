@@ -59,7 +59,7 @@ public class AlmacenDAO {
 		
 	}
 	
-	private boolean estaEnAlmacen(Articulo art) {
+	public boolean estaEnAlmacen(Articulo art) {
 		
 		Connection conexion =null;
 		PreparedStatement state = null;
