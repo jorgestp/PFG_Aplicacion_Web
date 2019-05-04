@@ -474,7 +474,88 @@ public class PedidoDAO {
 		
 	}
 	
-    public String crearXML_ArticulosSinRealizar (List<ArticuloPedido> lista){
+	
+	public List<Pedido> Pedidos_que_tiene_el_articulo(int id_articulo) {
+		List<Pedido> pedidos = new ArrayList<Pedido>();
+		Connection conexion = null;
+		PreparedStatement state =null;
+		ResultSet rs =null;
+		
+		
+		try {
+			
+			conexion = origendatos.getConnection();
+			
+			String sql = "SELECT * FROM ARTICULO_PEDIDO WHERE ID_ARTICULO = ?";
+			
+			state = conexion.prepareStatement(sql);
+			state.setInt(1, id_articulo);
+			
+			rs = state.executeQuery();
+			
+			while(rs.next()) {
+
+				int id_pedido = rs.getInt(2);
+				
+				Pedido pedido = devolverPedidoPorID(id_pedido);
+				pedidos.add(pedido);
+				
+			}
+			
+			state.close();
+			conexion.close();
+			
+		}catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+		return pedidos;
+		
+	}
+	
+    private Pedido devolverPedidoPorID(int id_pedido) {
+    	Pedido p =null;
+		Connection conexion = null;
+		PreparedStatement state =null;
+		ResultSet rs =null;
+		
+		
+		try {
+			
+			conexion = origendatos.getConnection();
+			
+			String sql = "SELECT * FROM PEDIDO WHERE ID_PEDIDO = ?";
+			
+			state = conexion.prepareStatement(sql);
+			state.setInt(1, id_pedido);
+			
+			rs = state.executeQuery();
+			
+			while(rs.next()) {
+
+				
+				p = new Pedido(rs.getInt(1), 
+						rs.getInt(2), 
+						rs.getDate(3), 
+						rs.getDate(4), 
+						rs.getString(5));
+				
+			}
+			
+			state.close();
+			conexion.close();
+			
+		}catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+		return p;
+	}
+
+
+	public String crearXML_ArticulosSinRealizar (List<ArticuloPedido> lista){
         
         String s = "";
         String line;
@@ -579,37 +660,7 @@ public class PedidoDAO {
                   Element estado = document.createElement("estado");
                   pedido.appendChild(estado);
                   estado.appendChild(document.createTextNode(p.getEstado()));
-                  
-                  /*Element articulos = document.createElement("articulos");
-                  pedido.appendChild(articulos);
-                  
-                  Iterator<ArticuloPedido> it2 = p.getArticulos().iterator();
-                  
-                  	while(it2.hasNext()) {
-                  		
-                  		ArticuloPedido artP = it2.next();
-                  		
-                        Element articulo = document.createElement("articulo");
-                        articulos.appendChild(articulo);
-                        
-                        Element id_articulo = document. createElement("id_articulo");
-                        articulo.appendChild(id_articulo);
-                        id_articulo.appendChild(document.createTextNode(String.valueOf(artP.getArticulo().getId_articulo())));
-                        
-                        Element cantidad = document. createElement("cantidad");
-                        articulo.appendChild(cantidad);
-                        cantidad.appendChild(document.createTextNode(String.valueOf(artP.getCant())));
-                        
-                        Element realizado = document. createElement("realizado");
-                        articulo.appendChild(realizado);
-                        realizado.appendChild(document.createTextNode(String.valueOf(artP.isRealizado())));
-                        
-                        Element embalado = document. createElement("embalado");
-                        articulo.appendChild(embalado);
-                        embalado.appendChild(document.createTextNode(String.valueOf(artP.isEmbalado())));
-                  	}*/
-
-                
+                                 
               }
               
               
