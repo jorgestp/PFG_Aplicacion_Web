@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://ws.pfg.uned" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://ws.pfg.uned" xmlns:intf="http://ws.pfg.uned" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://ws.pfg.uned" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="envioPedido">
+    <complexType>
+     <sequence>
+      <element name="id_dist" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="envioPedidoResponse">
+    <complexType>
+     <sequence>
+      <element name="envioPedidoReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="envioPedidoRequest">
+
+      <wsdl:part element="impl:envioPedido" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="envioPedidoResponse">
+
+      <wsdl:part element="impl:envioPedidoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="WS_PedidosActivos">
+
+      <wsdl:operation name="envioPedido">
+
+         <wsdl:input message="impl:envioPedidoRequest" name="envioPedidoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:envioPedidoResponse" name="envioPedidoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="WS_PedidosActivosSoapBinding" type="impl:WS_PedidosActivos">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="envioPedido">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="envioPedidoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="envioPedidoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="WS_PedidosActivosService">
+
+      <wsdl:port binding="impl:WS_PedidosActivosSoapBinding" name="WS_PedidosActivos">
+
+         <wsdlsoap:address location="http://localhost:8080/Aplicacion_Web/services/WS_PedidosActivos"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

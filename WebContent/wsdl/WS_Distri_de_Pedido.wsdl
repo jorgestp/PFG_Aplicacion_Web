@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://ws.pfg.uned" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://ws.pfg.uned" xmlns:intf="http://ws.pfg.uned" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://ws.pfg.uned" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="envioDistribuidor">
+    <complexType>
+     <sequence>
+      <element name="id" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="envioDistribuidorResponse">
+    <complexType>
+     <sequence>
+      <element name="envioDistribuidorReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="envioDistribuidorRequest">
+
+      <wsdl:part element="impl:envioDistribuidor" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="envioDistribuidorResponse">
+
+      <wsdl:part element="impl:envioDistribuidorResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="WS_Distri_de_Pedido">
+
+      <wsdl:operation name="envioDistribuidor">
+
+         <wsdl:input message="impl:envioDistribuidorRequest" name="envioDistribuidorRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:envioDistribuidorResponse" name="envioDistribuidorResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="WS_Distri_de_PedidoSoapBinding" type="impl:WS_Distri_de_Pedido">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="envioDistribuidor">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="envioDistribuidorRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="envioDistribuidorResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="WS_Distri_de_PedidoService">
+
+      <wsdl:port binding="impl:WS_Distri_de_PedidoSoapBinding" name="WS_Distri_de_Pedido">
+
+         <wsdlsoap:address location="http://localhost:8080/Aplicacion_Web/services/WS_Distri_de_Pedido"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

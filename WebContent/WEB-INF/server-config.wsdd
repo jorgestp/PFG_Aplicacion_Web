@@ -77,9 +77,22 @@
   <ns1:parameter name="wsdlTargetNamespace" value="http://ws.pfg.uned"/>
   <ns1:parameter name="wsdlServiceElement" value="WS_ObtenerPedidoService"/>
  </ns1:service>
+ <ns1:service name="WS_Distri_de_Pedido" provider="java:RPC" style="wrapped" use="literal">
+  <ns1:operation name="envioDistribuidor" qname="ns5:envioDistribuidor" returnQName="ns5:envioDistribuidorReturn" returnType="xsd:string" soapAction="" xmlns:ns5="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns5:id" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:parameter name="allowedMethods" value="envioDistribuidor"/>
+  <ns1:parameter name="wsdlPortType" value="WS_Distri_de_Pedido"/>
+  <ns1:parameter name="typeMappingVersion" value="1.2"/>
+  <ns1:parameter name="schemaQualified" value="http://ws.pfg.uned"/>
+  <ns1:parameter name="wsdlServicePort" value="WS_Distri_de_Pedido"/>
+  <ns1:parameter name="className" value="uned.pfg.ws.WS_Distri_de_Pedido"/>
+  <ns1:parameter name="wsdlTargetNamespace" value="http://ws.pfg.uned"/>
+  <ns1:parameter name="wsdlServiceElement" value="WS_Distri_de_PedidoService"/>
+ </ns1:service>
  <ns1:service name="WS_NuevoArticulo" provider="java:RPC" style="wrapped" use="literal">
-  <ns1:operation name="nuevoArticulo" qname="ns5:nuevoArticulo" returnQName="ns5:nuevoArticuloReturn" returnType="xsd:string" soapAction="" xmlns:ns5="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <ns1:parameter qname="ns5:articulo" type="xsd:string"/>
+  <ns1:operation name="nuevoArticulo" qname="ns6:nuevoArticulo" returnQName="ns6:nuevoArticuloReturn" returnType="xsd:string" soapAction="" xmlns:ns6="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns6:articulo" type="xsd:string"/>
   </ns1:operation>
   <ns1:parameter name="allowedMethods" value="nuevoArticulo"/>
   <ns1:parameter name="typeMappingVersion" value="1.2"/>
@@ -95,8 +108,8 @@
   <ns1:parameter name="className" value="org.apache.axis.Version"/>
  </ns1:service>
  <ns1:service name="WS_ArticulosPedido" provider="java:RPC" style="wrapped" use="literal">
-  <ns1:operation name="envioArticulos" qname="ns6:envioArticulos" returnQName="ns6:envioArticulosReturn" returnType="xsd:string" soapAction="" xmlns:ns6="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <ns1:parameter qname="ns6:id_pedido" type="xsd:string"/>
+  <ns1:operation name="envioArticulos" qname="ns7:envioArticulos" returnQName="ns7:envioArticulosReturn" returnType="xsd:string" soapAction="" xmlns:ns7="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns7:id_pedido" type="xsd:string"/>
   </ns1:operation>
   <ns1:parameter name="allowedMethods" value="envioArticulos"/>
   <ns1:parameter name="typeMappingVersion" value="1.2"/>
@@ -108,7 +121,7 @@
   <ns1:parameter name="wsdlServiceElement" value="WS_ArticulosPedidoService"/>
  </ns1:service>
  <ns1:service name="WS_Distribuidor" provider="java:RPC" style="wrapped" use="literal">
-  <ns1:operation name="envioDistribuidores" qname="ns7:envioDistribuidores" returnQName="ns7:envioDistribuidoresReturn" returnType="xsd:string" soapAction="" xmlns:ns7="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="envioDistribuidores" qname="ns8:envioDistribuidores" returnQName="ns8:envioDistribuidoresReturn" returnType="xsd:string" soapAction="" xmlns:ns8="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
   <ns1:parameter name="allowedMethods" value="envioDistribuidores"/>
   <ns1:parameter name="wsdlPortType" value="WS_Distribuidor"/>
   <ns1:parameter name="typeMappingVersion" value="1.2"/>
@@ -119,7 +132,7 @@
   <ns1:parameter name="wsdlServiceElement" value="WS_DistribuidorService"/>
  </ns1:service>
  <ns1:service name="WS_Articulo" provider="java:RPC" style="wrapped" use="literal">
-  <ns1:operation name="envioArticulos" qname="ns8:envioArticulos" returnQName="ns8:envioArticulosReturn" returnType="xsd:string" soapAction="" xmlns:ns8="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="envioArticulos" qname="ns9:envioArticulos" returnQName="ns9:envioArticulosReturn" returnType="xsd:string" soapAction="" xmlns:ns9="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
   <ns1:parameter name="allowedMethods" value="envioArticulos"/>
   <ns1:parameter name="typeMappingVersion" value="1.2"/>
   <ns1:parameter name="wsdlPortType" value="WS_Articulo"/>
@@ -129,9 +142,22 @@
   <ns1:parameter name="wsdlTargetNamespace" value="http://ws.pfg.uned"/>
   <ns1:parameter name="wsdlServiceElement" value="WS_ArticuloService"/>
  </ns1:service>
+ <ns1:service name="WS_PedidosActivos" provider="java:RPC" style="wrapped" use="literal">
+  <ns1:operation name="envioPedido" qname="ns10:envioPedido" returnQName="ns10:envioPedidoReturn" returnType="xsd:string" soapAction="" xmlns:ns10="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns10:id_dist" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:parameter name="allowedMethods" value="envioPedido"/>
+  <ns1:parameter name="typeMappingVersion" value="1.2"/>
+  <ns1:parameter name="wsdlPortType" value="WS_PedidosActivos"/>
+  <ns1:parameter name="className" value="uned.pfg.ws.WS_PedidosActivos"/>
+  <ns1:parameter name="wsdlServicePort" value="WS_PedidosActivos"/>
+  <ns1:parameter name="schemaQualified" value="http://ws.pfg.uned"/>
+  <ns1:parameter name="wsdlTargetNamespace" value="http://ws.pfg.uned"/>
+  <ns1:parameter name="wsdlServiceElement" value="WS_PedidosActivosService"/>
+ </ns1:service>
  <ns1:service name="WS_Pedido_De_Articulo" provider="java:RPC" style="wrapped" use="literal">
-  <ns1:operation name="envioPedido" qname="ns9:envioPedido" returnQName="ns9:envioPedidoReturn" returnType="xsd:string" soapAction="" xmlns:ns9="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <ns1:parameter qname="ns9:id" type="xsd:string"/>
+  <ns1:operation name="envioPedido" qname="ns11:envioPedido" returnQName="ns11:envioPedidoReturn" returnType="xsd:string" soapAction="" xmlns:ns11="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns11:id" type="xsd:string"/>
   </ns1:operation>
   <ns1:parameter name="allowedMethods" value="envioPedido"/>
   <ns1:parameter name="typeMappingVersion" value="1.2"/>
@@ -143,7 +169,7 @@
   <ns1:parameter name="wsdlServiceElement" value="WS_Pedido_De_ArticuloService"/>
  </ns1:service>
  <ns1:service name="WS_Pedido" provider="java:RPC" style="wrapped" use="literal">
-  <ns1:operation name="envioPedido" qname="ns10:envioPedido" returnQName="ns10:envioPedidoReturn" returnType="xsd:string" soapAction="" xmlns:ns10="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="envioPedido" qname="ns12:envioPedido" returnQName="ns12:envioPedidoReturn" returnType="xsd:string" soapAction="" xmlns:ns12="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
   <ns1:parameter name="allowedMethods" value="envioPedido"/>
   <ns1:parameter name="wsdlPortType" value="WS_Pedido"/>
   <ns1:parameter name="typeMappingVersion" value="1.2"/>
@@ -154,8 +180,8 @@
   <ns1:parameter name="wsdlServiceElement" value="WS_PedidoService"/>
  </ns1:service>
  <ns1:service name="WS_EliminarDistribuidor" provider="java:RPC" style="wrapped" use="literal">
-  <ns1:operation name="eliminaDistribuidor" qname="ns11:eliminaDistribuidor" returnQName="ns11:eliminaDistribuidorReturn" returnType="xsd:string" soapAction="" xmlns:ns11="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <ns1:parameter qname="ns11:id_distribuidor" type="xsd:string"/>
+  <ns1:operation name="eliminaDistribuidor" qname="ns13:eliminaDistribuidor" returnQName="ns13:eliminaDistribuidorReturn" returnType="xsd:string" soapAction="" xmlns:ns13="http://ws.pfg.uned" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns13:id_distribuidor" type="xsd:string"/>
   </ns1:operation>
   <ns1:parameter name="allowedMethods" value="eliminaDistribuidor"/>
   <ns1:parameter name="wsdlPortType" value="WS_EliminarDistribuidor"/>

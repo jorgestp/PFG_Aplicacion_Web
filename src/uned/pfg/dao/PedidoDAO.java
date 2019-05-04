@@ -553,6 +553,50 @@ public class PedidoDAO {
 		
 		return p;
 	}
+    
+    
+    public int pedidosActivos(int id_distribuidor) {
+    	
+    	Connection conexion = null;
+		PreparedStatement state =null;
+		ResultSet rs =null;
+		
+		
+		try {
+			
+			conexion = origendatos.getConnection();
+			
+			String sql = "SELECT COUNT( ID_DISTRIBUIDOR ) AS SUMA " + 
+					"FROM PEDIDO " + 
+					"WHERE ID_DISTRIBUIDOR = ? " + 
+					"AND ESTADO = \"En Tramite\"";
+			
+			state = conexion.prepareStatement(sql);
+			state.setInt(1, id_distribuidor);
+			
+			rs = state.executeQuery();
+			
+			while(rs.next()) {
+
+				
+				return rs.getInt(1);
+				
+			}
+			
+			state.close();
+			conexion.close();
+			
+		}catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+    	
+    	
+		return 0;
+    	
+    	
+    	 
+    }
 
 
 	public String crearXML_ArticulosSinRealizar (List<ArticuloPedido> lista){

@@ -38,6 +38,7 @@ public class DistribuidorDAO {
 
 	private DataSource origendatos;
 	private final String FILENAME_DIST = "XML_list_distribuidor.xml";
+	private final String FILENAME_un_dist = "XML_distr.xml";
 
 	public DistribuidorDAO(DataSource origendatos) {
 
@@ -253,6 +254,42 @@ public class DistribuidorDAO {
 		
 	}
 	
+	public Distribuidor obtenDistribuidor_porID(int id_dist) {
+		
+		Connection conexion = null;
+		PreparedStatement state = null;
+		Distribuidor d = null;
+		ResultSet rs =null;
+
+		try {
+
+			conexion = origendatos.getConnection();
+			String sql = "SELECT * FROM DISTRIBUIDOR WHERE ID_DISTRIBUIDOR = ?";
+
+			state = conexion.prepareStatement(sql);
+
+			state.setInt(1, id_dist);
+
+			rs = state.executeQuery();
+
+			while(rs.next()) {
+				
+				d = new Distribuidor(rs.getInt(1), rs.getString(2));
+			}
+			
+
+			state.close();
+			conexion.close();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		}
+
+		return d;
+	}
+	
 
 
 	
@@ -349,7 +386,67 @@ public class DistribuidorDAO {
 		
 	}
 
+	
+	
 
+	public String crearXML_un_Distribuidor(Distribuidor d) {
+		
+		 String s = "";
+	        String line;
+	          
+	      try{
+	           
+	              DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	              DocumentBuilder builder = factory.newDocumentBuilder();
+	              Document document = builder.newDocument();
+	              
+	              Element root = document.createElement("distribuidor_pedido");
+	              document.appendChild(root);
+
+	                  
+	                  Element dis = document.createElement("distribuidor");
+	                  root.appendChild(dis);
+	                 
+	                  Element id_distribuidor = document. createElement("id_distribuidor");
+	                  dis.appendChild(id_distribuidor);
+	                  id_distribuidor.appendChild(document.createTextNode(String.valueOf(d.getId())));
+	                  
+	                  
+	                  Element nombre = document.createElement("nombre");
+	                  dis.appendChild(nombre);
+	                  nombre.appendChild(document.createTextNode(String.valueOf(d.getNombre())));
+	   
+
+	                  
+        
+	              
+	              
+	              
+	              TransformerFactory tFactory = TransformerFactory.newInstance();
+	              Transformer transformer = tFactory.newTransformer();
+	              DOMSource source = new DOMSource(document);
+	              StreamResult result = new StreamResult(new File(FILENAME_un_dist));
+
+	              transformer.transform(source, result);
+	              
+	              File ar = new File(FILENAME_un_dist);
+	              FileReader f = new FileReader(ar);
+	              BufferedReader b = new BufferedReader(f); 
+	              while((line = b.readLine())!=null) {
+	                  s= s + line +"\n";
+	                  
+	              } 
+	              
+	              System.out.println(ar.getAbsolutePath());
+	              
+	          }catch( IOException | ParserConfigurationException | TransformerException | DOMException e){
+	              
+	              e.printStackTrace();
+	          }
+	     
+	          
+	          return s;
+	}
 
 
 
