@@ -34,8 +34,10 @@ import uned.pfg.bean.ArticuloPedido;
 public class AlmacenDAO {
 	
 	private DataSource origendatos;
-	Almacen almacen;
+	private Almacen almacen;
 	private final String ALMACEN = "XML_env_almacen.xml";
+	private PedidoDAO pedidoDAO;
+	
 	public AlmacenDAO(DataSource origendatos) {
 		
 		this.origendatos = origendatos;
@@ -53,10 +55,7 @@ public class AlmacenDAO {
 			
 			return null;
 		}
-		
-		
-		
-		
+
 	}
 	
 	public boolean estaEnAlmacen(Articulo art) {
@@ -127,6 +126,145 @@ public class AlmacenDAO {
 		
 	}
 	
+	public void altaProduccionArticulo(ArticuloPedido articuloPedido) {
+		
+		
+		//Buscar en el almacen el articulo
+		Almacen almacen = comprobarArticuloEnAlmacen(articuloPedido);
+		
+		if(almacen != null) {//quiere decir que ha encontrado el articulo en el almacen
+			
+			int sumalibreTotal = almacen.getCantidad_libre() + articuloPedido.getCant();
+			
+			pedidoDAO = new PedidoDAO(origendatos);
+			
+			List<ArticuloPedido> list = pedidoDAO.obtenArticulosPedidoSinRealizar(articuloPedido.getArticulo().getId_articulo());
+
+
+			if(list.isEmpty()) {
+				
+				almacen.setCantidad_almacenada(almacen.getCantidad_almacenada()+articuloPedido.getCant());
+				almacen.setCantidad_libre(sumalibreTotal);
+				
+				
+			}else {
+			
+			
+				int sobrante = actualizarArticulos(list, sumalibreTotal);
+				
+				almacen.setCantidad_almacenada(almacen.getCantidad_almacenada()+articuloPedido.getCant());
+				almacen.setCantidad_libre(sobrante);			
+			}
+			
+			
+
+			
+
+			
+			actualizaArticuloAlmacen(almacen, articuloPedido.getArticulo().getId_articulo());
+			
+			
+		}else { //almacen = null y por tanto no hay ninguno en el almacen
+			
+
+			introducirArticuloEnAlmacen(articuloPedido);
+			
+		}
+		
+		
+	}
+	
+	private void introducirArticuloEnAlmacen(ArticuloPedido articuloPedido) {
+		
+		Connection conexion =null;
+		PreparedStatement state = null;
+		
+		
+		try {
+			
+			conexion = origendatos.getConnection();
+			
+			String sql = "INSERT INTO ALMACEN "
+					+ "(ID_ARTICULO, CANTIDAD_ALMACENADA, CANTIDAD_LIBRE) "
+					+ "VALUES (?,?,?)";
+			
+			state = conexion.prepareStatement(sql);
+			
+			state.setInt(1, articuloPedido.getArticulo().getId_articulo());
+			state.setInt(2, articuloPedido.getCant());
+			state.setInt(3, articuloPedido.getCant());
+			
+			
+			state.execute();
+			
+
+			state.close();
+			conexion.close();
+			
+		}catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+	}
+
+	private void actualizaArticuloAlmacen(Almacen alm, int id_articulo) {
+
+
+		Connection conexion =null;
+		PreparedStatement state = null;
+		
+		
+		try {
+			
+			conexion = origendatos.getConnection();
+			
+			String sql = "UPDATE ALMACEN SET CANTIDAD_ALMACENADA =?, "
+					+ "CANTIDAD_LIBRE = ? WHERE  ID_ARTICULO = ?";
+			
+			state = conexion.prepareStatement(sql);
+			
+			
+			
+			state.setInt(1, alm.getCantidad_almacenada());
+			state.setInt(2, alm.getCantidad_libre());
+			state.setInt(3, id_articulo);
+			
+			state.execute();
+			
+
+			state.close();
+			conexion.close();
+			
+		}catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	private int actualizarArticulos(List<ArticuloPedido> list, int sumalibreTotal) {
+		
+		Iterator<ArticuloPedido> it = list.iterator();
+		
+		while(it.hasNext()) {
+			
+			ArticuloPedido artPed = it.next();
+			sumalibreTotal = sumalibreTotal - artPed.getCant();
+			
+			if(sumalibreTotal>=0) {
+				
+				pedidoDAO.actualizarRealizado(artPed);
+				
+			}//fin if
+			
+			
+		}
+		
+		return sumalibreTotal;
+	}
+
 	public List<Almacen> obtenAlmacen(){
 		
 		List<Almacen> lista = new ArrayList<Almacen>();

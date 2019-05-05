@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://ws.pfg.uned" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://ws.pfg.uned" xmlns:intf="http://ws.pfg.uned" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://ws.pfg.uned" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="nuevaAltaProduccion">
+    <complexType>
+     <sequence>
+      <element name="articuloPedido" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="nuevaAltaProduccionResponse">
+    <complexType>
+     <sequence>
+      <element name="nuevaAltaProduccionReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="nuevaAltaProduccionRequest">
+
+      <wsdl:part element="impl:nuevaAltaProduccion" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="nuevaAltaProduccionResponse">
+
+      <wsdl:part element="impl:nuevaAltaProduccionResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="WS_Alta_Nueva_Produccion">
+
+      <wsdl:operation name="nuevaAltaProduccion">
+
+         <wsdl:input message="impl:nuevaAltaProduccionRequest" name="nuevaAltaProduccionRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:nuevaAltaProduccionResponse" name="nuevaAltaProduccionResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="WS_Alta_Nueva_ProduccionSoapBinding" type="impl:WS_Alta_Nueva_Produccion">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="nuevaAltaProduccion">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="nuevaAltaProduccionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="nuevaAltaProduccionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="WS_Alta_Nueva_ProduccionService">
+
+      <wsdl:port binding="impl:WS_Alta_Nueva_ProduccionSoapBinding" name="WS_Alta_Nueva_Produccion">
+
+         <wsdlsoap:address location="http://localhost:8080/Aplicacion_Web/services/WS_Alta_Nueva_Produccion"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
