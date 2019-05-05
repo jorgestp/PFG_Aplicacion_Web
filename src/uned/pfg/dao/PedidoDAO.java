@@ -194,7 +194,7 @@ public class PedidoDAO {
 			/////////////////////////////////////////////////////////////////////////////////////////////////
 			/////////////////////////////////////////////////////////////////////////////////////////////////
 			/////////////////////////////////////////////////////////////////////////////////////////////////
-
+			
 			try {
 
 				conexion = origendatos.getConnection();
@@ -220,6 +220,7 @@ public class PedidoDAO {
 
 		}
 
+		estadoPedido(p.getId_pedido());
 		return true;
 
 	}
@@ -837,6 +838,103 @@ public class PedidoDAO {
 			e.printStackTrace();
 		}
 		
+		estadoPedido(artPed.getPedido().getId_pedido());
+		
+	}
+	
+	private void estadoPedido(int id_pedido) {
+		
+		/*List<Pedido> lista = new ArrayList<Pedido>();
+
+		Connection conexion = null;
+		Statement state = null;
+		ResultSet rs = null;
+		Pedido p = null;
+
+		try {
+
+			conexion = origendatos.getConnection();
+
+			String sql = "SELECT * FROM PEDIDO";
+
+			state = conexion.createStatement();
+
+			rs = state.executeQuery(sql);*/
+
+			//while (rs.next()) {
+
+				//int id_pedido = rs.getInt(1);
+				
+				boolean flag = comprobarArticulosPedido(id_pedido);
+				
+				if(flag) {
+					
+					cambioEstadoPedido(id_pedido);
+				}
+				
+			//}
+
+			//state.close();
+			//conexion.close();
+
+		//} catch (Exception e) {
+
+			//e.printStackTrace();
+		//}	
+		
+	}
+
+	private void cambioEstadoPedido(int id_pedido) {
+		
+		Pedido pedido = devolverPedidoPorID(id_pedido);
+		
+		Connection conexion =null;
+		PreparedStatement state = null;
+		
+		
+		try {
+			
+			conexion = origendatos.getConnection();
+			
+			String sql = "UPDATE PEDIDO SET ESTADO = ?  WHERE ID_PEDIDO = ? ";
+			
+			state = conexion.prepareStatement(sql);
+			
+			state.setString(1, "Realizado");
+			state.setInt(2, id_pedido);
+
+			
+			state.execute();
+			
+
+			state.close();
+			conexion.close();
+			
+		}catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+	}
+
+	private boolean comprobarArticulosPedido(int id_pedido) {
+
+		List<ArticuloPedido> listaArticulos = obtenArticulosPedido(id_pedido);
+		
+		Iterator<ArticuloPedido> it = listaArticulos.iterator();
+		
+		while(it.hasNext()) {
+			
+			ArticuloPedido artPed = it.next();
+			
+			if(artPed.isRealizado() == false) {
+				
+				return false;
+			}
+		}
+		
+		
+		return true;
 	}
 
 }
