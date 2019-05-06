@@ -937,4 +937,50 @@ public class PedidoDAO {
 		return true;
 	}
 
+	public List<Pedido> obtenPedidosConProdAcabados() {
+		
+		List<Pedido> lista = new ArrayList<Pedido>();
+
+		Connection conexion = null;
+		PreparedStatement state = null;
+		ResultSet rs = null;
+		Pedido p = null;
+
+		try {
+
+			conexion = origendatos.getConnection();
+
+			String sql = "SELECT * FROM PEDIDO WHERE ESTADO != ? ORDER BY ESTADO";
+
+			
+			state = conexion.prepareStatement(sql);
+
+			state.setString(1, "En Tramite");
+			
+			rs = state.executeQuery();
+
+			while (rs.next()) {
+
+				int id_pedido = rs.getInt(1);
+				int id_dist = rs.getInt(2);
+				Date f_realizado = rs.getDate(3);
+				Date f_envio = rs.getDate(4);
+				String estado = rs.getString(5);
+				// List<ArticuloPedido> articulosPedido = obtenArticulosPedido(id_pedido);
+
+				p = new Pedido(id_pedido, id_dist, f_realizado, f_envio, estado);
+				lista.add(p);
+			}
+
+			state.close();
+			conexion.close();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return lista;
+	}
+
 }
