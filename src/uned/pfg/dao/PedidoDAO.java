@@ -183,6 +183,8 @@ public class PedidoDAO {
 			/////////////////////////////////////////////////////////////////////////////////////////////////
 			/////////////////////////////////////////////////////////////////////////////////////////////////
 			Almacen alm = almacenDAO.comprobarArticuloEnAlmacen(artPed);
+			
+			if(alm !=null) {
 
 			if (alm.getCantidad_libre() >= artPed.getCant() && alm != null) {
 
@@ -190,6 +192,7 @@ public class PedidoDAO {
 
 				almacenDAO.actualizarCantidadLibre(artPed, alm.getCantidad_libre());
 
+			}
 			}
 			/////////////////////////////////////////////////////////////////////////////////////////////////
 			/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -450,8 +453,9 @@ public class PedidoDAO {
 	public List<ArticuloPedido> articulosSinRealizar() {
 
 		List<ArticuloPedido> lista = new ArrayList<ArticuloPedido>();
-
+		Articulo articulo = null;
 		Connection conexion = null;
+		
 
 		articuloDAO = new ArticuloDAO(origendatos);
 		almacenDAO = new AlmacenDAO(origendatos);
@@ -467,9 +471,35 @@ public class PedidoDAO {
 
 			while (rs.next()) {
 
-				Articulo articulo = articuloDAO.SeleccionarArticulo(rs.getInt(1));
+				int id_art = rs.getInt(1);
+				try {
+
+					String sql2 = "SELECT * FROM ARTICULO WHERE ID_ARTICULO=?";
+
+					 PreparedStatement state2 = conexion.prepareStatement(sql2);
+
+					state2.setInt(1, id_art);
+			
+					ResultSet rs2 = state2.executeQuery();
+					
+					while(rs2.next()) {
+						
+					 articulo = new Articulo(id_art, rs2.getString(2), rs2.getDate(3), rs2.getDouble(4));
+					}
+
+					state2.close();
+					
+					
+
+				} catch (Exception e) {
+
+					e.printStackTrace();
+					
+				}
+
+				
 				int cantidad = rs.getInt(2);
-				System.out.println(articulo.toString() + "  " + cantidad);
+				System.out.println( articulo.getId_articulo() + " " + articulo.getNombre() + "  " + cantidad);
 				ArticuloPedido artPed = new ArticuloPedido(articulo, cantidad);
 				if (almacenDAO.estaEnAlmacen(articulo)) {
 
@@ -657,6 +687,7 @@ public class PedidoDAO {
 			e.printStackTrace();
 		}
 
+		System.out.println(s);
 		return s;
 	}
 

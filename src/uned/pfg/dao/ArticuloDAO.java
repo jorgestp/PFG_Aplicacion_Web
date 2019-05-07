@@ -167,6 +167,7 @@ public class ArticuloDAO {
 		return a;
 		
 	}
+	
 	public String crearXML_Articulos(List<Articulo> listaArticulos) {
 		
 		

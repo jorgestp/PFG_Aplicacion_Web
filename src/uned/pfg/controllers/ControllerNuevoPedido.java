@@ -95,6 +95,9 @@ public class ControllerNuevoPedido extends HttpServlet {
 		
 		}else if( comando.equals("formaliza")) {
 			
+			List<ArticuloPedido> list = pedidoDAO.articulosSinRealizar();
+			String a = pedidoDAO.crearXML_ArticulosSinRealizar(list);
+			System.out.println(a);
 			HttpSession session = request.getSession();
 			Distribuidor dist = (Distribuidor) session.getAttribute("usuario");
 			String lista = request.getParameter("lista");
