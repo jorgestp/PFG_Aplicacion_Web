@@ -626,6 +626,7 @@ public class PedidoDAO {
 		} catch (Exception e) {
 
 			e.printStackTrace();
+			return -1;
 		}
 
 		return 0;

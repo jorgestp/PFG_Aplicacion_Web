@@ -131,16 +131,13 @@ public class AlmacenDAO {
 		
 		//Buscar en el almacen el articulo
 		Almacen almacen = comprobarArticuloEnAlmacen(articuloPedido);
+		pedidoDAO = new PedidoDAO(origendatos);
+		List<ArticuloPedido> list = pedidoDAO.obtenArticulosPedidoSinRealizar(articuloPedido.getArticulo().getId_articulo());
+		
 		
 		if(almacen != null) {//quiere decir que ha encontrado el articulo en el almacen
 			
 			int sumalibreTotal = almacen.getCantidad_libre() + articuloPedido.getCant();
-			
-			pedidoDAO = new PedidoDAO(origendatos);
-			
-			List<ArticuloPedido> list = pedidoDAO.obtenArticulosPedidoSinRealizar(articuloPedido.getArticulo().getId_articulo());
-
-
 			if(list.isEmpty()) {
 				
 				almacen.setCantidad_almacenada(almacen.getCantidad_almacenada()+articuloPedido.getCant());
@@ -155,12 +152,7 @@ public class AlmacenDAO {
 				almacen.setCantidad_almacenada(almacen.getCantidad_almacenada()+articuloPedido.getCant());
 				almacen.setCantidad_libre(sobrante);			
 			}
-			
-			
-
-			
-
-			
+	
 			actualizaArticuloAlmacen(almacen, articuloPedido.getArticulo().getId_articulo());
 			
 			
@@ -168,6 +160,18 @@ public class AlmacenDAO {
 			
 
 			introducirArticuloEnAlmacen(articuloPedido);
+			
+			//si la lista de articulosPedidoSinRealizar es diferente de vacia
+			if(!list.isEmpty()) {
+				
+				Almacen alm = comprobarArticuloEnAlmacen(articuloPedido);
+				int suma = alm.getCantidad_libre();
+				int sob = actualizarArticulos(list, suma);
+				if(sob != suma) {
+				alm.setCantidad_libre(sob);
+				actualizaArticuloAlmacen(alm, articuloPedido.getArticulo().getId_articulo());
+				}
+			}
 			
 		}
 		
@@ -248,17 +252,17 @@ public class AlmacenDAO {
 		
 		Iterator<ArticuloPedido> it = list.iterator();
 		
+		
 		while(it.hasNext()) {
 			
 			ArticuloPedido artPed = it.next();
-			sumalibreTotal = sumalibreTotal - artPed.getCant();
 			
-			if(sumalibreTotal>=0) {
+			if(sumalibreTotal >= artPed.getCant()) {
 				
+				sumalibreTotal = sumalibreTotal - artPed.getCant();				
 				pedidoDAO.actualizarRealizado(artPed);
 				
-			}//fin if
-			
+			}	
 			
 		}
 		

@@ -24,6 +24,7 @@ import uned.pfg.bean.Articulo;
 import uned.pfg.bean.ArticuloPedido;
 import uned.pfg.bean.Distribuidor;
 import uned.pfg.bean.Pedido;
+import uned.pfg.dao.AlmacenDAO;
 import uned.pfg.dao.ArticuloDAO;
 
 import uned.pfg.dao.PedidoDAO;
@@ -36,6 +37,7 @@ public class ControllerNuevoPedido extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticuloDAO articuloDAO;
 	private PedidoDAO pedidoDAO;
+	private AlmacenDAO almacenDAO;
 	private static List<ArticuloPedido> listaSeleccionados = new ArrayList<ArticuloPedido>();
 	
 	
@@ -48,6 +50,7 @@ public class ControllerNuevoPedido extends HttpServlet {
 		try {
 			articuloDAO = new ArticuloDAO(pool);
 			pedidoDAO = new PedidoDAO(pool);
+			almacenDAO = new AlmacenDAO(pool);
 		
 		}catch (Exception e) {
 			
@@ -95,9 +98,7 @@ public class ControllerNuevoPedido extends HttpServlet {
 		
 		}else if( comando.equals("formaliza")) {
 			
-			List<ArticuloPedido> list = pedidoDAO.articulosSinRealizar();
-			String a = pedidoDAO.crearXML_ArticulosSinRealizar(list);
-			System.out.println(a);
+			
 			HttpSession session = request.getSession();
 			Distribuidor dist = (Distribuidor) session.getAttribute("usuario");
 			String lista = request.getParameter("lista");
