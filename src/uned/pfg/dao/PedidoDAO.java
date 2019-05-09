@@ -223,7 +223,7 @@ public class PedidoDAO {
 
 		}
 
-		estadoPedido(p.getId_pedido());
+		estadoPedidoARealizado(p.getId_pedido());
 		return true;
 
 	}
@@ -870,7 +870,7 @@ public class PedidoDAO {
 			e.printStackTrace();
 		}
 		
-		estadoPedido(artPed.getPedido().getId_pedido());
+		estadoPedidoARealizado(artPed.getPedido().getId_pedido());
 		
 	}
 	
@@ -909,7 +909,40 @@ public class PedidoDAO {
 		}
 	}
 	
-	private void estadoPedido(int id_pedido) {
+	
+	public void cambiarEstadoPedido(int id_pedido, String estado) {
+		
+		
+		Connection conexion =null;
+		PreparedStatement state = null;
+		
+		
+		try {
+			
+			conexion = origendatos.getConnection();
+			
+			String sql = "UPDATE PEDIDO SET ESTADO = ?  WHERE ID_PEDIDO = ? ";
+			
+			state = conexion.prepareStatement(sql);
+			
+			state.setString(1, estado);
+			state.setInt(2, id_pedido);
+
+			
+			state.execute();
+			
+
+			state.close();
+			conexion.close();
+			
+		}catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+	}
+	
+	private void estadoPedidoARealizado(int id_pedido) {
 		
 		/*List<Pedido> lista = new ArrayList<Pedido>();
 
@@ -936,7 +969,7 @@ public class PedidoDAO {
 				
 				if(flag) {
 					
-					cambioEstadoPedido(id_pedido);
+					cambioEstadoPedido_a_Realizado(id_pedido);
 				}
 				
 			//}
@@ -951,7 +984,7 @@ public class PedidoDAO {
 		
 	}
 
-	private void cambioEstadoPedido(int id_pedido) {
+	private void cambioEstadoPedido_a_Realizado(int id_pedido) {
 		
 		Pedido pedido = devolverPedidoPorID(id_pedido);
 		
