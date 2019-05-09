@@ -874,6 +874,41 @@ public class PedidoDAO {
 		
 	}
 	
+	
+	public boolean actualizarEmbalado(int id_pedido, int id_articulo) {
+		
+		Connection conexion =null;
+		PreparedStatement state = null;
+		
+		
+		try {
+			
+			conexion = origendatos.getConnection();
+			
+			String sql = "UPDATE ARTICULO_PEDIDO SET EMBALADO = 1 WHERE ID_PEDIDO = ? AND ID_ARTICULO = ?";
+			
+			state = conexion.prepareStatement(sql);
+			
+			
+			
+			state.setInt(1, id_pedido);
+			state.setInt(2, id_articulo);
+			
+			state.execute();
+			
+
+			state.close();
+			conexion.close();
+			return true;
+			
+		}catch (Exception e) {
+			
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	
 	private void estadoPedido(int id_pedido) {
 		
 		/*List<Pedido> lista = new ArrayList<Pedido>();

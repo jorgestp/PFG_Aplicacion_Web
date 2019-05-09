@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://ws.pfg.uned" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://ws.pfg.uned" xmlns:intf="http://ws.pfg.uned" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://ws.pfg.uned" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="actualizaEmbalado">
+    <complexType>
+     <sequence>
+      <element name="id_pedido" type="xsd:string"/>
+      <element name="id_articulo" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="actualizaEmbaladoResponse">
+    <complexType>
+     <sequence>
+      <element name="actualizaEmbaladoReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="actualizaEmbaladoResponse">
+
+      <wsdl:part element="impl:actualizaEmbaladoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="actualizaEmbaladoRequest">
+
+      <wsdl:part element="impl:actualizaEmbalado" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="WS_Actualizar_Embalado">
+
+      <wsdl:operation name="actualizaEmbalado">
+
+         <wsdl:input message="impl:actualizaEmbaladoRequest" name="actualizaEmbaladoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:actualizaEmbaladoResponse" name="actualizaEmbaladoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="WS_Actualizar_EmbaladoSoapBinding" type="impl:WS_Actualizar_Embalado">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="actualizaEmbalado">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="actualizaEmbaladoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="actualizaEmbaladoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="WS_Actualizar_EmbaladoService">
+
+      <wsdl:port binding="impl:WS_Actualizar_EmbaladoSoapBinding" name="WS_Actualizar_Embalado">
+
+         <wsdlsoap:address location="http://localhost:8080/Aplicacion_Web/services/WS_Actualizar_Embalado"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
