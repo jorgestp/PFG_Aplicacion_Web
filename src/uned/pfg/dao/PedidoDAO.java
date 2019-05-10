@@ -23,6 +23,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.commons.dbcp.BasicDataSource;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -31,18 +32,21 @@ import uned.pfg.bean.Almacen;
 import uned.pfg.bean.Articulo;
 import uned.pfg.bean.ArticuloPedido;
 import uned.pfg.bean.Pedido;
+import uned.pfg.ws.PoolConexiones;
 
 public class PedidoDAO {
 
-	private DataSource origendatos;
+	private BasicDataSource origendatos;
 	private final String FILENAME = "XML.xml";
 	private final String FILENAME_ARTICULO = "XML_ART.xml";
 	private final String FILENAME_artSinRealizar = "XML_ARTsinRealizar.xml";
 	private AlmacenDAO almacenDAO;
 	private ArticuloDAO articuloDAO;
 
-	public PedidoDAO(DataSource origendatos) {
+	public PedidoDAO(BasicDataSource origendatos) {
 
+		origendatos = PoolConexiones.getInstance().getConnection();
+		
 		this.origendatos = origendatos;
 
 	}
@@ -55,7 +59,16 @@ public class PedidoDAO {
 		try {
 
 			conexion = origendatos.getConnection();
-
+			
+			/*System.out.println("Nº MAX CONEXIONES ACTIVAS => " + origendatos.getMaxActive());
+			System.out.println("Nº MAX CONEXIONES que pueden estar INACTIVAS => " + origendatos.getMaxIdle());
+			System.out.println("Nº min CONEXIONES INACTIVAS => " + origendatos.getMinIdle());
+			System.out.println("Nº ACTUAL CONEXIONES ACTIVAS => " + origendatos.getNumActive());
+			System.out.println("Nº ACTUAL CONEXIONES INACTIVAS => " + origendatos.getNumIdle());
+			
+			System.out.println("###########################################################################");
+			System.out.println("###########################################################################");
+			*/
 			String sql = "INSERT INTO PEDIDO (id_distribuidor, fecha_pedido, fecha_envio, estado) "
 					+ "VALUES (?,?,?,?)";
 
@@ -83,6 +96,7 @@ public class PedidoDAO {
 			conexion.close();
 
 			int id_pedido = obteneridPedido();
+			
 
 			return id_pedido;
 
@@ -90,6 +104,7 @@ public class PedidoDAO {
 
 			e.printStackTrace();
 		}
+		
 
 		return 0;
 	}
@@ -201,6 +216,8 @@ public class PedidoDAO {
 			try {
 
 				conexion = origendatos.getConnection();
+				
+				
 				String sql = "INSERT INTO ARTICULO_PEDIDO (id_pedido, id_articulo, cantidad, realizado, embalado)"
 						+ "VALUES (?,?,?,?,?) ";
 				state = conexion.prepareStatement(sql);
@@ -215,7 +232,7 @@ public class PedidoDAO {
 
 				state.close();
 				conexion.close();
-
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 				return false;

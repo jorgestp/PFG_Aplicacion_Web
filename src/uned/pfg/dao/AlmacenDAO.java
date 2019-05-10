@@ -22,6 +22,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.commons.dbcp.BasicDataSource;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -29,16 +30,19 @@ import org.w3c.dom.Element;
 import uned.pfg.bean.Almacen;
 import uned.pfg.bean.Articulo;
 import uned.pfg.bean.ArticuloPedido;
+import uned.pfg.ws.PoolConexiones;
 
 
 public class AlmacenDAO {
 	
-	private DataSource origendatos;
+	private BasicDataSource origendatos;
 	private Almacen almacen;
 	private final String ALMACEN = "XML_env_almacen.xml";
 	private PedidoDAO pedidoDAO;
 	
-	public AlmacenDAO(DataSource origendatos) {
+	public AlmacenDAO(BasicDataSource origendatos) {
+		
+		origendatos = PoolConexiones.getInstance().getConnection();
 		
 		this.origendatos = origendatos;
 		
@@ -63,7 +67,7 @@ public class AlmacenDAO {
 		Connection conexion =null;
 		PreparedStatement state = null;
 		ResultSet rs;
-		
+		boolean flag = false;
 		try {
 			
 			conexion = origendatos.getConnection();
@@ -78,9 +82,9 @@ public class AlmacenDAO {
 			while(rs.next()) {
 				
 				 almacen = new Almacen(rs.getInt(1), rs.getInt(2), rs.getInt(3));
+				flag = true;
 				
 				
-				return true;
 			}
 			state.close();
 			conexion.close();
@@ -89,7 +93,7 @@ public class AlmacenDAO {
 			e.printStackTrace();
 		}
 		
-		return false;
+		return flag;
 		
 		
 	}

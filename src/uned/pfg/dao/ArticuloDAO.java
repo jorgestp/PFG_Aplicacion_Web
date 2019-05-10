@@ -28,6 +28,7 @@ import org.w3c.dom.Element;
 
 import uned.pfg.bean.Articulo;
 import uned.pfg.bean.ArticuloPedido;
+import uned.pfg.ws.PoolConexiones;
 
 public class ArticuloDAO {
 
@@ -36,6 +37,8 @@ public class ArticuloDAO {
 	private final String FILENAME_ARTICULOS = "XML_articulos.xml";
 	private final String FILENAME_ARTICULO_selec = "XML_articulo_selec";
 	public ArticuloDAO(DataSource origendatos) {
+		
+		origendatos = PoolConexiones.getInstance().getConnection();
 		
 		this.origendatos = origendatos;
 		

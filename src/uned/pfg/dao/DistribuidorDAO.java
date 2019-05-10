@@ -33,6 +33,7 @@ import com.mysql.fabric.xmlrpc.base.Array;
 import uned.pfg.bean.ArticuloPedido;
 import uned.pfg.bean.Distribuidor;
 import uned.pfg.bean.Pedido;
+import uned.pfg.ws.PoolConexiones;
 
 public class DistribuidorDAO {
 
@@ -42,6 +43,8 @@ public class DistribuidorDAO {
 
 	public DistribuidorDAO(DataSource origendatos) {
 
+		origendatos = PoolConexiones.getInstance().getConnection();
+		
 		this.origendatos = origendatos;
 		
 	}

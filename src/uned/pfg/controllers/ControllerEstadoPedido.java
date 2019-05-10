@@ -14,9 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import org.apache.commons.dbcp.BasicDataSource;
+
 import uned.pfg.bean.Distribuidor;
 import uned.pfg.bean.Pedido;
 import uned.pfg.dao.PedidoDAO;
+import uned.pfg.ws.PoolConexiones;
 
 /**
  * Servlet implementation class ControllerEstadoPedido
@@ -25,16 +28,17 @@ import uned.pfg.dao.PedidoDAO;
 public class ControllerEstadoPedido extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private PedidoDAO pedidoDAO;
+	private BasicDataSource basicDataSource;
 	
-	
-	@Resource(name="jdbc/prueba")
-	private DataSource pool;
+	//@Resource(name="jdbc/prueba")
+	//private DataSource pool;
 	
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		
 		try {
-			pedidoDAO = new PedidoDAO(pool);
+			
+			pedidoDAO = new PedidoDAO(basicDataSource);
 		
 		}catch (Exception e) {
 			

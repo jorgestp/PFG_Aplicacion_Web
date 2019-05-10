@@ -15,11 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import org.apache.commons.dbcp.BasicDataSource;
 
 import uned.pfg.bean.Distribuidor;
 import uned.pfg.bean.Pedido;
 import uned.pfg.dao.DistribuidorDAO;
 import uned.pfg.dao.PedidoDAO;
+import uned.pfg.ws.PoolConexiones;
 import uned.pfg.ws.WS_Pedido;
 
 /**
@@ -29,9 +31,9 @@ import uned.pfg.ws.WS_Pedido;
 public class ControllerLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    
-	@Resource(name="jdbc/prueba")
-	private DataSource pool;
-	
+	//@Resource(name="jdbc/prueba")
+	//private DataSource pool;
+	private BasicDataSource basicDataSource;
 	private DistribuidorDAO distribuidorDAO;
 	private PedidoDAO pedidoDAO;
 
@@ -40,9 +42,10 @@ public class ControllerLogin extends HttpServlet {
 		super.init(config);
 		
 		try {
-			distribuidorDAO = new DistribuidorDAO(pool);
+			
+			distribuidorDAO = new DistribuidorDAO(basicDataSource);
 		
-			pedidoDAO = new PedidoDAO(pool);
+			pedidoDAO = new PedidoDAO(basicDataSource);
 		}catch (Exception e) {
 			
 			throw new ServletException();

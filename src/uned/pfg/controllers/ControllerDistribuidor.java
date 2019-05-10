@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import org.apache.commons.dbcp.BasicDataSource;
+
 import uned.pfg.bean.Distribuidor;
 import uned.pfg.dao.DistribuidorDAO;
 
@@ -22,10 +24,12 @@ import uned.pfg.dao.DistribuidorDAO;
  */
 @WebServlet("/ControllerDistribuidor")
 public class ControllerDistribuidor extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 	
-	@Resource(name="jdbc/prueba")
-	private DataSource pool;
+	
+	private static final long serialVersionUID = 1L;
+	private BasicDataSource basicDataSource;
+	/*@Resource(name="jdbc/prueba")
+	private DataSource pool;*/
 	
 	private DistribuidorDAO distribuidorDAO;
 
@@ -34,7 +38,7 @@ public class ControllerDistribuidor extends HttpServlet {
 		super.init(config);
 		
 		try {
-			distribuidorDAO = new DistribuidorDAO(pool);
+			distribuidorDAO = new DistribuidorDAO(basicDataSource);
 		
 		}catch (Exception e) {
 			

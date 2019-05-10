@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import org.apache.commons.dbcp.BasicDataSource;
 
 import uned.pfg.bean.Articulo;
 import uned.pfg.bean.ArticuloPedido;
@@ -28,6 +29,7 @@ import uned.pfg.dao.AlmacenDAO;
 import uned.pfg.dao.ArticuloDAO;
 
 import uned.pfg.dao.PedidoDAO;
+import uned.pfg.ws.PoolConexiones;
 
 /**
  * Servlet implementation class ControllerNuevoPedido
@@ -39,18 +41,19 @@ public class ControllerNuevoPedido extends HttpServlet {
 	private PedidoDAO pedidoDAO;
 	private AlmacenDAO almacenDAO;
 	private static List<ArticuloPedido> listaSeleccionados = new ArrayList<ArticuloPedido>();
+	private BasicDataSource basicDataSource;
 	
-	
-	@Resource(name="jdbc/prueba")
-	private DataSource pool;
+	//@Resource(name="jdbc/prueba")
+	//private DataSource pool;
 	
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		
 		try {
-			articuloDAO = new ArticuloDAO(pool);
-			pedidoDAO = new PedidoDAO(pool);
-			almacenDAO = new AlmacenDAO(pool);
+			//basicDataSource = PoolConexiones.getInstance().getConnection();
+			articuloDAO = new ArticuloDAO(basicDataSource);
+			pedidoDAO = new PedidoDAO(basicDataSource);
+			almacenDAO = new AlmacenDAO(basicDataSource);
 		
 		}catch (Exception e) {
 			
@@ -98,6 +101,95 @@ public class ControllerNuevoPedido extends HttpServlet {
 		
 		}else if( comando.equals("formaliza")) {
 			
+			/*List<ArticuloPedido> l = new ArrayList<ArticuloPedido>();
+			
+			l.add(new ArticuloPedido(new Articulo(1), 2500, false, false));
+			l.add(new ArticuloPedido(new Articulo(2), 2500, false, false));
+			l.add(new ArticuloPedido(new Articulo(3), 2500, false, false));
+			l.add(new ArticuloPedido(new Articulo(4), 2500, false, false));
+			l.add(new ArticuloPedido(new Articulo(5), 2500, false, false));
+			l.add(new ArticuloPedido(new Articulo(6), 2500, false, false));
+			l.add(new ArticuloPedido(new Articulo(8), 2500, false, false));
+			l.add(new ArticuloPedido(new Articulo(1), 2500, false, false));
+			l.add(new ArticuloPedido(new Articulo(2), 2500, false, false));
+			l.add(new ArticuloPedido(new Articulo(3), 2500, false, false));
+			l.add(new ArticuloPedido(new Articulo(1), 2500, false, false));
+			l.add(new ArticuloPedido(new Articulo(2), 2500, false, false));///HASTA AQUI HA METIDO
+			l.add(new ArticuloPedido(new Articulo(3), 2500, false, false));
+			l.add(new ArticuloPedido(new Articulo(4), 2500, false, false));
+			l.add(new ArticuloPedido(new Articulo(5), 2500, false, false));
+			l.add(new ArticuloPedido(new Articulo(6), 2500, false, false));
+			l.add(new ArticuloPedido(new Articulo(8), 2500, false, false));
+			l.add(new ArticuloPedido(new Articulo(1), 2500, false, false));
+			l.add(new ArticuloPedido(new Articulo(2), 2500, false, false));
+			l.add(new ArticuloPedido(new Articulo(3), 2500, false, false));
+			
+			String fe = "2022-01-01";
+			SimpleDateFormat formatofecha = new SimpleDateFormat("yyyy-MM-dd");
+			
+			
+			Date d1 = null;
+			
+			try {
+				d1 = formatofecha.parse(fe);
+			} catch (ParseException e) {
+				
+				e.printStackTrace();
+			}
+			
+			Pedido ped = new Pedido(0, d1, d1, "En Tramite", l);
+			
+			int i = pedidoDAO.insertaPedido(ped);
+			ped.setId_pedido(i);
+			
+			pedidoDAO.insertarArticulos(ped);
+			
+			System.out.println("******************************************************************************");
+			
+			List<ArticuloPedido> l2 = new ArrayList<ArticuloPedido>();
+			
+			l2.add(new ArticuloPedido(new Articulo(1), 2500, false, false));
+			l2.add(new ArticuloPedido(new Articulo(2), 2500, false, false));
+			l2.add(new ArticuloPedido(new Articulo(3), 2500, false, false));
+			l2.add(new ArticuloPedido(new Articulo(4), 2500, false, false));
+			l2.add(new ArticuloPedido(new Articulo(5), 2500, false, false));
+			l2.add(new ArticuloPedido(new Articulo(6), 2500, false, false));
+			l2.add(new ArticuloPedido(new Articulo(8), 2500, false, false));
+			l2.add(new ArticuloPedido(new Articulo(1), 2500, false, false));
+			l2.add(new ArticuloPedido(new Articulo(2), 2500, false, false));
+			l2.add(new ArticuloPedido(new Articulo(3), 2500, false, false));
+			l2.add(new ArticuloPedido(new Articulo(1), 2500, false, false));
+			l2.add(new ArticuloPedido(new Articulo(2), 2500, false, false));
+			l2.add(new ArticuloPedido(new Articulo(3), 2500, false, false));
+			l2.add(new ArticuloPedido(new Articulo(4), 2500, false, false));
+			l2.add(new ArticuloPedido(new Articulo(5), 2500, false, false));
+			l2.add(new ArticuloPedido(new Articulo(6), 2500, false, false));
+			l2.add(new ArticuloPedido(new Articulo(8), 2500, false, false));
+			l2.add(new ArticuloPedido(new Articulo(1), 2500, false, false));
+			l2.add(new ArticuloPedido(new Articulo(2), 2500, false, false));
+			l2.add(new ArticuloPedido(new Articulo(3), 2500, false, false));
+			
+			String fe2 = "2022-01-01";
+			
+
+			Date d12 = null;
+			
+			try {
+				d12 = formatofecha.parse(fe2);
+			} catch (ParseException e) {
+				
+				e.printStackTrace();
+			}
+			
+			Pedido ped2 = new Pedido(0, d12, d12, "En Tramite", l2);
+			int i2 = pedidoDAO.insertaPedido(ped2);
+			ped.setId_pedido(i2);
+			
+			pedidoDAO.insertarArticulos(ped2);
+			
+			*/
+			
+
 			
 			HttpSession session = request.getSession();
 			Distribuidor dist = (Distribuidor) session.getAttribute("usuario");
