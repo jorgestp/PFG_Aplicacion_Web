@@ -51,7 +51,7 @@
 
 		<p id="pedSist">PEDIDOS EN EL SISTEMA</p>
 
-		<table id="pedidosSistema" width="750" align="center" border="1">
+		<table id="pedidosSistema" width="750" align="center" border="0">
 			<tr>
 				<th width="150">ID</th>
 				<th width="200">FECHA REALIZAZO</th>
@@ -110,7 +110,7 @@
 
 		<p id="pedSist">PEDIDO SELECCIONADO => ${id_pedido}</p>
 
-		<table id="pedidosSistemaArt" width="750" align="center" border="1">
+		<table id="pedidosSistemaArt" width="750" align="center" border="0">
 			<tr>
 				<th width="150">ID</th>
 				<th width="200">NOMBRE ARTICULO</th>
