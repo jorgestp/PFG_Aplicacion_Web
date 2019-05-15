@@ -63,41 +63,41 @@
 		</table>
 
 		<div id="scrol">
-			<table id="lista" width="750" align="center" >
+			<table id="lista" width="750" align="center">
 
 				<c:forEach var="temprod" items="${pedido}">
-				
+
 					<c:url var="temp" value="ControllerEstadoPedido">
 
-					<c:param name="instruccion" value="ver"></c:param>
-					<c:param name="id_pedido" value="${temprod.id_pedido}"></c:param>
+						<c:param name="instruccion" value="ver"></c:param>
+						<c:param name="id_pedido" value="${temprod.id_pedido}"></c:param>
 					</c:url>
-					
+
 					<tr>
 
 						<td width="150">${temprod.id_pedido}</td>
 						<td width="200">${temprod.fecha_entrada}</td>
 						<td width="200">${temprod.fecha_envio}</td>
-						
+
 
 						<c:choose>
 							<c:when test="${temprod.estado == 'En Tramite'}">
-    						<td width="200" style="background-color: #EC7063;">${temprod.estado}</td>
-  							</c:when>
-  							<c:when test="${temprod.estado == 'Realizado'}">
-    						<td width="200" style="background-color: #F1C40F;">${temprod.estado}</td>
-  							</c:when>
+								<td width="200" style="background-color: #EC7063;">${temprod.estado}</td>
+							</c:when>
+							<c:when test="${temprod.estado == 'Realizado'}">
+								<td width="200" style="background-color: #F1C40F;">${temprod.estado}</td>
+							</c:when>
 							<c:when test="${temprod.estado == 'Preparado'}">
-    						<td width="200" style="background-color: #C39BD3;">${temprod.estado}</td>
-  							</c:when>
+								<td width="200" style="background-color: #C39BD3;">${temprod.estado}</td>
+							</c:when>
 							<c:when test="${temprod.estado == 'Terminado'}">
-    						<td width="200" style="background-color: 3498DB;">${temprod.estado}</td>
-  							</c:when> 
-  							<c:when test="${temprod.estado == 'Enviado'}">
-    						<td width="200" style="background-color: #2ECC71;">${temprod.estado}</td>
-  							</c:when> 													
+								<td width="200" style="background-color: 3498DB;">${temprod.estado}</td>
+							</c:when>
+							<c:when test="${temprod.estado == 'Enviado'}">
+								<td width="200" style="background-color: #2ECC71;">${temprod.estado}</td>
+							</c:when>
 						</c:choose>
-						<td width="200"><a id="del" href="${temp}">Ver</a></td>	
+						<td width="200"><a id="del" href="${temp}">Ver</a></td>
 
 					</tr>
 
@@ -106,6 +106,38 @@
 
 
 			</table>
+		</div>
+
+		<p id="pedSist">PEDIDO SELECCIONADO => ${id_pedido}</p>
+
+		<table id="pedidosSistemaArt" width="750" align="center" border="1">
+			<tr>
+				<th width="150">ID</th>
+				<th width="200">NOMBRE ARTICULO</th>
+				<th width="200">CANTIDAD</th>
+
+			</tr>
+		</table>
+
+		<div id="scrol2">
+			<table id="listaArt" width="750" align="center">
+			<c:forEach var="temprod" items="${articulos}">
+
+
+					<tr>
+
+						<td width="150">${temprod.articulo.id_articulo}</td>
+						<td width="200">${temprod.articulo.nombre}</td>
+						<td width="200">${temprod.cant}</td>
+
+
+					</tr>
+
+				</c:forEach>
+
+			</table>
+
+
 		</div>
 	</section>
 

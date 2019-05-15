@@ -183,6 +183,7 @@ footer{
 	margin-top:150px;
 }
 
+
 #tituloTabla{
 	width:90%;
 	margin:0 auto;
@@ -353,23 +354,27 @@ color:#FFF;
 	
 }
 #listaTitulo{
-		margin-top:5px;
+		margin-top:10px;
 		background-color:#666;
 		color:#FFF
 }
+#pedidosSistemaArt{
+		margin-top:10px;
+		background-color:#099;
+		color:#FFF
+}
 
-#listaTitulo th{
+#listaTitulo th, #pedidosSistemaArt th{
 	font-size:18px;
 	font-weight:bold;
 	font-style:italic;
 	
 }
 
-#lista{
+#lista, #listaArt{
 	font-style:italic;
 	font-size:18px;
-	
-	
+
 }
 
 #formulario{
@@ -383,13 +388,9 @@ color:#FFF;
 #enviar{
 	
 	width:200px;
-	height:50px;
 	font-style:italic;
 	font-weight:bold;
-	font-size:18px;
-	color:white;
 	border:0;
-	border-radius:3px;
 	background-color:#09C;
 }
 
@@ -411,6 +412,15 @@ font-weight:bold;
 	margin:0 auto;
 	margin-bottom:20px;
 	height:150px;
+	overflow-x:hidden;
+	overflow-y:scroll;
+}
+
+#scrol2{
+	width:750px;
+	margin:0 auto;
+	margin-bottom:20px;
+	height:80px;
 	overflow-x:hidden;
 	overflow-y:scroll;
 }
