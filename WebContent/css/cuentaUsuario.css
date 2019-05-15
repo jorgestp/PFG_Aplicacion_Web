@@ -89,7 +89,7 @@ q:before, q:after { content:''; }
 }
 
 section{
-	background-image:url("../imagenes/marca_agua_uned.png");
+	background-image:url(imagenes/marca_agua_uned.png);
 	/*Hace que la imagen no se repita en el contenedor*/
 	background-repeat:no-repeat;
 	/*Se pociciona en el centro del contenedor*/
@@ -193,7 +193,7 @@ footer{
 	
 	width:75%;
 	margin:0 auto;
-	margin-top: 40px;
+	margin-top: 15px;
 	
 	
 }
@@ -218,7 +218,7 @@ border-radius:4px;
 	
 }
 
-#enviar{
+#adicionar{
 	
 	width:100px;
 	height:35px;
@@ -244,7 +244,7 @@ display:block;
 #datospersonales input.error{
 
 border:dashed;
-border-color:#F00;	
+border-color:	
 }
 
 #titulo{
@@ -262,31 +262,7 @@ border-bottom-style:double;
 	
 }
 
-a:active, a:hover, a:link, a:visited {
-	
-	text-decoration: none;
-		font-size:16px;
-        font-family:Verdana,Helvetica;
-        font-weight:bold;
-        color:#FFF;
-}
-
 #exito{
-	width:50%;
-	margin:0 auto;
-	text-align:center;
-	background-color:#0C3;
-	height:30px;
-	margin-top:10px;
-	box-shadow:#060 2px 2px 2px;
-	padding-top:5px;
-	font-size:20px;
-	font-weight:bold;
-	color:#030;
-	font-style:italic
-}
-
-#error{
 	width:50%;
 	margin:0 auto;
 	text-align:center;
@@ -301,26 +277,25 @@ a:active, a:hover, a:link, a:visited {
 	font-style:italic
 }
 
-input::-webkit-input-placeholder {
-  color: #FFF;
-}
-input:-moz-placeholder {
-  color: #FFF; 
-}
-input:-ms-input-placeholder { 
-  color: #FFF;
-}
-#del{
-	
-	color: red;
-	text-decoration: none;
-	
-}
 #fomalizar{
 	
-	color: green;
-	text-decoration: none;
-	font-size: 24;
+border-top:dashed;
+border-bottom-style:dashed;
+	
+		
+}
+#formalizacion{
+
+margin:0 auto;
+text-align:right;
+font-size:20px;
+font-weight:bold;
+width:75%;
+margin-top:10px;
+font-style:italic;
+color:#FFF;
+
+	
 }
 
 #pedido{
@@ -345,7 +320,7 @@ input:-ms-input-placeholder {
 
 #muestraPedido{
 	
-	height:300px; 
+	height:150px; 
 	overflow:auto;
 	width:750px;
 }
@@ -359,5 +334,144 @@ input:-ms-input-placeholder {
 	font-style:italic;
 	background-color:#030;
 	height:3.0em;
+	border-radius:5px;
+}
+
+
+#state{
+
+	width:750px;
+	margin:0 auto;
+	margin-top:50px;
+	height:50px;
+		color:white;
+	font-size:16px;
+	font-weight:bold;
+	font-style:italic;
+	background-color:#030;
+		
+	
+}
+#listaTitulo{
+		margin-top:5px;
+		background-color:#666;
+		color:#FFF
+}
+
+#listaTitulo th{
+	font-size:18px;
+	font-weight:bold;
+	font-style:italic;
+	
+}
+
+#lista{
+	font-style:italic;
+	font-size:18px;
+	
+	
+}
+
+#formulario{
+	margin-top:10px;
+}
+#pedir{
+	text-align:center;
+	border:0;
+}
+
+#enviar{
+	
+	width:200px;
+	height:50px;
+	font-style:italic;
+	font-weight:bold;
+	font-size:18px;
+	color:white;
+	border:0;
+	border-radius:3px;
+	background-color:#09C;
+}
+
+#nom{
+	width:300px;
+}
+
+.adicionados{
+margin-top:10px;
+font-family:Arial, Helvetica, sans-serif;
+font-size:18px;
+font-style:italic;
+font-weight:bold;
+	
+}
+
+#scrol{
+	width:750px;
+	margin:0 auto;
+	margin-bottom:20px;
+	height:150px;
+	overflow-x:hidden;
+	overflow-y:scroll;
+}
+
+label.error{
+font-size:12px;
+font-family:Arial, Helvetica, sans-serif;
+font-style:italic;
+display:block;
+color:#F00;
+}
+
+input.error{
+color:#F00;
+font-size:12px;
+border-color:#F00;
+border:dashed;
+border:#F33;
+	
+}
+
+#info{
+
+width:75%;
+margin:0 auto;
+margin-top:10px;
+font-size:16px;
+font-style:oblique;
+font-weight:bold;
+color:#FFF;
+background-color:#F00;
+		border-radius:2px;
+		box-shadow:#FC9 2px 2px 2px;
+text-align:center;
+	
+}
+
+#pedSist{
+	width:75%;
+	margin:0 auto;
+	margin-top:20px;
+	font:Arial, Helvetica, sans-serif;
+	font-size:18px;
+	font-style:italic;
+	font-weight:bold;
+	text-align:center;
+	
+}
+
+#pedidosSistema{
+		
+		margin-top:10px;
+		background-color:#666;
+		color:#FFF
+}
+
+
+#pedidosSistema th{
+	
+	font-size:18px;
+	font-weight:bold;
+	font-style:italic;
 	
 }

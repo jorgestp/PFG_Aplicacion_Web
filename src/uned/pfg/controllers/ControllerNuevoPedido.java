@@ -100,101 +100,29 @@ public class ControllerNuevoPedido extends HttpServlet {
 			
 		
 		}else if( comando.equals("formaliza")) {
-			
-			/*List<ArticuloPedido> l = new ArrayList<ArticuloPedido>();
-			
-			l.add(new ArticuloPedido(new Articulo(1), 2500, false, false));
-			l.add(new ArticuloPedido(new Articulo(2), 2500, false, false));
-			l.add(new ArticuloPedido(new Articulo(3), 2500, false, false));
-			l.add(new ArticuloPedido(new Articulo(4), 2500, false, false));
-			l.add(new ArticuloPedido(new Articulo(5), 2500, false, false));
-			l.add(new ArticuloPedido(new Articulo(6), 2500, false, false));
-			l.add(new ArticuloPedido(new Articulo(8), 2500, false, false));
-			l.add(new ArticuloPedido(new Articulo(1), 2500, false, false));
-			l.add(new ArticuloPedido(new Articulo(2), 2500, false, false));
-			l.add(new ArticuloPedido(new Articulo(3), 2500, false, false));
-			l.add(new ArticuloPedido(new Articulo(1), 2500, false, false));
-			l.add(new ArticuloPedido(new Articulo(2), 2500, false, false));///HASTA AQUI HA METIDO
-			l.add(new ArticuloPedido(new Articulo(3), 2500, false, false));
-			l.add(new ArticuloPedido(new Articulo(4), 2500, false, false));
-			l.add(new ArticuloPedido(new Articulo(5), 2500, false, false));
-			l.add(new ArticuloPedido(new Articulo(6), 2500, false, false));
-			l.add(new ArticuloPedido(new Articulo(8), 2500, false, false));
-			l.add(new ArticuloPedido(new Articulo(1), 2500, false, false));
-			l.add(new ArticuloPedido(new Articulo(2), 2500, false, false));
-			l.add(new ArticuloPedido(new Articulo(3), 2500, false, false));
-			
-			String fe = "2022-01-01";
-			SimpleDateFormat formatofecha = new SimpleDateFormat("yyyy-MM-dd");
-			
-			
-			Date d1 = null;
-			
-			try {
-				d1 = formatofecha.parse(fe);
-			} catch (ParseException e) {
-				
-				e.printStackTrace();
-			}
-			
-			Pedido ped = new Pedido(0, d1, d1, "En Tramite", l);
-			
-			int i = pedidoDAO.insertaPedido(ped);
-			ped.setId_pedido(i);
-			
-			pedidoDAO.insertarArticulos(ped);
-			
-			System.out.println("******************************************************************************");
-			
-			List<ArticuloPedido> l2 = new ArrayList<ArticuloPedido>();
-			
-			l2.add(new ArticuloPedido(new Articulo(1), 2500, false, false));
-			l2.add(new ArticuloPedido(new Articulo(2), 2500, false, false));
-			l2.add(new ArticuloPedido(new Articulo(3), 2500, false, false));
-			l2.add(new ArticuloPedido(new Articulo(4), 2500, false, false));
-			l2.add(new ArticuloPedido(new Articulo(5), 2500, false, false));
-			l2.add(new ArticuloPedido(new Articulo(6), 2500, false, false));
-			l2.add(new ArticuloPedido(new Articulo(8), 2500, false, false));
-			l2.add(new ArticuloPedido(new Articulo(1), 2500, false, false));
-			l2.add(new ArticuloPedido(new Articulo(2), 2500, false, false));
-			l2.add(new ArticuloPedido(new Articulo(3), 2500, false, false));
-			l2.add(new ArticuloPedido(new Articulo(1), 2500, false, false));
-			l2.add(new ArticuloPedido(new Articulo(2), 2500, false, false));
-			l2.add(new ArticuloPedido(new Articulo(3), 2500, false, false));
-			l2.add(new ArticuloPedido(new Articulo(4), 2500, false, false));
-			l2.add(new ArticuloPedido(new Articulo(5), 2500, false, false));
-			l2.add(new ArticuloPedido(new Articulo(6), 2500, false, false));
-			l2.add(new ArticuloPedido(new Articulo(8), 2500, false, false));
-			l2.add(new ArticuloPedido(new Articulo(1), 2500, false, false));
-			l2.add(new ArticuloPedido(new Articulo(2), 2500, false, false));
-			l2.add(new ArticuloPedido(new Articulo(3), 2500, false, false));
-			
-			String fe2 = "2022-01-01";
-			
 
-			Date d12 = null;
-			
-			try {
-				d12 = formatofecha.parse(fe2);
-			} catch (ParseException e) {
-				
-				e.printStackTrace();
-			}
-			
-			Pedido ped2 = new Pedido(0, d12, d12, "En Tramite", l2);
-			int i2 = pedidoDAO.insertaPedido(ped2);
-			ped.setId_pedido(i2);
-			
-			pedidoDAO.insertarArticulos(ped2);
-			
-			*/
-			
-
-			
 			HttpSession session = request.getSession();
 			Distribuidor dist = (Distribuidor) session.getAttribute("usuario");
-			String lista = request.getParameter("lista");
-			System.out.println(lista);
+			
+			if(listaSeleccionados.isEmpty()) {
+				
+
+				List<Articulo> listaArticulos= articuloDAO.getArticulos();
+				session.setAttribute("listaArt", listaArticulos);
+				request.setAttribute("dist", dist);
+				request.setAttribute("seleccionados", listaSeleccionados);
+				request.setAttribute("numero", listaSeleccionados.size());
+				
+				request.setAttribute("dist", dist);
+				RequestDispatcher dispatcher =request.getRequestDispatcher("/pedidoVacio.jsp");
+				
+				dispatcher.forward(request, response);
+				
+			}else {
+			
+
+			//String lista = request.getParameter("lista");
+			//System.out.println(lista);
 			
 			Date act = new Date();
 			
@@ -235,6 +163,8 @@ public class ControllerNuevoPedido extends HttpServlet {
 				
 				
 			}
+			
+		}
 			
 		}
 	}

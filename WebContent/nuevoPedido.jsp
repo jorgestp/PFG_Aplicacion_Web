@@ -1,40 +1,72 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+
+
+
 <!doctype>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>PFG Jorge Villalba Ruiz</title>
-<link rel="stylesheet" type="text/css" href="css/cuentaUsuario.css" />
-<script src="js/jquery-1.7.2.min.js"></script>
-<script src="js/jquery.validate.min.js"></script>
-<script>
-	$(document).ready(function() {
-
-	});
-</script>
+<link rel="stylesheet" type="text/css" href="css/cuentaUsuario.css"  />
+    <script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/jquery.validate.min.js"></script>
+    <script>
+ $(document).ready(function() {
+	 
+  		$("#formulario").validate({
+			
+			
+				rules:{
+					nom:"required",
+					cant:{
+						number:true,
+						required:true,
+					}
+	
+					
+					},
+					
+		
+				
+				messages:{
+					
+					nom:"Seleccione un articulo por favor",
+					cant:{
+						number:"El valor introducido debe ser numerico",
+						required:"La cantidad es obligatoria",
+					}
+					
+					
+				}
+			
+			});
+  
+  
+});
+	</script>
 </head>
 
 <body>
 
-	<div class=" contenedorTitulo">
-		<img class="imagenSuperior" src="imagenes/estepa.png" alt="" />
-	</div>
+		<div class=" contenedorTitulo">
+			<img class="imagenSuperior" src="imagenes/estepa.png" alt="" />
+		</div>
 
 	<div class="cabecera">
-		<div id="separacionIqz">
-			<img src="imagenes/logo_uned.png" alt="" width="150" height="150" />
+    	<div id="separacionIqz">
+        <img src="imagenes/logo_uned.png" alt="" width="150" height="150"  />
 		</div>
-		<div id="separacionDer">
-			<img src="imagenes/logo_uned.png" alt="" width="150" height="150" />
-		</div>
-		<img class="imagenConsejo" src="imagenes/imagen_consejo.png"
-			width="650" height="85" />
-	</div>
+      <div id="separacionDer">
+        <img src="imagenes/logo_uned.png" alt="" width="150" height="150"  />
+        </div>
+      <img class="imagenConsejo" src="imagenes/imagen_consejo.png" width="650" height="85" />
+    </div>
 
-	<section>
-		<table id="tabla" width="86%" align="center" border="0">
+<section>
+<table id="tabla" width="86%" align="center" border="0">
 
 			<c:url var="estadoPedido" value="ControllerEstadoPedido">
 			</c:url>
@@ -54,48 +86,56 @@
 			</tr>
 
 		</table>
-
-		<h1 id="titulo">Nuevo Pedido</h1>
-
-		<form id="formulario" method="post" action="ControllerNuevoPedido">
-			<table width="305">
-				<tr>
-					<td width="57" height="26"><label for="usuario">Nombre</label></td>
-					<td width="232"><label for="textfield"> <select
-							name="nom" id="nom">
+    
+  <h1 id ="titulo">Nuevo Pedido</h1>
+    
+  <form id="formulario" method="post" action="ControllerNuevoPedido" >
+    <table id="pedir" width="305" border="1">
+	    <tr>
+	      <td width="57" height="26"><label for="usuario">Nombre</label></td>
+	      <td width="232"><label for="textfield"></label>
+          	  <select name="nom" id="nom" >
 								<option value="" selected disabled hidden>Choose here</option>
 								<c:forEach var="temprod" items="${listaArt}">
 									<option value="${temprod.id_articulo}">${temprod.nombre}</option>
 								</c:forEach>
-						</select>
-					</label></td>
-				</tr>
-				<tr>
-					<td><label for="cant">Cantidad</label></td>
-					<td><label for="textfield2"></label> <input type="text"
-						name="cant" id="cant"></td>
-				</tr>
-				<tr>
-					<td height="39">
-						<!--<button id="adicionar"  type="button">Añadir</button>--> <input
-						type="submit" id="enviar" value="Añadir" />
-					</td>
-				</tr>
-			</table>
-			<label for="select"></label>
+    </select>
+    </td>
+        </tr>
+	    <tr>
+	      <td><label for="cant">Cantidad</label>&nbsp;</td>
+	      <td><label for="textfield2"></label>
+          <input type="text" name="cant" id="cant"></td>
+        </tr>
+	    <tr>
+	      <td height="39">
+          <input type="submit" id="enviar" value="Añadir" /></td>
+	      <td>&nbsp;</td>
+        </tr>
+      </table>
+	  <label for="select"></label>
 
-		</form>
+ 	</form>
+  
 
-		<p>Elementos en la Tabla:
-		<div id="adicionados">${numero}</div>
-		</p>
-		<table width="547" align="center" id="mytable">
-			<tr>
-				<th>Nobmre</th>
-				<th>Cantidad</th>
-				<th></th>
-			</tr>
-			<c:forEach var="temprod" items="${seleccionados}">
+  
+<p class="adicionados">Elementos en la Tabla: ${numero}
+  <p>
+
+
+                
+                
+<table id="listaTitulo" width="750" align="center" border="1">
+  <tr>
+    <th width="350">NOMBRE</th>
+    <th width="150">CANTIDAD</th>
+    <th width="250"></th>
+  </tr>
+</table>
+
+<div id ="scrol">
+<table id="lista" width="750" align="center" >
+<c:forEach var="temprod" items="${seleccionados}">
 
 				<!-- Link para EMILIMNAR cada producto con su campo clave -->
 				<c:url var="linktemp" value="ControllerNuevoPedido">
@@ -106,25 +146,30 @@
 
 				<tr>
 
-					<td class="filas">${temprod.articulo.nombre}</td>
-					<td class="filas">${temprod.cant}</td>
-					<td class="filas"><a id="del" href="${linktemp}">Eliminar</a></td>
+					<td width="350">${temprod.articulo.nombre}</td>
+					<td width="150">${temprod.cant}</td>
+					<td width="250"><a id="del" href="${linktemp}">Eliminar</a></td>
 				</tr>
 
 			</c:forEach>
-		</table>
 
-		<c:url var="linkformalizar" value="ControllerNuevoPedido">
+ 
+</table>
+</div>
+
+  <p id ="formalizacion">
+  <c:url var="linkformalizar" value="ControllerNuevoPedido">
 
 			<c:param name="instruccion" value="formaliza"></c:param>
 			<c:param name="lista" value="${seleccionados }"></c:param>
 		</c:url>
-				<a id="fomalizar" href="${linkformalizar}">FOMALIZAR</a>
-	</section>
-
-	<footer>
-		<p>Copyright (C) Jorge Villalba Ruiz</p>
-	</footer>
+  				<a id="fomalizar" href="${linkformalizar}">FOMALIZAR PEDIDO</a>
+                </p>
+</section>
+    
+    <footer>
+    <p>Copyright (C) Jorge Villalba Ruiz </p>
+    </footer>
 
 </body>
 </html>

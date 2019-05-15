@@ -47,42 +47,41 @@
 			</tr>
 
 		</table>
-		<table cellspacing="0" cellpadding="0" border="0" width="750"
-			style="margin: 0 auto; margin-top: 75px">
+
+
+		<p id="pedSist">PEDIDOS EN EL SISTEMA</p>
+
+		<table id="pedidosSistema" width="750" align="center" border="1">
 			<tr>
-				<td>
-					<table width="750">
-						<tr id="titulotabla">
-							<th>ID Pedido</th>
-							<th>Realizado</th>
-							<th>Envio</th>
-							<th>Estado</th>
-						</tr>
-					</table>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<div id="muestraPedido">
-						<table width="750">
-							<c:forEach var="temprod" items="${pedido}">
+				<th width="150">ID</th>
+				<th width="200">FECHA REALIZAZO</th>
+				<th width="200">FECHA ENVIO</th>
+				<th width="200">ESTADO</th>
 
-
-								<tr>
-
-									<td>${temprod.id_pedido}</td>
-									<td>${temprod.fecha_entrada}</td>
-									<td>${temprod.fecha_envio}</td>
-									<td>${temprod.estado}</td>
-
-								</tr>
-
-							</c:forEach>
-						</table>
-					</div>
-				</td>
 			</tr>
 		</table>
+
+		<div id="scrol">
+			<table id="lista" width="750" align="center">
+
+				<c:forEach var="temprod" items="${pedido}">
+
+
+					<tr>
+
+						<td width="150">${temprod.id_pedido}</td>
+						<td width="200">${temprod.fecha_entrada}</td>
+						<td width="200">${temprod.fecha_envio}</td>
+						<td width="200">${temprod.estado}</td>
+
+					</tr>
+
+				</c:forEach>
+
+
+
+			</table>
+		</div>
 	</section>
 
 	<footer>
