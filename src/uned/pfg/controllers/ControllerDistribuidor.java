@@ -4,23 +4,22 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import javax.annotation.Resource;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
-
 import org.apache.commons.dbcp.BasicDataSource;
-
 import uned.pfg.bean.Distribuidor;
 import uned.pfg.dao.DistribuidorDAO;
 
 /**
- * Servlet implementation class ControllerDistribuidor
+ * Servlet que se utiliza como controlador entre la vista de inserccion de nuevos clientes y el modelo 
+ * del sistema, haciendo puente entre ellos y recogiendo los datos de la vista, pasarlos al modelo y viceversa
+ * 
+ * @author JORGE VILLALBA RUIZ 47536486V
+ * @version 1.0
  */
 @WebServlet("/ControllerDistribuidor")
 public class ControllerDistribuidor extends HttpServlet {
@@ -34,6 +33,9 @@ public class ControllerDistribuidor extends HttpServlet {
 	private DistribuidorDAO distribuidorDAO;
 
 
+	/**
+	 * Inicializa el objeto DAO correspondiente al distribuidor
+	 */
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		
@@ -46,15 +48,14 @@ public class ControllerDistribuidor extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+
 
 	/**
+	 * Metodo que recoge los parametros de un nuevo Distribuidor y los introduce en el sistema.
+	 * 
+	 * Recoge todos los campos requeridos de la vista, creando un objeto de tipo Distribuidor y llamando
+	 * al metodo correspondiente del objeto DAO para insertar el distribuidor en la base de datos.
+	 * 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

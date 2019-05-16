@@ -2,9 +2,6 @@ package uned.pfg.controllers;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.List;
-
-import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -13,19 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sql.DataSource;
+
 
 import org.apache.commons.dbcp.BasicDataSource;
 
 import uned.pfg.bean.Distribuidor;
-import uned.pfg.bean.Pedido;
+
 import uned.pfg.dao.DistribuidorDAO;
-import uned.pfg.dao.PedidoDAO;
-import uned.pfg.ws.PoolConexiones;
-import uned.pfg.ws.WS_Pedido;
+
 
 /**
- * Servlet implementation class ControllerLogin
+ * Sevlet que sirve para logear a un usuario en el sistema.
+ * 
+ * @author JORGE VILLALBA RUIZ 47536486V
+ * @version 1.0
  */
 @WebServlet("/ControllerLogin")
 public class ControllerLogin extends HttpServlet {
@@ -35,9 +33,12 @@ public class ControllerLogin extends HttpServlet {
 	//private DataSource pool;
 	private BasicDataSource basicDataSource;
 	private DistribuidorDAO distribuidorDAO;
-	private PedidoDAO pedidoDAO;
+	//private PedidoDAO pedidoDAO;
 
 
+	/**
+	 * Funcion que inicializa el objeto DAO de distribuidor.
+	 */
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		
@@ -45,7 +46,8 @@ public class ControllerLogin extends HttpServlet {
 			
 			distribuidorDAO = new DistribuidorDAO(basicDataSource);
 		
-			pedidoDAO = new PedidoDAO(basicDataSource);
+
+			//pedidoDAO = new PedidoDAO(basicDataSource);
 		}catch (Exception e) {
 			
 			throw new ServletException();
@@ -55,6 +57,13 @@ public class ControllerLogin extends HttpServlet {
 
 
 	/**
+	 * Funcion que recoge el nick y la contraseña del usuario que se intenta logear en el sistema.
+	 * 
+	 * Llama a la funcion correspondiente dentro del objeto DAO del distribuidor, y si encuentra
+	 * un distribuidor con ese nick y esa contraseña, quiere decir que el usuario se ha logeado correctamente
+	 * y se le puede mandar a su cuenta de usuario con sus datos personales.
+	 * En el caso de no encontrar ninguno, es devuelto a una vista de error en logearse.
+	 * 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -64,18 +73,12 @@ public class ControllerLogin extends HttpServlet {
 		
 		Distribuidor dist = distribuidorDAO.buscarUsuario(usuario, contra);
 		
-		/*String hola = PedidoDAO.diHola();
-		List<Pedido> list = pedidoDAO.obtenPedidos();
 		
-		String xml = pedidoDAO.crearXML(list);
-		System.out.println(hola);
-		System.out.println(xml);*/
-		
-		WS_Pedido ped = new WS_Pedido();
+		/*WS_Pedido ped = new WS_Pedido();
 		
 		String x = ped.envioPedido();
 		
-		System.out.println(x);
+		System.out.println(x);*/
 		if( dist != null) {
 			
 			

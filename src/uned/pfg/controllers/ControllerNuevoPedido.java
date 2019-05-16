@@ -32,7 +32,7 @@ import uned.pfg.dao.PedidoDAO;
 import uned.pfg.ws.PoolConexiones;
 
 /**
- * Servlet implementation class ControllerNuevoPedido
+ * Servlet para la introducir nuevos pedidos en el sistema 
  */
 @WebServlet("/ControllerNuevoPedido")
 public class ControllerNuevoPedido extends HttpServlet {
