@@ -1,6 +1,11 @@
 package uned.pfg.controllers;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -46,8 +51,68 @@ public class ControllerLogin extends HttpServlet {
 			
 			distribuidorDAO = new DistribuidorDAO(basicDataSource);
 		
+			String path = config.getServletContext().getRealPath("WEB-INF\\XML.xml");
+			//String path2 = config.getServletContext().getContextPath();  ESTO DA=> /APLICACION_WEB
+			String path2 = config.getServletContext().getRealPath("/");
+			File prueba = new File(path2 + "\\prueba.xml");
+			
+			System.out.println("RUTA DEL ARCHIVO CREADO => " + prueba.getPath());
+			
+			
+			FileWriter fichero2 = null;
+	        PrintWriter pw = null;
+	        try
+	        {
+	            fichero2 = new FileWriter(prueba);
+	            pw = new PrintWriter(fichero2);
 
+	            for (int i = 0; i < 10; i++) {
+	                pw.println("Linea " + (i+10));
+	            }
+
+	            fichero2.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        
+	        File archivo = null;
+	        FileReader fr = null;
+	        BufferedReader br = null;
+
+	        try {
+	           // Apertura del fichero y creacion de BufferedReader para poder
+	           // hacer una lectura comoda (disponer del metodo readLine()).
+	           archivo = new File (config.getServletContext().getRealPath("prueba.xml"));
+	           fr = new FileReader (archivo);
+	           br = new BufferedReader(fr);
+
+	           // Lectura del fichero
+	           String linea;
+	           while((linea=br.readLine())!=null) {
+	              System.out.println(linea);
+	           }
+	           fr.close();
+	        }
+	        
+	        catch(Exception e){
+	           e.printStackTrace();
+	        }
+			System.out.println("##########################");
+			System.out.println("RUTA DEL DIRECTORIO RAIZ DEL PROYECTO => " +path2);
+			System.out.println("##########################");
+			System.out.println("RUTA ESPECIFICA => " +path);
 			//pedidoDAO = new PedidoDAO(basicDataSource);
+			
+			String cadena;
+			String fichero = "";
+			
+			FileReader f = new FileReader(path);
+		    BufferedReader b = new BufferedReader(f);
+		      while((cadena = b.readLine())!=null) {
+		    	  fichero = fichero + cadena;
+		    	  System.out.println(cadena);
+		      }
+		      b.close();
 		}catch (Exception e) {
 			
 			throw new ServletException();
