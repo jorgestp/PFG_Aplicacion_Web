@@ -32,7 +32,17 @@ import uned.pfg.bean.Articulo;
 import uned.pfg.bean.ArticuloPedido;
 import uned.pfg.ws.PoolConexiones;
 
-
+/**
+ * Clase que representa el Objeto de Acceso a Datos almacenados del Almacen del sistema.
+ * 
+ * Se hacen las pertinentes consultas de actualizacion, inserccion o borrado
+ * de todo lo referente al almacen  que tiene el sistema y que se detallarán
+ * en las funciones correspondientes.
+ * 
+ * 
+ * @author JORGE VILLALBA RUIZ 47536486V
+ * @version 1.0
+ */
 public class AlmacenDAO {
 	
 	private BasicDataSource origendatos;
@@ -40,6 +50,13 @@ public class AlmacenDAO {
 	private final String ALMACEN = "XML_env_almacen.xml";
 	private PedidoDAO pedidoDAO;
 	
+	/**
+	 * Constructor que inicializa la variable pasada por parametros con el pool de conexiones
+	 * establecido para la base de datos, y ademas asigna esta variable al campo de clase
+	 * correspondiente al DataSource
+	 * @param origendatos Objeto que representa el pool de conexiones y el que es inicializado
+	 * y luego asignado al campo de clase
+	 */
 	public AlmacenDAO(BasicDataSource origendatos) {
 		
 		origendatos = PoolConexiones.getInstance().getConnection();
@@ -48,6 +65,12 @@ public class AlmacenDAO {
 		
 	}
 
+	/**
+	 * Comprueba si el objeto que se le pasa por parametro está en el almacén.
+	 * @param artPed Objeto que representa a un bean de un articulo de un pedido
+	 * @return Null en el caso de que el objeto pasado por parametro no este en el objeto,
+	 * o un Objeto de tipo Almacen con toda la informacion del articulo encontrado
+	 */
 	public Almacen comprobarArticuloEnAlmacen(ArticuloPedido artPed) {
 		
 		
@@ -62,6 +85,14 @@ public class AlmacenDAO {
 
 	}
 	
+	/**
+	 * Hace una busqueda en el almacen del articulo que se le pasa por parametro, en 
+	 * busca de algun registro cuyo id de articulo coincida con el que id del articulo
+	 * del objeto que se le pasa a la funcion.
+	 * @param art Objeto que representa a un articulo que buscamos en el almacen
+	 * @return True si el articulo es encontrado en el almacen, False si no 
+	 * esta en el almacen
+	 */
 	public boolean estaEnAlmacen(Articulo art) {
 		
 		Connection conexion =null;
@@ -98,6 +129,17 @@ public class AlmacenDAO {
 		
 	}
 
+	/**
+	 * Funcion que actualiza la cantidad libre que hay de un articulo en el almacen.
+	 * Se busca el articulo mediante el objeto de tipo ArticuloPedido pasado por 
+	 * parametro, y a ese objeto encontrado, se le resta la cantidad libre que tenia
+	 * con el valor entero pasado tambien por parametro y dando consigo a la nueva cantidad
+	 * libre que queda actualizada
+	 * @param artPed Bean que representa al Articulo del Pedido que queremos actualizar en el 
+	 * sistema
+	 * @param cantidadLibre Valor entero que representa a la cantidad libre que tiene en el almacen
+	 * el articulo
+	 */
 	public void actualizarCantidadLibre(ArticuloPedido artPed, int cantidadLibre) {
 		Connection conexion =null;
 		PreparedStatement state = null;
@@ -130,6 +172,22 @@ public class AlmacenDAO {
 		
 	}
 	
+	
+	/**
+	 * Funcion que tiene por objetivo dar entrada a una nueva produccion que se ha 
+	 * hecho de un articulo.
+	 * 
+	 * En primer lugar se comprueba si ese articulo pasado por parametro está ya en el 
+	 * almacen. Si se encuentra, se suma la cantidad del articulo que se quiere dar entrada
+	 * junto a la cantidad libre que tiene ese mismo articulo en el almacen.
+	 * Luego se obtiene los articulos que estan sin realizar y que tienen el mismo id de articulo
+	 * que el pasado por parametro. Si esa lista no esta vacia, se van actualizando a realizado
+	 * aquellos articulos de Pedido cuya cantidad sea menor que la dada de alta. Por ultimo se 
+	 * actualiza el articulo en almacen con la nueva cantidad que quede libre y la almacenada.
+	 * En el caso de que no encuentre ningun articulo en el almacen, lo introduce y de nuevo
+	 * pasa a actualizar los valores de los articulos de pedido que estan aun sin realizar.
+	 * @param articuloPedido Bean de Articulo de Pedido que se quiere dar de alta en el sistema
+	 */
 	public void altaProduccionArticulo(ArticuloPedido articuloPedido) {
 		
 		
@@ -181,7 +239,10 @@ public class AlmacenDAO {
 		
 		
 	}
-	
+	/**
+	 *Funcion que inserta en el almacen un Articulo de Pedido pasado por parametro. 
+	 * @param articuloPedido Bean que se quiere insertar en la BBDD
+	 */
 	private void introducirArticuloEnAlmacen(ArticuloPedido articuloPedido) {
 		
 		Connection conexion =null;
@@ -216,6 +277,10 @@ public class AlmacenDAO {
 		
 	}
 
+	/*
+	 * Funcion que actualiza los valores de un articulo en el almacen
+	 * 
+	 */
 	private void actualizaArticuloAlmacen(Almacen alm, int id_articulo) {
 
 
@@ -252,6 +317,24 @@ public class AlmacenDAO {
 		
 	}
 
+	/*
+	 *Funcion que actualiza el valor de realizado de los articulos que han sido 
+	 *pasados por parametro en la lista.
+	 *
+	 *Esa lista contiene todos el mismo articulo pero con valores de cantidad diferentes, resultante
+	 *de seleccionar todos los articulos con un mismo id de articulo y el valor de realizado en false.
+	 *El otro parametro es la cantidad que hay libre total de ese articulo en cuestion.
+	 *
+	 *Se va recorriendo la lista y se va comprobando que la cantidad libre total sea mayor
+	 *que la cantidad pedida del articulo que esta seleccionado en el recorrido.
+	 *Si es asi, el parametro con tipo entero se va actualizando, de modo que se le resta a esa
+	 *cantidad Libre el valor de la cantidad del articulo en cuestion. Por ulitmo, habia que actualizar
+	 *ese articulo seleccionado de la lista, para pasar el valor de Realizado a true.
+	 *
+	 *El valor devuelto es un entero y corresponde a la cantidad libre que quedaria 
+	 *una vez se haya recorrido toda la lista.
+	 * 
+	 */
 	private int actualizarArticulos(List<ArticuloPedido> list, int sumalibreTotal) {
 		
 		Iterator<ArticuloPedido> it = list.iterator();
@@ -273,6 +356,13 @@ public class AlmacenDAO {
 		return sumalibreTotal;
 	}
 
+	/**
+	 * Funcion que obtiene todos los bean del almacen con el fin de poder ver el stock
+	 * que hay disponieble.
+	 * 
+	 * @return Lista de bean almacen que representa a los articulos que hay en el Almacen
+	 * del sistema.
+	 */
 	public List<Almacen> obtenAlmacen(){
 		
 		List<Almacen> lista = new ArrayList<Almacen>();
@@ -315,7 +405,12 @@ public class AlmacenDAO {
 	}
 	
 	
-	
+	/**
+	 * Crea un xml y lo transforma en formato cadena de caracteres que representa todos los
+	 * valores de los articulos que hay en el almacen
+	 * @param lista Objeto que contiene todos los articulos del almacen
+	 * @return String que representa el xml creado
+	 */
     public String crearXML (List<Almacen> lista){
         
         String s = "";
@@ -371,7 +466,8 @@ public class AlmacenDAO {
                   
               } 
               
-              System.out.println(ar.getAbsolutePath());
+              //System.out.println(ar.getAbsolutePath());
+              ar.delete();
               
           }catch( IOException | ParserConfigurationException | TransformerException | DOMException e){
               
