@@ -21,6 +21,13 @@ import uned.pfg.bean.ArticuloPedido;
 import uned.pfg.bean.Pedido;
 import uned.pfg.dao.PedidoDAO;
 
+/**
+ * Clase que representa a un WEB SERVICE que tiene como objetivo introducir un nuevo
+ * pedido y sus articulos en el sistema.
+ *
+ * @author JORGE VILLALBA RUIZ 47536486V
+ * @version 1.0
+ */
 public class WS_ObtenerPedido {
 
 	
@@ -31,6 +38,11 @@ public class WS_ObtenerPedido {
 
 	private BasicDataSource basicDataSource;
 	
+	
+	/**
+	 * Construtor por defecto, que llama al pool de conexiones ( si es que estaba ya creado, si no
+	 * lo crea) y pasa este pool de conexiones al constructor del DAO de pedido.
+	 */
 	public WS_ObtenerPedido() {
 		
 
@@ -42,6 +54,19 @@ public class WS_ObtenerPedido {
 		
 	}
 	
+	/**
+	 * Fucion que, usando el objeto DAO de pedido inicializado en el constructor, se inserta
+	 * el pedido y los articulos del mismo en el sistema.
+	 * Durante la inserción, se va comprobando si existe stock libre en el almacen de dichos articulos
+	 * del pedido, con el fin de cambiar el valor de "realizado" de los articulos a true.
+	 * 
+	 * @param pedido String que representa un xml con los valores del pedido que se quiere insertar
+	 * @param articulo String que representa un xml con los articulos que pertenecen al pedido
+	 * que se quiere insertar
+	 * @return exito, en caso de que el pedido al completo haya sido introducido.
+	 * Error, en caso de que exista alguna excepcion en cuanto a conexion con la base de datos
+	 * o el servidor
+	 */
 	public String envioPedido(String pedido, String articulo) {
 		
 		Pedido p = parsearXMLaPedido(pedido);
@@ -53,6 +78,12 @@ public class WS_ObtenerPedido {
 		 if(flag ) return  "exito";
 		 else return "error";
 	}
+	
+	/*
+	 * Funcion privada que parsea el xml que se le introduce por parametro en formato String
+	 * en una lista de Articulos que tiene el Pedido, con el fin de crear los objetos para 
+	 * poder insertarlos en la base de datos.
+	 */
 	
 	private List<ArticuloPedido> parsearXMLaArticulo(String articulo) {
 		
@@ -121,6 +152,10 @@ public class WS_ObtenerPedido {
 	
 	}
 
+	/*
+	 * Funcion privada que parsea el xml que se le introduce por parametro en formato String
+	 * en un objeto de tipo Pedido con el fin de poder insertarlo en el sistema.
+	 */
 	private Pedido parsearXMLaPedido(String pedido) {
 		
 		Pedido p =null; 

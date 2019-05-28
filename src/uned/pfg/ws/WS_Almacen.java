@@ -6,8 +6,8 @@ import uned.pfg.dao.AlmacenDAO;
 
 
 /**
- * Clase que representa a un WEB SERVICE que tiene como funcion obetener los articulos
- * qie hay en el alamcen en un momento determinado
+ * Clase que representa a un WEB SERVICE que tiene como funcion obtener los articulos
+ * que hay en el alamcen en un momento determinado
  *
  * @author JORGE VILLALBA RUIZ 47536486V
  * @version 1.0

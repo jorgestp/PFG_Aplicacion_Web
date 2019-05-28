@@ -15,9 +15,17 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import uned.pfg.bean.Articulo;
-import uned.pfg.bean.Pedido;
+
 import uned.pfg.dao.ArticuloDAO;
 
+
+/**
+ * Clase que representa a un WEB SERVICE que tiene como objetivo introducir en la base de datos un nuevo
+ * articulo.
+ *
+ * @author JORGE VILLALBA RUIZ 47536486V
+ * @version 1.0
+ */
 public class WS_NuevoArticulo {
 
 	private ArticuloDAO articuloDAO;
@@ -25,12 +33,28 @@ public class WS_NuevoArticulo {
 	private static final String ARCHIVO = "nuevoArtRecibido.xml";
 	private Articulo art;
 
+	
+	/**
+	 * Construtor por defecto, que llama al pool de conexiones ( si es que estaba ya creado, si no
+	 * lo crea) y pasa este pool de conexiones al constructor del DAO de articulo.
+	 */
 	public WS_NuevoArticulo() {
 
 		basicDataSource = PoolConexiones.getInstance().getConnection();
 		articuloDAO = new ArticuloDAO(basicDataSource);
 	}
 
+	/**
+	 * Funcion que introduce en la base de datos, usando el objeto DAO de Articulo, un nuevo
+	 * articulo en el sistema.
+	 * 
+	 * Parsea el parametro que se le pasa, que se trata de un xml en formato String con los
+	 * valores del nuevo pedido, a un bean de Articulo, y una vez parseado, ya se introduce en el
+	 * sistema
+	 * @param articulo String que representa a un xml de un articulo con todos sus valores
+	 * @return exito en el caso de introducirse correctamente en la base de datos, o error, en el caso
+	 * de lanzarse alguna excepcion de conexion con la base de datos o con el propio servidor.
+	 */
 	public String nuevoArticulo(String articulo) {
 
 		parsearXML_a_Articulo(articulo);
@@ -44,6 +68,10 @@ public class WS_NuevoArticulo {
 
 	}
 
+	/*
+	 * Funcion privada que pasa el xml que se le pasa en formato String por parametro a este metodo,
+	 * en un objeto de tipo Articulo usando el DOM de Java
+	 */
 	private Articulo parsearXML_a_Articulo(String articulo) {
 
 		try (FileWriter file = new FileWriter(ARCHIVO)) {

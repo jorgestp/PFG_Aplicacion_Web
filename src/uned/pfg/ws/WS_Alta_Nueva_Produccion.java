@@ -17,6 +17,14 @@ import uned.pfg.bean.Articulo;
 import uned.pfg.bean.ArticuloPedido;
 import uned.pfg.dao.AlmacenDAO;
 
+
+/**
+ * Clase que representa a un WEB SERVICE que tiene como objetivo dar entrada a 
+ * una nueva fabricación de un producto que se encuentra en el sistema.
+ *
+ * @author JORGE VILLALBA RUIZ 47536486V
+ * @version 1.0
+ */
 public class WS_Alta_Nueva_Produccion {
 	
 	private static final String ARCHIVO = "nueva_produccion.xml";
@@ -24,12 +32,27 @@ public class WS_Alta_Nueva_Produccion {
 	private AlmacenDAO almacenDAO;
 	private ArticuloPedido artped;
 	
+	
+	/**
+	 * Construtor por defecto, que llama al pool de conexiones ( si es que estaba ya creado, si no
+	 * lo crea) y pasa este pool de conexiones al constructor del DAO de almacen.
+	 */
 	public WS_Alta_Nueva_Produccion() {
 
 		basicDataSource = PoolConexiones.getInstance().getConnection();
 		almacenDAO = new AlmacenDAO(basicDataSource);
 	}
 	
+	
+	/**
+	 * Funcion que, en primer lugar, parsea la cadena de caracteres que se le pasa por parametro
+	 * y que representa un xml de un articulo en concreto, en su bean correspondiente.
+	 * Luego, y llamando a la función pertienente del objeto DAO del almacen, se encargar
+	 * de introducir esta nueva produccion en el sistema.
+	 * @param articuloPedido String que representa el xml del articulo que quiere dar nueva produccion.
+	 * @return exito, en el caso de que la introduccion en el sistema haya sido satisfactoria,
+	 * o error, en el caso de que ocurra alguna execpcion 
+	 */
 	public String nuevaAltaProduccion(String articuloPedido) {
 		
 		parsearXML_a_Articulo(articuloPedido);
@@ -46,7 +69,13 @@ public class WS_Alta_Nueva_Produccion {
 	}
 	
 	
-	
+	/*
+	 * Funcion privada que recoge el String que se le pasa por parametro, y lo pasa a un archivo
+	 * con extension .xml
+	 * Luego, se parsea ese archivo xml con el DOM de java y se crea el objeto correspondiente a 
+	 * un articulo de un pedido, devolviendo dicho objeto.
+	 * 
+	 */
 	private ArticuloPedido parsearXML_a_Articulo(String articuloPedido) {
 
 		try (FileWriter file = new FileWriter(ARCHIVO)) {
