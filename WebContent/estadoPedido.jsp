@@ -26,7 +26,19 @@
 			width="650" height="85" />
 	</div>
 
-	<section>
+	<section style="
+	background-image:url(imagenes/marca_agua_uned.png);
+	/*Hace que la imagen no se repita en el contenedor*/
+	background-repeat:no-repeat;
+	/*Se pociciona en el centro del contenedor*/
+	background-position:center;
+	/*ANchura del contenedor*/
+	width:75%;
+	/*altura del contenedor y en px ya que en % no salia*/
+	height:750px;
+	margin:0 auto;
+	margin-top:5px;
+	">
 		<table id="tabla" width="86%" align="center" border="0">
 
 			<c:url var="estadoPedido" value="ControllerEstadoPedido">

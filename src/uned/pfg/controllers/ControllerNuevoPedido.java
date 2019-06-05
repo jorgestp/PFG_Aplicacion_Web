@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -67,7 +68,8 @@ public class ControllerNuevoPedido extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String comando = request.getParameter("instruccion");
-		
+		Date act = new Date();
+		Calendar fech = Calendar.getInstance();
 		if(comando == null) {
 			
 			HttpSession session = request.getSession();
@@ -78,6 +80,7 @@ public class ControllerNuevoPedido extends HttpServlet {
 			request.setAttribute("dist", dist);
 			request.setAttribute("seleccionados", listaSeleccionados);
 			request.setAttribute("numero", listaSeleccionados.size());
+			request.setAttribute("inicio", fech.get(Calendar.YEAR));
 			RequestDispatcher dispatcher =request.getRequestDispatcher("/nuevoPedido.jsp");
 			
 			dispatcher.forward(request, response);
@@ -94,6 +97,7 @@ public class ControllerNuevoPedido extends HttpServlet {
 			request.setAttribute("dist", dist);
 			request.setAttribute("seleccionados", listaSeleccionados);
 			request.setAttribute("numero", listaSeleccionados.size());
+			request.setAttribute("inicio", fech.get(Calendar.YEAR));
 			RequestDispatcher dispatcher =request.getRequestDispatcher("/nuevoPedido.jsp");
 			
 			dispatcher.forward(request, response);
@@ -112,7 +116,7 @@ public class ControllerNuevoPedido extends HttpServlet {
 				request.setAttribute("dist", dist);
 				request.setAttribute("seleccionados", listaSeleccionados);
 				request.setAttribute("numero", listaSeleccionados.size());
-				
+				request.setAttribute("inicio", fech.get(Calendar.YEAR));
 				request.setAttribute("dist", dist);
 				RequestDispatcher dispatcher =request.getRequestDispatcher("/pedidoVacio.jsp");
 				
@@ -120,49 +124,83 @@ public class ControllerNuevoPedido extends HttpServlet {
 				
 			}else {
 			
-
-			//String lista = request.getParameter("lista");
-			//System.out.println(lista);
+			String dia = request.getParameter("dia");
+			String mes = request.getParameter("mes");
+			String any = request.getParameter("any");
 			
-			Date act = new Date();
-			
-			
-			
-			String fecha = "2022-01-01";
-			SimpleDateFormat formatofecha = new SimpleDateFormat("yyyy-MM-dd");
-			String f = formatofecha.format(act);
-			Date actual = null;
-			Date d = null;
-			try {
-				d = formatofecha.parse(fecha);
-				actual = formatofecha.parse(f);
-			} catch (ParseException e) {
+			if(dia ==null || mes == null || any ==null) {
 				
-				e.printStackTrace();
-			}
-			
-			
-			Pedido p = new Pedido(dist.getId(), d, actual, "En Tramite", listaSeleccionados);
-			
-			
-			p.setId_pedido(pedidoDAO.insertaPedido(p));
-			
-			
-			
-			if(pedidoDAO.insertarArticulos(p)) {
-				
+				List<Articulo> listaArticulos= articuloDAO.getArticulos();
+				session.setAttribute("listaArt", listaArticulos);
 				request.setAttribute("dist", dist);
-				
-				listaSeleccionados.clear();
-				
-				RequestDispatcher dispatcher =request.getRequestDispatcher("/pedidoExito.jsp");
+				request.setAttribute("seleccionados", listaSeleccionados);
+				request.setAttribute("numero", listaSeleccionados.size());
+				request.setAttribute("inicio", fech.get(Calendar.YEAR));
+				request.setAttribute("dist", dist);
+				RequestDispatcher dispatcher =request.getRequestDispatcher("/errorPedidoFecha.jsp");
 				
 				dispatcher.forward(request, response);
 				
 			}else {
 				
 				
+				
+				String fecha = any + "-" + mes + "-" + dia;
+				SimpleDateFormat formatofecha = new SimpleDateFormat("yyyy-MM-dd");
+				String f = formatofecha.format(act);
+				Date actual = null;
+				Date envio = null;
+				try {
+					envio = formatofecha.parse(fecha);
+					actual = formatofecha.parse(f);
+				} catch (ParseException e) {
+					
+					e.printStackTrace();
+				}
+				
+				if(actual.after(envio)) {
+					
+					List<Articulo> listaArticulos= articuloDAO.getArticulos();
+					session.setAttribute("listaArt", listaArticulos);
+					request.setAttribute("dist", dist);
+					request.setAttribute("seleccionados", listaSeleccionados);
+					request.setAttribute("numero", listaSeleccionados.size());
+					request.setAttribute("inicio", fech.get(Calendar.YEAR));
+					request.setAttribute("dist", dist);
+					RequestDispatcher dispatcher =request.getRequestDispatcher("/errorPedidoFecha.jsp");
+					
+					dispatcher.forward(request, response);
+					
+				}else {
+					
+					Pedido p = new Pedido(dist.getId(), actual, envio, "En Tramite", listaSeleccionados);
+					
+					
+					p.setId_pedido(pedidoDAO.insertaPedido(p));
+					
+					
+					
+					if(pedidoDAO.insertarArticulos(p)) {
+						
+						request.setAttribute("dist", dist);
+						
+						listaSeleccionados.clear();
+						
+						RequestDispatcher dispatcher =request.getRequestDispatcher("/pedidoExito.jsp");
+						
+						dispatcher.forward(request, response);
+						
+					}else {
+						
+						
+					}	
+					
+				}
+				
+	
+				
 			}
+			
 			
 		}
 			
@@ -179,7 +217,7 @@ public class ControllerNuevoPedido extends HttpServlet {
 		
 		int id = Integer.parseInt(request.getParameter("nom"));
 		int cantidad = Integer.parseInt(request.getParameter("cant"));
-		
+		Calendar fech = Calendar.getInstance();
 		Articulo a = buscaArticulo(id, request);
 		
 		ArticuloPedido artPedido = new ArticuloPedido(a, cantidad);
@@ -197,6 +235,7 @@ public class ControllerNuevoPedido extends HttpServlet {
 		request.setAttribute("listaArt", listaArticulos);
 		request.setAttribute("seleccionados", listaSeleccionados);
 		request.setAttribute("numero", listaSeleccionados.size());
+		request.setAttribute("inicio", fech.get(Calendar.YEAR));
 		RequestDispatcher dispatcher =request.getRequestDispatcher("/nuevoPedido.jsp");
 		
 		dispatcher.forward(request, response);

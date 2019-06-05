@@ -99,9 +99,7 @@ section{
 	/*altura del contenedor y en px ya que en % no salia*/
 	height:500px;
 	margin:0 auto;
-	margin-top:5px;
-	
-	
+	margin-top:5px;		
 }
 
 .registro{
@@ -381,6 +379,7 @@ color:#FFF;
 	margin-top:10px;
 }
 #pedir{
+	width:75%;
 	text-align:center;
 	border:0;
 }
@@ -411,7 +410,7 @@ font-weight:bold;
 	width:750px;
 	margin:0 auto;
 	margin-bottom:20px;
-	height:150px;
+	height:90px;
 	overflow-x:hidden;
 	overflow-y:scroll;
 }
@@ -434,11 +433,12 @@ color:#F00;
 }
 
 input.error{
-color:#F00;
-font-size:12px;
+background-color:#F36B6B;
+color:#000;
 border-color:#F00;
 border:dashed;
 border:#F33;
+
 	
 }
 
@@ -485,3 +485,13 @@ text-align:center;
 	font-style:italic;
 	
 }
+
+
+.F_envio{
+	
+	font-size:20px;
+	font-style:italic;
+	font-weight:bold;
+	color:#006;
+}
+

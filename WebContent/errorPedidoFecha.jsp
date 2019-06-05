@@ -54,6 +54,12 @@
 		});
 
 	});
+	
+	$(document).ready(parpadear);
+
+	function parpadear() {
+		$('#info').fadeIn(500).delay(250).fadeOut(500, parpadear)
+	}
 </script>
 </head>
 
@@ -235,7 +241,7 @@
 						</select> / <select name="any" id="any"
 							style="width: 85px; text-align: center;">
 								<option value="" selected disabled hidden>Año</option>
-								     <c:forEach var = "i" begin = "${inicio}" end = "${inicio+5}">
+								     <c:forEach var = "i" begin = "${inicio}" end = "${inicio + 5}">
 								     <OPTION VALUE="${i}">${i}</OPTION>
      								 </c:forEach>
 								
@@ -247,7 +253,7 @@
 					</tr>
 					<tr>
 						<td>&nbsp;</td>
-						<td></td>
+						<td><p id="info">Fecha incorrecta</p></td>
 					</tr>
 				</table>
 

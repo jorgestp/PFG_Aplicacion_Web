@@ -19,10 +19,21 @@
 		$("#formulario").validate({
 
 			rules : {
-				nom : "required",
+				nom : {
+					required : true
+				},
 				cant : {
 					number : true,
 					required : true,
+				},
+				dia : {
+					required : true
+				},
+				mes : {
+					required : true
+				},
+				any : {
+					required : true
 				}
 
 			},
@@ -33,19 +44,16 @@
 				cant : {
 					number : "El valor introducido debe ser numerico",
 					required : "La cantidad es obligatoria",
-				}
+				},
+				dia : "Seleccione el dia",
+				mes : "Seleccione el mes",
+				any : "Seleccione el año"
 
 			}
 
 		});
 
 	});
-
-	$(document).ready(parpadear);
-
-	function parpadear() {
-		$('#info').fadeIn(500).delay(250).fadeOut(500, parpadear)
-	}
 </script>
 </head>
 
@@ -66,7 +74,19 @@
 			width="650" height="85" />
 	</div>
 
-	<section>
+	<section style="
+	background-image:url(imagenes/marca_agua_uned.png);
+	/*Hace que la imagen no se repita en el contenedor*/
+	background-repeat:no-repeat;
+	/*Se pociciona en el centro del contenedor*/
+	background-position:center;
+	/*ANchura del contenedor*/
+	width:75%;
+	/*altura del contenedor y en px ya que en % no salia*/
+	height:750px;
+	margin:0 auto;
+	margin-top:5px;
+	">
 		<table id="tabla" width="86%" align="center" border="0">
 
 			<c:url var="estadoPedido" value="ControllerEstadoPedido">
@@ -91,11 +111,10 @@
 		<h1 id="titulo">Nuevo Pedido</h1>
 
 		<form id="formulario" method="post" action="ControllerNuevoPedido">
-			<table id="pedir" width="305" border="1">
+			<table id="pedir">
 				<tr>
 					<td width="57" height="26"><label for="usuario">Nombre</label></td>
-					<td width="232"><label for="textfield"></label> <select
-						name="nom" id="nom">
+					<td width="232"><select name="nom" id="nom">
 							<option value="" selected disabled hidden>Choose here</option>
 							<c:forEach var="temprod" items="${listaArt}">
 								<option value="${temprod.id_articulo}">${temprod.nombre}</option>
@@ -103,14 +122,14 @@
 					</select></td>
 				</tr>
 				<tr>
-					<td><label for="cant">Cantidad</label>&nbsp;</td>
+					<td><label for="cant">Cantidad</label></td>
 					<td><label for="textfield2"></label> <input type="text"
-						name="cant" id="cant"></td>
+						name="cant" id="cant" style="width: 150px; text-align: center;"></td>
 				</tr>
 				<tr>
-					<td height="39"><input type="submit" id="enviar"
-						value="Añadir" /></td>
-					<td>&nbsp;</td>
+
+					<td></td>
+					<td><input type="submit" id="enviar" value="Añadir" /></td>
 				</tr>
 			</table>
 			<label for="select"></label>
@@ -120,11 +139,7 @@
 
 
 		<p class="adicionados">Elementos en la Tabla: ${numero}
-		</p>
-
-
-
-
+		<p>
 		<table id="listaTitulo" width="750" align="center" border="1">
 			<tr>
 				<th width="350">NOMBRE</th>
@@ -157,16 +172,90 @@
 			</table>
 		</div>
 
-		<p id="formalizacion">
-			<c:url var="linkformalizar" value="ControllerNuevoPedido">
+		<div style="width: 75%">
+			<form action="" method="get">
 
-				<c:param name="instruccion" value="formaliza"></c:param>
-				<c:param name="lista" value="${seleccionados }"></c:param>
-			</c:url>
-			<a id="fomalizar" href="${linkformalizar}">FOMALIZAR PEDIDO</a>
-		</p>
-		<p id="info">PARA REALIZAR UN PEDIDO, DEBE INTRODUCIR ALMENOS UN
-			ARTICULO, GRACIAS</p>
+				<input type="hidden" name="instruccion" value="formaliza">
+
+				<table width="75%" border="0" align="center">
+					<tr>
+						<td width="32%"><label class="F_envio"
+							style="font-size: 20px; font-style: italic; font-weight: bold; color: #006;">
+								Fecha de Envio </label></td>
+						<td width="68%"><select name="dia" id="dia"
+							style="width: 50px; text-align: center;">
+								<option value="" selected disabled hidden>Dia</option>
+								<OPTION VALUE="01">1</OPTION>
+								<OPTION VALUE="02">2</OPTION>
+								<OPTION VALUE="03">3</OPTION>
+								<OPTION VALUE="04">4</OPTION>
+								<OPTION VALUE="05">5</OPTION>
+								<OPTION VALUE="06">6</OPTION>
+								<OPTION VALUE="07">7</OPTION>
+								<OPTION VALUE="08">8</OPTION>
+								<OPTION VALUE="09">9</OPTION>
+								<OPTION VALUE="10">10</OPTION>
+								<OPTION VALUE="11">11</OPTION>
+								<OPTION VALUE="12">12</OPTION>
+								<OPTION VALUE="13">13</OPTION>
+								<OPTION VALUE="14">14</OPTION>
+								<OPTION VALUE="15">15</OPTION>
+								<OPTION VALUE="16">16</OPTION>
+								<OPTION VALUE="17">17</OPTION>
+								<OPTION VALUE="18">18</OPTION>
+								<OPTION VALUE="19">19</OPTION>
+								<OPTION VALUE="20">20</OPTION>
+								<OPTION VALUE="21">21</OPTION>
+								<OPTION VALUE="22">22</OPTION>
+								<OPTION VALUE="23">23</OPTION>
+								<OPTION VALUE="24">24</OPTION>
+								<OPTION VALUE="25">25</OPTION>
+								<OPTION VALUE="26">26</OPTION>
+								<OPTION VALUE="27">27</OPTION>
+								<OPTION VALUE="28">28</OPTION>
+								<OPTION VALUE="29">29</OPTION>
+								<OPTION VALUE="30">30</OPTION>
+								<OPTION VALUE="31">31</OPTION>
+
+						</select> / <select name="mes" id="mes"
+							style="width: 60px; text-align: center;">
+								<option value="" selected disabled hidden>Mes</option>
+								<OPTION VALUE="01">Ene</OPTION>
+								<OPTION VALUE="02">Feb</OPTION>
+								<OPTION VALUE="03">Mar</OPTION>
+								<OPTION VALUE="04">Abr</OPTION>
+								<OPTION VALUE="05">May</OPTION>
+								<OPTION VALUE="06">Jun</OPTION>
+								<OPTION VALUE="07">Jul</OPTION>
+								<OPTION VALUE="08">Agos</OPTION>
+								<OPTION VALUE="09">Sept</OPTION>
+								<OPTION VALUE="10">Oct</OPTION>
+								<OPTION VALUE="11">Nov</OPTION>
+								<OPTION VALUE="12">Dic</OPTION>
+						</select> / <select name="any" id="any"
+							style="width: 85px; text-align: center;">
+								<option value="" selected disabled hidden>Año</option>
+								     <c:forEach var = "i" begin = "${inicio}" end = "${inicio + 5}">
+								     <OPTION VALUE="${i}">${i}</OPTION>
+     								 </c:forEach>
+								
+						</select></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td><input type="submit" value="FOMALIZAR PEDIDO"  /></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td><p id="info">Introduzca almenos 1 articulo al pedido</p></td>
+					</tr>
+				</table>
+
+
+			</form>
+
+		</div>
+
 	</section>
 
 	<footer>
