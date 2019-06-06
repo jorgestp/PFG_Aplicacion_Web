@@ -66,7 +66,7 @@
 			},
 			pss_conf:{
 				required:true,
-				equalTo:"#pss"
+				equalTo:"pss"
 			}
 			
 		},
@@ -109,6 +109,11 @@
 	
 	}); 
 	
+	$(document).ready(parpadear);
+
+	function parpadear() {
+		$('#info').fadeIn(500).delay(250).fadeOut(500, parpadear)
+	}
 	</script>
 </head>
 
@@ -200,7 +205,18 @@
 	      <td>&nbsp;</td>
 	      <td>&nbsp;</td>
 	      <td>&nbsp;</td>
-	      <td></td>
+	      <td><p id="info" style="width:75%;
+					margin:0 auto;
+					margin-top:10px;
+					font-size:16px;
+					font-style:oblique;
+					font-weight:bold;
+					color:#FFF;
+					background-color:#F00;
+					border-radius:2px;
+					box-shadow:#FC9 2px 2px 2px;
+					text-align:center;"
+					>El usuario ya esta elegido...</p></td>
         </tr>
       </table>
     

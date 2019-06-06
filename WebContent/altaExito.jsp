@@ -66,7 +66,7 @@
 			},
 			pss_conf:{
 				required:true,
-				equalTo:"#pss"
+				equalTo:"pss"
 			}
 			
 		},
@@ -133,6 +133,18 @@
     <p id="reg"> Registro en el sistema</p>
 
 	<h2 style="color:red; font-size: 20px;"><a href="index.jsp">Volver</a></h2>
+	    <p id="info" style="width:75%;
+					margin:0 auto;
+					margin-top:10px;
+					font-size:16px;
+					font-style:oblique;
+					font-weight:bold;
+					color:#FFF;
+					background-color:#36BD2B;
+					border-radius:2px;
+					box-shadow:#FC9 2px 2px 2px;
+					text-align:center;"
+					>Usuario Registrado Correctamente</p>
 	<form method="post" name="form_registro" id="form_registro" action="ControllerDistribuidor" >
 	  <table width="93%" height="393" align="center">
 	    <tr>
@@ -206,6 +218,8 @@
     
     
     </form>
+    
+
 </section>
     
     <footer>

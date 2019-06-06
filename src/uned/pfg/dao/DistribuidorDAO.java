@@ -65,6 +65,50 @@ public class DistribuidorDAO {
 		this.origendatos = origendatos;
 
 	}
+	
+	/**
+	 * Funcion que busca algun registro en la BBDD cuyo nombre de usuario coincida
+	 * con el pasado por parametro
+	 * @param user String que representa el nombre de usuario a buscar
+	 * @return True, si encuentra alguna coincidencia, False, si no hay coincidencia
+	 */
+	
+	public boolean nickYaRegistrado(String user) {
+		
+		Connection conexion = null;
+		PreparedStatement state = null;
+		ResultSet rs = null;
+		
+
+		try {
+
+			conexion = origendatos.getConnection();
+
+			String sql = "SELECT * FROM DISTRIBUIDOR WHERE USUARIO=?";
+
+			state = conexion.prepareStatement(sql);
+
+			state.setString(1, user);
+			
+
+			rs = state.executeQuery();
+
+			if (rs.next()) {
+
+				return true;
+			}
+
+			state.close();
+			conexion.close();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return false;
+		
+	}
 
 	/**
 	 * Funcion que se encarga de insertar en la BBDD un distribuidor pasado por

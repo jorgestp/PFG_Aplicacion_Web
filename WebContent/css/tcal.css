@@ -118,14 +118,14 @@ section{
 	/*ANchura del contenedor*/
 	width:75%;
 	/*altura del contenedor y en px ya que en % no salia*/
-	height:500px;
+	height:750px;
 	margin:0 auto;
 	margin-top:5px;
 	
 	
 }
 
-section p{
+#reg{
 	
 	margin-top:50px;
 	font-size: 40px;
@@ -204,11 +204,35 @@ form input.error{
 
 background-color:#F33;
 border:dashed;
-border:#F33	
+border:#F33;
+color: #F00;
 }
 
+#info{
 
+width:75%;
+margin:0 auto;
+margin-top:10px;
+font-size:16px;
+font-style:oblique;
+font-weight:bold;
+color:#FFF;
+background-color:#F00;
+		border-radius:2px;
+		box-shadow:#FC9 2px 2px 2px;
+text-align:center;
+	
+}
 
+a{
+	
+	text-decoration: none;
+}
+
+a:link {color: blue;}
+a:visited {color: blue;}
+a:active {color: blue;}
+a:hover {color: red;}
 /*
 	Stylesheet for Tigra Calendar v5.0
 	Product is Public Domain (Free for any kind of applicaiton, customization and derivative works are allowed) 

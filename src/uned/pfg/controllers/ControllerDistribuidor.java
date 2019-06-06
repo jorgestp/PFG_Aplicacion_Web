@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -84,9 +86,28 @@ public class ControllerDistribuidor extends HttpServlet {
 		String user = request.getParameter("user");
 		String pss = request.getParameter("pss");
 		
-		Distribuidor dist = new Distribuidor(tfno, cp, nombre, domicilio, email, pais, user, pss, d);
+		if(!distribuidorDAO.nickYaRegistrado(user)) {
+			
+			Distribuidor dist = new Distribuidor(tfno, cp, nombre, domicilio, email, pais, user, pss, d);
+			
+			distribuidorDAO.insert(dist);
+			
+			RequestDispatcher dispatcher =request.getRequestDispatcher("/altaExito.jsp");
+			
+			dispatcher.forward(request, response);
+			
+		}else {
+			
+			
+			RequestDispatcher dispatcher =request.getRequestDispatcher("/altaError.jsp");
+			
+			dispatcher.forward(request, response);
+		}
 		
-		distribuidorDAO.insert(dist);
+		
+		
+		
+
 	}
 
 }
