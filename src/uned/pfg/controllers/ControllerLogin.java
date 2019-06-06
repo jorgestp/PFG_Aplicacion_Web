@@ -51,6 +51,7 @@ public class ControllerLogin extends HttpServlet {
 			
 			distribuidorDAO = new DistribuidorDAO(basicDataSource);
 		
+			/*
 			String path = config.getServletContext().getRealPath("WEB-INF\\XML.xml");
 			//String path2 = config.getServletContext().getContextPath();  ESTO DA=> /APLICACION_WEB
 			String path2 = config.getServletContext().getRealPath("/");
@@ -113,6 +114,8 @@ public class ControllerLogin extends HttpServlet {
 		    	  System.out.println(cadena);
 		      }
 		      b.close();
+		      
+		      */
 		}catch (Exception e) {
 			
 			throw new ServletException();

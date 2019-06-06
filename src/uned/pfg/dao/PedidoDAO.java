@@ -870,8 +870,8 @@ public class PedidoDAO {
 				s = s + line + "\n";
 
 			}
-
-			System.out.println(ar.getAbsolutePath());
+			ar.delete();
+			//System.out.println(ar.getAbsolutePath());
 
 		} catch (IOException | ParserConfigurationException | TransformerException | DOMException e) {
 
@@ -949,8 +949,8 @@ public class PedidoDAO {
 				s = s + line + "\n";
 
 			}
-
-			System.out.println(ar.getAbsolutePath());
+			ar.delete();
+			//System.out.println(ar.getAbsolutePath());
 
 		} catch (IOException | ParserConfigurationException | TransformerException | DOMException e) {
 
@@ -1036,8 +1036,8 @@ public class PedidoDAO {
 				s = s + line + "\n";
 
 			}
-
-			System.out.println(ar.getAbsolutePath());
+			ar.delete();
+			//System.out.println(ar.getAbsolutePath());
 
 		} catch (IOException | ParserConfigurationException | TransformerException | DOMException e) {
 
