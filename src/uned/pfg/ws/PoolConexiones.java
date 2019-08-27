@@ -54,7 +54,7 @@ public class PoolConexiones {
 		basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		basicDataSource.setUsername("root");
 		basicDataSource.setPassword("");
-		basicDataSource.setUrl("jdbc:mysql://localhost:3306/prueba_pfg");
+		basicDataSource.setUrl("jdbc:mysql://localhost:3306/pfg_jorge_villalba_ruiz");
 		basicDataSource.setMaxActive(10);// 1000
 		basicDataSource.setValidationQuery("select 1");
 	}
