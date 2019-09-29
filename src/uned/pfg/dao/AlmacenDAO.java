@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.sql.DataSource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -446,6 +445,7 @@ public class AlmacenDAO {
 
 			File ar = new File(ALMACEN);
 			FileReader f = new FileReader(ar);
+			@SuppressWarnings("resource")
 			BufferedReader b = new BufferedReader(f);
 			while ((line = b.readLine()) != null) {
 				s = s + line + "\n";

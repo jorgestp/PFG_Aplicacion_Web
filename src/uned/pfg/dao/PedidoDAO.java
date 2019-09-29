@@ -865,6 +865,7 @@ public class PedidoDAO {
 
 			File ar = new File(FILENAME_artSinRealizar);
 			FileReader f = new FileReader(ar);
+			@SuppressWarnings("resource")
 			BufferedReader b = new BufferedReader(f);
 			while ((line = b.readLine()) != null) {
 				s = s + line + "\n";
@@ -944,6 +945,7 @@ public class PedidoDAO {
 
 			File ar = new File(FILENAME);
 			FileReader f = new FileReader(ar);
+			@SuppressWarnings("resource")
 			BufferedReader b = new BufferedReader(f);
 			while ((line = b.readLine()) != null) {
 				s = s + line + "\n";
@@ -1031,6 +1033,7 @@ public class PedidoDAO {
 
 			File ar = new File(FILENAME_ARTICULO);
 			FileReader f = new FileReader(ar);
+			@SuppressWarnings("resource")
 			BufferedReader b = new BufferedReader(f);
 			while ((line = b.readLine()) != null) {
 				s = s + line + "\n";
