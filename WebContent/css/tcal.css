@@ -164,6 +164,7 @@ section{
 	color: #333;
 }
 
+/*
 footer{
 	/*width:75%;
 	margin:0 auto;
@@ -175,7 +176,7 @@ footer{
   	height: 20px;
   	color: white;
 	text-align:center;*/
-	
+/*	
 	background-color:#039;	
 	width:100%;
 	height:20px;
@@ -184,6 +185,8 @@ footer{
 	text-align:center;
 	color: white;
 }
+*/
+
 
 form label{
 	font-size:18px;
@@ -194,7 +197,7 @@ form label{
 form label.error{
 
 font-size:0.8em;
-color:#F00;
+color:#ff8888;
 font-style:italic;
 font-weight:bold;
 display:block;	
@@ -202,10 +205,10 @@ display:block;
 
 form input.error{
 
-background-color:#F33;
+background-color:white;
 border:dashed;
 border:#F33;
-color: #F00;
+color: #000000;
 }
 
 #info{

@@ -70,9 +70,16 @@
   <p id="error">El usuario o la contraseña no existe...</p>
 </section>
     
-    <footer>
-    <p>Copyright (C) Jorge Villalba Ruiz </p>
-    </footer>
+	<footer
+	 style="background-color:#039;	
+	width:100%;
+	height:20px;
+	bottom:0;
+	position:fixed;
+	text-align:center;
+	color: white;">Jorge Villalba Ruiz -
+		PROYECTO FIN DE GRADO
+	</footer>
 
 </body>
 </html>

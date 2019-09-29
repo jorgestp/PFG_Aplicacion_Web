@@ -153,9 +153,11 @@ section{
 
 footer{
 	width:75%;
+	height:20px;
 	margin:0 auto;
 	background:#039;
 	text-align:center;
+	color: white;
 	
 }
 
@@ -265,7 +267,7 @@ border-bottom-style:double;
 	width:50%;
 	margin:0 auto;
 	text-align:center;
-	background-color:#C00;
+	background-color:#80ff00;
 	height:30px;
 	margin-top:10px;
 	box-shadow:#060 2px 2px 2px;
@@ -494,4 +496,5 @@ text-align:center;
 	font-weight:bold;
 	color:#006;
 }
+
 

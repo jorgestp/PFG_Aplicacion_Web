@@ -3,6 +3,7 @@
 	<name>Aplicacion_Web</name>
 	<comment></comment>
 	<projects>
+		<project>PruebaWS_Externa</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

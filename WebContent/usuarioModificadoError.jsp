@@ -159,9 +159,9 @@
 		<c:url var="datospersonales" value="ControllerDatosPersonales">
 		</c:url>		
 			<tr>
-				<th class="zoom" style="text-align: center"><label><a href="${datospersonales}"> Datos Personales</a></label></th>
-				<th class="zoom" style="text-align: center"><label><a href="${nuevoPedido}"> Nuevo Pedido</a></label></th>
-				<th class="zoom" style="text-align: center"><label><a href="${estadoPedido}"> Estado Pedido</a></label></th>
+				<th class="zoom" style="text-align: center"><label><a style="text-decoration: none; color: white;" href="${datospersonales}"> Datos Personales</a></label></th>
+				<th class="zoom" style="text-align: center"><label><a style="text-decoration: none; color: white;" href="${nuevoPedido}"> Nuevo Pedido</a></label></th>
+				<th class="zoom" style="text-align: center"><label><a style="text-decoration: none; color: white;" href="${estadoPedido}"> Estado Pedido</a></label></th>
 				<th class="nombre" style="text-align: center"><label>${dist.nombre}</label><br>
 				<label><a href="index.jsp"> Salir</a></label></th>
 			</tr>
@@ -234,7 +234,8 @@
 	</section>
 
 	<footer>
-		<p>Copyright (C) Jorge Villalba Ruiz</p>
+		<p style="color: white;">Jorge Villalba Ruiz -
+		PROYECTO FIN DE GRADO</p>
 	</footer>
 
 </body>

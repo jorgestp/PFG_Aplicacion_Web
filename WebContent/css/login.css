@@ -143,7 +143,7 @@ section{
 	
 }
 
-
+/*
 footer{
 	/*width:75%;
 	margin:0 auto;
@@ -155,7 +155,7 @@ footer{
   	height: 20px;
   	color: white;
 	text-align:center;*/
-	
+/*	
 	background-color:#039;	
 	width:100%;
 	height:20px;
@@ -163,7 +163,7 @@ footer{
 	position:fixed;
 	text-align:center;
 	color: white;
-}
+}*/
 
 table label{
 	font-size:20px;

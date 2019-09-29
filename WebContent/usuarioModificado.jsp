@@ -159,45 +159,56 @@
 		<c:url var="datospersonales" value="ControllerDatosPersonales">
 		</c:url>		
 			<tr>
-				<th class="zoom" style="text-align: center"><label><a href="${datospersonales}"> Datos Personales</a></label></th>
-				<th class="zoom" style="text-align: center"><label><a href="${nuevoPedido}"> Nuevo Pedido</a></label></th>
-				<th class="zoom" style="text-align: center"><label><a href="${estadoPedido}"> Estado Pedido</a></label></th>
+				<th class="zoom" style="text-align: center"><label><a style="text-decoration: none; color: white;" href="${datospersonales}"> Datos Personales</a></label></th>
+				<th class="zoom" style="text-align: center"><label><a style="text-decoration: none; color: white;" href="${nuevoPedido}"> Nuevo Pedido</a></label></th>
+				<th class="zoom" style="text-align: center"><label><a style="text-decoration: none; color: white;" href="${estadoPedido}"> Estado Pedido</a></label></th>
 				<th class="nombre" style="text-align: center"><label>${dist.nombre}</label><br>
 				<label><a href="index.jsp"> Salir</a></label></th>
 			</tr>
 		
 		</table>
 		<h1 id="titulo">Datos Personales</h1>
-		<p id="exito"> Datos modificados correctamente</p>
+		<p style="	width:50%;
+	margin:0 auto;
+	text-align:center;
+	background-color:#80ff00;
+	height:30px;
+	margin-top:10px;
+	box-shadow:#060 2px 2px 2px;
+	padding-top:5px;
+	font-size:20px;
+	font-weight:bold;
+	color:#000;
+	font-style:italic"> Datos modificados correctamente</p>
 		<form action="ControllerDatosPersonales" method="post" id="datospersonales">
 			<table width="735" border="0" align="center">
 				<tr>
 					<td class="fila">Nombre</td>
 					<td class="fila"><input type="text" id="nombre" name="nombre"
-						class="required" title="El nombre es obligatorio" placeholder=" Introduce nombre..." /></td>
+						class="required" title="El nombre es obligatorio" value="${dist.nombre}" /></td>
 					<td class="fila">Domicilio</td>
 					<td class="fila"><input type="text" id="domicilio"
-						name="domicilio" class="required" title="El nombre es obligatorio" placeholder=" Introduce domicilio..." /></td>
+						name="domicilio" class="required" title="El nombre es obligatorio" value="${dist.domicilio}" /></td>
 				</tr>
 				<tr>
 					<td class="fila">Email</td>
-					<td class="fila"><input type="email" id="email" name="email" placeholder=" Introduce email..."" /></td>
+					<td class="fila"><input type="email" id="email" name="email" value="${dist.email}" /></td>
 					<td class="fila">Confirma email</td>
 					<td class="fila"><input type="email" id="confEmail"
-						name="confEmail" placeholder="Confirme email..." /></td>
+						name="confEmail" value="${dist.email}" /></td>
 				</tr>
 				<tr>
 					<td class="fila">Telefono</td>
 					<td class="fila"><input type="number" id="telefono"
-						name="telefono" placeholder=" Introduce los 6 digitos..." /></td>
+						name="telefono" value="${dist.tfno}" /></td>
 					<td class="fila">Codigo Postal</td>
-					<td class="fila"><input type="number" id="cp" name="cp" placeholder=" Introduce los 5 digitos" /></td>
+					<td class="fila"><input type="number" id="cp" name="cp" value="${dist.cp}" /></td>
 				</tr>
 				<tr>
 					<td class="fila">Pais</td>
-					<td class="fila"><input type="text" id="pais" name="pais" placeholder=" Introduce pais..." /></td>
+					<td class="fila"><input type="text" id="pais" name="pais" value="${dist.pais}" /></td>
 					<td class="fila">Fecha Alta</td>
-					<td class="fila"><label>${fecha}</label></td>
+					<td class="fila"><label>${dist.fecha}</label></td>
 				</tr>
 				<tr>
 					<td class="fila"></td>
@@ -234,7 +245,8 @@
 	</section>
 
 	<footer>
-		<p>Copyright (C) Jorge Villalba Ruiz</p>
+		<p style="color: white;">Jorge Villalba Ruiz -
+		PROYECTO FIN DE GRADO</p>
 	</footer>
 
 </body>

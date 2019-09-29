@@ -76,9 +76,15 @@
 		tiempo, de todo lo referente a su práctica empresarial.</p>
 	</section>
 
-	<footer>
-	<p style="margin-top: 5px">Copyright (C) Jorge Villalba Ruiz
-		PROYECTO FIN DE GRADO</p>
+	<footer
+	 style="background-color:#039;	
+	width:100%;
+	height:20px;
+	bottom:0;
+	position:fixed;
+	text-align:center;
+	color: white;">Jorge Villalba Ruiz -
+		PROYECTO FIN DE GRADO
 	</footer>
 
 </body>

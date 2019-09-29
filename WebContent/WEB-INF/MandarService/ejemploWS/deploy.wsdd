@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from MandarService WSDL service -->
+
+  <service name="Mandar" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://ejemploWS"/>
+      <parameter name="wsdlServiceElement" value="MandarService"/>
+      <parameter name="schemaQualified" value="http://ejemploWS"/>
+      <parameter name="wsdlServicePort" value="Mandar"/>
+      <parameter name="className" value="ejemploWS.Mandar"/>
+      <parameter name="wsdlPortType" value="Mandar"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://ejemploWS" xmlns:retNS="http://ejemploWS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="saludo" qname="operNS:saludo" returnQName="retNS:saludoReturn" returnType="rtns:string" soapAction="">
+      </operation>
+      <parameter name="allowedMethods" value="saludo"/>
+
+  </service>
+</deployment>
